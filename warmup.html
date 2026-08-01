@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Warm-up · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wu-bar{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:22px; }
+  .wu-bar .datepick{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+  .datesel{ font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:0; padding:8px 12px; cursor:pointer; color-scheme:light dark; }
+  #todayBtn{ font-size:11px; padding:8px 13px; }
+  .empty-board{ font-family:var(--mono); font-size:13px; color:var(--ink-faint); border:1px dashed var(--line); padding:26px 20px; text-align:center; }
+  .viewtabs{ display:flex; border:1px solid var(--line-strong); }
+  .vtab{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:9px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line-strong); cursor:pointer; transition:background .12s, color .12s; }
+  .vtab:last-child{ border-right:none; }
+  .vtab:hover{ background:var(--muted); }
+  .vtab.active{ background:var(--ph); color:#fff; }
+  .vtab .n{ font-variant-numeric:tabular-nums; }
+  .view[hidden]{ display:none; }
+  .wu-bar .spacer{ flex:1; }
+  .today-flag{ font-family:var(--mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:3px 8px; background:var(--ph-soft); color:var(--ph); border:1px solid var(--ph); }
+  .progress{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+  .pmeter{ width:110px; height:7px; background:var(--muted); border:1px solid var(--line); overflow:hidden; }
+  .pmeter i{ display:block; height:100%; width:0%; background:var(--ph); transition:width .5s cubic-bezier(.22,1,.36,1); }
+  .toggle{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none; text-transform:uppercase; letter-spacing:.03em; }
+  .toggle input{ accent-color:var(--ph); }
+
+  .card{ background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--line); margin-bottom:14px; transition:border-color .18s ease, opacity .2s ease; }
+  .card:hover{ border-left-color:var(--ph); }
+  .card.posted{ opacity:.6; border-left-color:var(--good); }
+  .card.hide{ display:none; }
+  .card-top{ padding:16px 18px 12px; display:flex; gap:14px; align-items:baseline; }
+  .idx{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); width:26px; flex:none; font-weight:700; font-variant-numeric:tabular-nums; }
+  .meta{ flex:1; min-width:0; }
+  .meta .name{ font-family:var(--mono); font-size:16px; font-weight:700; letter-spacing:-.01em; }
+  .meta .phrank{ color:var(--ink-ghost); font-weight:400; font-size:13px; }
+  .meta .tagline{ font-size:13px; color:var(--ink-soft); margin-top:3px; }
+  .tag{ flex:none; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; background:transparent; color:var(--ink-faint); border:1px solid var(--line); }
+  .comment-wrap{ padding:0 18px 12px; }
+  .comment-label{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px; display:flex; justify-content:space-between; }
+  .comment-label .count{ color:var(--ink-ghost); }
+  .opts{ display:flex; margin-bottom:9px; border:1px solid var(--line); width:fit-content; }
+  .opt{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:7px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; transition:background .12s, color .12s; }
+  .opt:last-child{ border-right:none; }
+  .opt:hover{ background:var(--muted); }
+  .opt.active{ background:var(--ph); color:#fff; }
+  textarea{ width:100%; min-height:92px; resize:vertical; font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink); background:var(--muted2); border:1px solid var(--line); border-radius:0; padding:12px 13px; outline:none; transition:border-color .12s; }
+  textarea:focus{ border-color:var(--ph); }
+  .actions{ display:flex; gap:8px; align-items:center; padding:0 18px 18px; flex-wrap:wrap; }
+  .actions .spacer{ flex:1; }
+  .btn-copy.copied{ background:var(--good); color:#fff; border-color:var(--good); }
+  .postbox{ font-family:var(--mono); display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); cursor:pointer; user-select:none; padding:9px 13px; border:1px solid var(--line); }
+  .postbox input{ accent-color:var(--good); width:15px; height:15px; }
+  .card.posted .postbox{ color:var(--good); border-color:var(--good); background:var(--good-soft); }
+  .readonly-note{ font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin:2px 0 0; }
+</style>
+</head>
+<body data-page="warmup">
+<div id="app-nav"></div>
+
+<div class="wrap page">
+  <div class="kicker">Daily warm-up</div>
+  <h2 class="title">Comment Desk</h2>
+  <p class="lead">5 launches worth engaging — triaged from Product Hunt's top 20 and shuffled. Pick a draft, tweak it so it sounds like Kritish, copy, open the launch, paste &amp; post. Tick <b>Posted</b> as you go.</p>
+  <div class="callout">Pure value only — never pitch Mindcase here. Personalize each one; identical comments leave a footprint.</div>
+
+  <div class="wu-bar">
+    <div class="datepick">
+      <span>Date</span>
+      <input type="date" class="datesel" id="dateSel" />
+      <button class="btn" id="todayBtn">Today</button>
+    </div>
+    <div class="viewtabs">
+      <button class="vtab active" id="tabActive" data-view="active">To post <span class="n" id="cntActive">· 0</span></button>
+      <button class="vtab" id="tabPosted" data-view="posted">Posted <span class="n" id="cntPosted">· 0</span></button>
+    </div>
+    <div class="spacer"></div>
+    <div class="progress"><div class="pmeter"><i id="pfill"></i></div><span><b id="pdone">0</b>/<span id="ptotal">0</span> posted</span></div>
+  </div>
+  <p class="readonly-note" id="pastNote" hidden>Viewing a past day — for reference. Comments are best posted the day a product launches.</p>
+
+  <div id="cardsActive" class="view" style="margin-top:18px;"></div>
+  <div id="cardsPosted" class="view" hidden style="margin-top:18px;"></div>
+</div>
+
+<script src="nav.js"></script>
+<script src="boards.js"></script>
+<script>
+const PH = "https://www.producthunt.com";
+const allDates = Object.keys(window.BOARDS).sort();  // ascending
+const earliest = allDates[0];
+const latest = allDates[allDates.length - 1];
+const sel = document.getElementById("dateSel");
+sel.min = earliest; sel.max = latest; sel.value = latest;
+const todayBtn = document.getElementById("todayBtn");
+
+const KEY = (date, slug) => `phwd:${date}:${slug}`;
+const slugOf = (href) => href.split("/").pop();
+function loadState(date, slug){ try{ return JSON.parse(localStorage.getItem(KEY(date,slug)))||{}; }catch(e){ return {}; } }
+function saveState(date, slug, s){ localStorage.setItem(KEY(date,slug), JSON.stringify(s)); }
+
+const activeEl = document.getElementById("cardsActive");
+const postedEl = document.getElementById("cardsPosted");
+const tabActive = document.getElementById("tabActive");
+const tabPosted = document.getElementById("tabPosted");
+let currentView = "active";
+let currentDate = latest;
+
+tabActive.addEventListener("click", () => { currentView = "active"; applyView(); });
+tabPosted.addEventListener("click", () => { currentView = "posted"; applyView(); });
+
+function counts(){
+  const picks = window.BOARDS[currentDate] ? window.BOARDS[currentDate].picks : [];
+  let posted = 0;
+  picks.forEach(p => { if (loadState(currentDate, slugOf(p.href)).posted) posted++; });
+  return { posted, active: picks.length - posted, total: picks.length };
+}
+function updateStats(){
+  const c = counts();
+  document.getElementById("cntActive").textContent = "· " + c.active;
+  document.getElementById("cntPosted").textContent = "· " + c.posted;
+  document.getElementById("pdone").textContent = c.posted;
+  document.getElementById("ptotal").textContent = c.total;
+  document.getElementById("pfill").style.width = (c.total ? c.posted/c.total*100 : 0) + "%";
+}
+function refreshEmpty(){
+  const specs = [
+    [activeEl, "Nothing left to post — nice work. Check the Posted tab."],
+    [postedEl, "No posted comments yet. Tick “Posted” on a card and it moves here."]
+  ];
+  specs.forEach(function(sp){
+    const el = sp[0], msg = sp[1];
+    const hasCard = el.querySelector(".card");
+    let empty = el.querySelector(".empty-board");
+    if (!hasCard){
+      if (!empty){ empty = document.createElement("div"); empty.className = "empty-board"; el.appendChild(empty); }
+      empty.textContent = msg;
+    } else if (empty){ empty.remove(); }
+  });
+}
+function applyView(){
+  activeEl.hidden = (currentView !== "active");
+  postedEl.hidden = (currentView !== "posted");
+  tabActive.classList.toggle("active", currentView === "active");
+  tabPosted.classList.toggle("active", currentView === "posted");
+  refreshEmpty();
+}
+function moveBackToActive(card, i){
+  const kids = Array.prototype.slice.call(activeEl.children);
+  const after = kids.find(k => k.classList.contains("card") && parseInt(k.dataset.idx, 10) > i);
+  if (after) activeEl.insertBefore(card, after); else activeEl.appendChild(card);
+}
+
+function buildCard(date, p, i){
+  const slug = slugOf(p.href);
+  const st = loadState(date, slug);
+  const chosen = (st.opt != null) ? st.opt : 0;
+  const card = document.createElement("section");
+  card.className = "card" + (st.posted ? " posted" : "");
+  card.dataset.idx = i;
+  const optBtns = p.comments.map((c, idx) =>
+    `<button class="opt${idx===chosen?" active":""}" data-i="${idx}">Option ${idx+1}</button>`).join("");
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="idx">${String(i+1).padStart(2,"0")}</div>
+      <div class="meta">
+        <div class="name">${p.name} <span class="phrank">· PH #${p.phrank}</span></div>
+        <div class="tagline">${p.tagline}</div>
+      </div>
+      <span class="tag">Your lane</span>
+    </div>
+    <div class="comment-wrap">
+      <div class="comment-label"><span>Pick a draft — edit to sound like Kritish</span><span class="count">0 chars</span></div>
+      <div class="opts">${optBtns}</div>
+      <textarea spellcheck="true"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn btn-copy act">Copy</button>
+      <a class="btn btn-primary" href="${PH}${p.href}" target="_blank" rel="noopener">Open on Product Hunt →</a>
+      <span class="spacer"></span>
+      <label class="postbox"><input type="checkbox" class="posted-cb" ${st.posted ? "checked" : ""}/> Posted</label>
+    </div>`;
+
+  const ta = card.querySelector("textarea");
+  const count = card.querySelector(".count");
+  const setCount = () => count.textContent = ta.value.trim().length + " chars";
+  ta.value = (st.text != null) ? st.text : p.comments[chosen];
+  setCount();
+  ta.addEventListener("input", () => { setCount(); const s = loadState(date,slug); s.text = ta.value; saveState(date,slug,s); });
+
+  card.querySelectorAll(".opt").forEach(btn => btn.addEventListener("click", () => {
+    const idx = parseInt(btn.dataset.i,10);
+    card.querySelectorAll(".opt").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    ta.value = p.comments[idx]; setCount();
+    const s = loadState(date,slug); s.opt = idx; s.text = p.comments[idx]; saveState(date,slug,s);
+  }));
+
+  const copyBtn = card.querySelector(".btn-copy");
+  copyBtn.addEventListener("click", async () => {
+    try{ await navigator.clipboard.writeText(ta.value); }catch(e){ ta.select(); document.execCommand("copy"); }
+    copyBtn.textContent = "Copied ✓"; copyBtn.classList.add("copied");
+    setTimeout(() => { copyBtn.textContent = "Copy"; copyBtn.classList.remove("copied"); }, 1500);
+  });
+
+  const cb = card.querySelector(".posted-cb");
+  cb.addEventListener("change", () => {
+    const s = loadState(date,slug); s.posted = cb.checked; saveState(date,slug,s);
+    card.classList.toggle("posted", cb.checked);
+    if (cb.checked) postedEl.appendChild(card); else moveBackToActive(card, i);
+    updateStats(); refreshEmpty();
+  });
+  return card;
+}
+
+function render(date){
+  currentDate = date;
+  activeEl.innerHTML = ""; postedEl.innerHTML = "";
+  document.getElementById("pastNote").hidden = (date === latest);
+  const picks = window.BOARDS[date].picks;
+  picks.forEach((p, i) => {
+    const card = buildCard(date, p, i);
+    const st = loadState(date, slugOf(p.href));
+    (st.posted ? postedEl : activeEl).appendChild(card);
+  });
+  updateStats();
+  applyView();
+}
+function renderNoBoard(date){
+  currentDate = date;
+  activeEl.innerHTML = '<div class="empty-board">No warm-up board saved for this date — pick another day (newest board: ' + latest + ').</div>';
+  postedEl.innerHTML = "";
+  activeEl.hidden = false; postedEl.hidden = true;
+  currentView = "active";
+  tabActive.classList.add("active"); tabPosted.classList.remove("active");
+  document.getElementById("pastNote").hidden = true;
+  document.getElementById("cntActive").textContent = "· 0";
+  document.getElementById("cntPosted").textContent = "· 0";
+  document.getElementById("pdone").textContent = 0;
+  document.getElementById("ptotal").textContent = 0;
+  document.getElementById("pfill").style.width = "0%";
+}
+function go(date){
+  if (!window.BOARDS[date]) { renderNoBoard(date); return; }
+  render(date);
+}
+sel.addEventListener("change", () => go(sel.value));
+todayBtn.addEventListener("click", () => { sel.value = latest; go(latest); });
+go(latest);
+</script>
+</body>
+</html>

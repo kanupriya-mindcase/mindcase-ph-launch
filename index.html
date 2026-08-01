@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Playbook · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .hero-facts{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:24px; }
+  @media (max-width:680px){ .hero-facts{ grid-template-columns:1fr 1fr; } }
+  .fact{ border:1px solid var(--line); padding:15px 16px; background:var(--surface); }
+  .fact .k{ color:var(--ink-faint); }
+  .fact .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); }
+  .fact .v{ font-family:var(--mono); font-size:16px; font-weight:700; margin-top:5px; }
+  .fact .v small{ font-size:12px; color:var(--ink-soft); font-weight:400; }
+</style>
+</head>
+<body data-page="playbook">
+<div id="app-nav"></div>
+
+<div class="wrap page">
+  <div class="kicker">Product Hunt launch · Mindcase</div>
+  <h2 class="title">The Playbook</h2>
+  <p class="lead">Everything we've decided, in one place. Goal: <b>signups</b>. Strategy: warm up a real founder account, build a "coming soon" following, prep assets, then activate our own audience in waves on launch day to land a <b>Top&nbsp;5 / #1 of the day</b>.</p>
+
+  <div class="hero-facts">
+    <div class="fact"><div class="k">Launcher</div><div class="v">@kritish <small>co-founder</small></div></div>
+    <div class="fact"><div class="k">Target date</div><div class="v">Wed · Aug 26 <small>(proposed)</small></div></div>
+    <div class="fact"><div class="k">Primary goal</div><div class="v">Signups</div></div>
+    <div class="fact"><div class="k">Runway</div><div class="v">~4 weeks</div></div>
+  </div>
+
+  <!-- ===== Workstreams ===== -->
+  <div class="section">
+    <h3>Workstreams</h3>
+    <div class="tbl-scroll">
+      <table class="data">
+        <thead><tr><th>Stream</th><th>What's in it</th><th>When</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>Warm-up</b></td><td>@kritish comments on 5 relevant PH launches daily to build a credible account</td><td>Now → launch, daily</td><td><span class="pill active">Running</span></td></tr>
+          <tr><td><b>Communities</b></td><td>Join + be active in the Slack/Discord/X circles we'll notify on launch day</td><td>Weeks 1–3</td><td><span class="pill todo">To start</span></td></tr>
+          <tr><td><b>Assets</b></td><td>Tagline, gallery, demo video, first comment, coming-soon page, 30%-off offer</td><td>Weeks 1–3</td><td><span class="pill todo">To start</span></td></tr>
+          <tr><td><b>Audience</b></td><td>Email list + social prepped, coming-soon followers, UTM tracking, notify-in-waves plan</td><td>Weeks 2–3</td><td><span class="pill todo">To start</span></td></tr>
+          <tr><td><b>Launch Day</b></td><td>12:01 PT go-live, founder comment, wave notifications, reply to everything</td><td>Launch day</td><td><span class="pill todo">Scheduled</span></td></tr>
+          <tr><td><b>Post-Launch</b></td><td>Badge, thank-yous, recap post, keep the SEO backlink</td><td>After</td><td><span class="pill todo">Later</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== Timeline ===== -->
+  <div class="section">
+    <h3>Timeline</h3>
+    <ul class="timeline">
+      <li class="done"><div class="tl-when">Done · Jul 30</div><div class="tl-what">Launcher account created (@kritish)</div><div class="tl-detail">Warm-up Comment Desk built + deployed; daily routine specced.</div></li>
+      <li class="now"><div class="tl-when">This week · Jul 30 – Aug 1</div><div class="tl-what">Warm-up begins + coming-soon page live</div><div class="tl-detail">5 genuine comments/day. Publish PH "Coming Soon" page and start driving follows. Verify Netlify to unlock automation.</div></li>
+      <li><div class="tl-when">Weeks 1–2 · Aug 2 – 15</div><div class="tl-what">Build followers + draft assets</div><div class="tl-detail">Daily warm-up. Grow coming-soon followers via email + social. Draft tagline, gallery, demo video, first comment. Join communities.</div></li>
+      <li><div class="tl-when">Week 3 · Aug 16 – 22</div><div class="tl-what">Lock assets + prep the machine</div><div class="tl-detail">Finalize all assets. Write notification copy (email + social + DMs). Line up 15–20 first-hour supporters. Set up UTM + GA4.</div></li>
+      <li><div class="tl-when">Launch week · Aug 23 – 26</div><div class="tl-what">Launch — Wed Aug 26 (proposed)</div><div class="tl-detail">Go live 12:01 AM PT. Founder first comment. Notify audience in waves. Reply to every comment all 24h.</div></li>
+      <li><div class="tl-when">After · Aug 27+</div><div class="tl-what">Capture the win</div><div class="tl-detail">Add badge to site, thank supporters, publish recap, keep the backlink.</div></li>
+    </ul>
+  </div>
+
+  <!-- ===== Decisions ===== -->
+  <div class="section">
+    <h3>Decisions locked</h3>
+    <div class="grid2">
+      <div class="panel"><h4>Launch from a founder account</h4><p>@kritish, not a brand account, and no paid hunter. The maker's own network drives the result now.</p></div>
+      <div class="panel"><h4>Goal is signups</h4><p>Everything points visitors to sign up. A PH-exclusive "30% off, first 100" offer reduces friction.</p></div>
+      <div class="panel"><h4>Warm-up is the critical path</h4><p>Account age can't be rushed. 5 genuine comments/day, pure value, never pitching Mindcase.</p></div>
+      <div class="panel"><h4>Track everything</h4><p>UTM link (<code>utm_source=producthunt</code>) so GA4 shows exactly what the launch drove.</p></div>
+    </div>
+  </div>
+
+  <!-- ===== Comment principles ===== -->
+  <div class="section">
+    <h3>How to comment (warm-up)</h3>
+    <p class="lead">The point is to look like a real, engaged peer — never a bot, and never someone who didn't read the page. Two modes work: a genuine <b>validation</b> ("this was needed — congrats on the launch") or a <b>real question</b> a practitioner would actually wonder. Not every comment needs a question.</p>
+    <div class="grid2" style="margin-top:16px;">
+      <div class="panel"><h4>Do</h4><p>
+        · Read the launch page first — only ask what genuinely isn't answered there.<br>
+        · Validate when it's true: "this was needed," "congrats on shipping" — specific, not empty.<br>
+        · Ask only genuine, non-obvious questions (architecture, edge cases, tradeoffs).<br>
+        · Keep it short. One thought, real voice.
+      </p></div>
+      <div class="panel" style="border-left-color:var(--warn);"><h4>Don't</h4><p>
+        · Ask something the page already answers — it signals you didn't read it and makes Kritish look like a fool.<br>
+        · Faff or filler — no "congrats 🎉 looks awesome."<br>
+        · Describe how it solves a use-case for us — this isn't about Mindcase, and it reads as a soft pitch.<br>
+        · Pitch Mindcase. Ever.
+      </p></div>
+    </div>
+    <div class="callout">If the interesting question turns out to be answered on the launch page, switch to a validation option instead. Better to say "this was needed, nice launch" than to ask something that's sitting right there.</div>
+  </div>
+
+  <!-- ===== Parked ===== -->
+  <div class="section">
+    <h3>Parked / open threads</h3>
+    <ul class="checklist">
+      <li data-key="parked-landing"><input type="checkbox"/><div class="ci-body"><b>30%-off PH landing page</b><span>Prototype built with honest scarcity counter — revisit when assets phase starts.</span></div></li>
+      <li data-key="parked-date"><input type="checkbox"/><div class="ci-body"><b>Confirm launch date</b><span>Aug 26 is proposed — lock a Tue/Wed and check it's clear of big competing launches.</span></div></li>
+      <li data-key="parked-netlify"><input type="checkbox"/><div class="ci-body"><b>Enable auto-refresh</b><span>One-time Netlify CLI login (team@mindcase.co) → hands-off 1 PM IST daily updates.</span></div></li>
+    </ul>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

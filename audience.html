@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Audience · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="audience">
+<div id="app-nav"></div>
+<div class="wrap page">
+  <div class="kicker">Workstream · Audience</div>
+  <h2 class="title">Audience &amp; Activation</h2>
+  <p class="lead">Our owned channels — email list + social — are the engine on launch day. The job now: grow coming-soon followers, prep notification copy, and set up tracking. On the day we notify in <b>waves</b>, never all at once, to keep upvote velocity steady across 24h.</p>
+  <div class="callout">Language matters: "we're live on Product Hunt, come see" — <b>never</b> "please upvote." Direct vote-begging gets penalized.</div>
+
+  <div class="section">
+    <h3>Notify-in-waves plan (launch day)</h3>
+    <div class="tbl-scroll">
+      <table class="data">
+        <thead><tr><th>Wave</th><th>When (PT)</th><th>Channel</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · First hour</b></td><td>12:01 AM</td><td>15–20 close supporters (personal DMs)</td></tr>
+          <tr><td><b>2 · Morning</b></td><td>~7 AM</td><td>Email list + Kritish's X thread</td></tr>
+          <tr><td><b>3 · Midday</b></td><td>~12 PM</td><td>LinkedIn + "we're #X, thank you" update</td></tr>
+          <tr><td><b>4 · Afternoon</b></td><td>~3 PM</td><td>Communities + a final push to stragglers</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Checklist</h3>
+    <ul class="checklist">
+      <li data-key="aud-followers"><input type="checkbox"/><div class="ci-body"><b>Drive coming-soon page follows</b><span>Point email + social at the PH teaser now; followers get auto-notified on launch.</span></div></li>
+      <li data-key="aud-email"><input type="checkbox"/><div class="ci-body"><b>Draft the launch email</b><span>Short, "we're live," one clear link with UTM.</span></div></li>
+      <li data-key="aud-social"><input type="checkbox"/><div class="ci-body"><b>Draft X thread + LinkedIn post</b><span>Founder voice, the story, the link. Schedule for the waves above.</span></div></li>
+      <li data-key="aud-utm"><input type="checkbox"/><div class="ci-body"><b>Set up UTM + GA4</b><span><code>?utm_source=producthunt&amp;utm_medium=referral&amp;utm_campaign=ph-launch</code> — same string everywhere (case-sensitive).</span></div></li>
+      <li data-key="aud-dms"><input type="checkbox"/><div class="ci-body"><b>Pre-write supporter DMs</b><span>Personal, not copy-paste. Ready to send the moment we go live.</span></div></li>
+    </ul>
+  </div>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
