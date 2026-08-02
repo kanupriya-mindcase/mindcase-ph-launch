@@ -4,6 +4,41 @@
    Voice = grounded technical peer. 3 options per pick. Never pitch Mindcase.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-02": {
+    label: "Sunday, August 2, 2026",
+    picks: [
+      { phrank: 3, name: "Termexo", tagline: "A local Windows workbench for Claude Code and Codex", href: "/products/termexo",
+        comments: [
+          "A proper Windows-native workbench for Claude Code and Codex fills a real gap — most of this tooling is Mac-first. Congrats on shipping.",
+          "Does it run the agents against your real filesystem, or sandbox them? Curious how you handle approvals for file writes.",
+          "Good to see the Codex/Claude Code workflow get first-class Windows treatment. Nice one."
+        ] },
+      { phrank: 1, name: "Bolcho AI", tagline: "Build Voice AI agents that actually speak India", href: "/products/bolcho-ai",
+        comments: [
+          "Voice agents that actually handle Indian languages and accents is a genuinely underserved space. Congrats on the launch.",
+          "How many languages/dialects do you cover at launch, and how do you handle code-switching mid-sentence? That's usually where Indian-language voice breaks.",
+          "The India-first voice angle is sharp — most stacks treat it as an afterthought. Well done."
+        ] },
+      { phrank: 4, name: "Lumichats", tagline: "A Claude Code alternative for people who avoid the terminal", href: "/products/lumichats-offline",
+        comments: [
+          "A GUI for people who bounce off the terminal is a smart wedge — the CLI is a real barrier for a lot of capable folks. Congrats on the launch.",
+          "How much of the underlying agent's power do you expose in the GUI vs. abstract away? That balance is usually the hard design call.",
+          "Nice — lowering the terminal barrier opens this up to a much wider crowd."
+        ] },
+      { phrank: 12, name: "Zen Whisper", tagline: "On-device Mac dictation that types into any app", href: "/products/zen-whisper",
+        comments: [
+          "On-device dictation that types into any app is the privacy-friendly combo a lot of people want. Congrats on shipping.",
+          "Which model are you running on-device, and how's latency on Apple Silicon vs. the cloud tools? That trade-off is the whole game here.",
+          "Local-first dictation is the right default — good to see it done natively on Mac."
+        ] },
+      { phrank: 10, name: "Wispr Flow", tagline: "Dictation that works everywhere — 4x faster", href: "/products/wisprflow",
+        comments: [
+          "The 'works everywhere' part is exactly what makes dictation stick — most tools nail one app and fall apart elsewhere. Congrats on the momentum.",
+          "How's accuracy holding up on technical/code terms and mixed-language input these days? That's usually the last mile.",
+          "Cross-app dictation that actually works is deceptively hard. Nicely done."
+        ] }
+    ]
+  },
   "2026-08-01": {
     label: "Saturday, August 1, 2026",
     picks: [
