@@ -1,7 +1,7 @@
 /* ============================================================
    WARM-UP BOARDS — one entry per day, newest anywhere (sorted at render).
-   The daily 2 PM IST routine ADDS a new dated key here each day.
-   Voice = grounded technical peer. 3 options per pick. Never pitch Mindcase.
+   The daily 1 PM IST routine ADDS a new dated key here each day.
+   Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase.
    ============================================================ */
 window.BOARDS = {
   "2026-08-03": {
@@ -9,33 +9,38 @@ window.BOARDS = {
     picks: [
       { phrank: 7, name: "yapyap", tagline: "Own your voice again. Local-first voice & meeting recorder", href: "/products/yapyap-3",
         comments: [
-          "Local-first is the right call for anything touching meeting audio — that's data most people don't want leaving the machine. Congrats on shipping.",
-          "How's the local model hold up on multi-speaker meetings — is speaker diarization done on-device too, or is that the part that's still hard offline?",
-          "'Own your voice again' is a sharp framing — the recorder space is crowded but almost none are actually local-first. Nice angle."
+          "Local-first for meeting audio is the right instinct — it's some of the most sensitive data on anyone's machine, and 'we process it in the cloud but promise to delete it' never really reassured anyone. Shipping it on-device from day one is the harder path and the correct one. Congrats.",
+          "Curious where the on-device model tops out — does speaker diarization run locally too, or is that the piece that's still hard to pull off offline? That's the wall most local-first recorders seem to hit.",
+          "The quiet tension with local-first voice is that the best transcription models keep getting bigger, not smaller, so 'runs on your laptop' and 'state-of-the-art accuracy' are always pulling against each other. Whichever side you're optimizing for says a lot about who this is really for — would love to know how you framed that call.",
+          "How are you handling long recordings — streaming transcription as the meeting runs, or a batch pass at the end? The memory-vs-latency tradeoff there tends to quietly shape the whole UX."
         ] },
       { phrank: 11, name: "mpai", tagline: "Make existing Codex and Claude Code sessions multiplayer", href: "/products/mpai",
         comments: [
-          "Adding multiplayer on top of existing Claude Code / Codex sessions is smart — you're not asking anyone to switch tools. Open-source too. Nice.",
-          "When two people are in the same session, who gates the agent's file writes — is there a single driver, or can anyone approve edits?",
-          "Does everyone share one agent context, or does each person get their own view that syncs? Curious how you keep the agent from getting confused by two prompts at once."
+          "Building multiplayer on top of existing Claude Code and Codex sessions instead of a whole new client is the smart wedge — nobody has to switch tools to get the value, and you ride whatever the underlying agents ship next. Open-source on top of that is a nice touch. Congrats on the launch.",
+          "When two people are in one session, what actually gates the agent's file writes — is there a single driver at a time, or can anyone approve an edit? Curious how you keep it from turning into a race.",
+          "The genuinely hard part here isn't the presence layer, it's shared context: two people prompting one agent means two mental models colliding in a single context window, and agents get confused fast when the 'why' keeps shifting under them. One canonical thread vs. per-person branches that merge is basically the whole ballgame — really curious which way you went.",
+          "Does everyone share one agent context, or does each collaborator get their own view that syncs back? That choice changes a lot about how it behaves once people are working in parallel."
         ] },
       { phrank: 1, name: "AgentSky", tagline: "Any harness, any LLM — cloud-hosted agents on demand", href: "/products/agentsky",
         comments: [
-          "The 'any harness, any LLM' angle is the hard part to pull off — most of these lock you into one stack. Good to see it built as real infra. Congrats.",
-          "How do you keep state between runs — is each invocation stateless, or is there a persistent workspace that survives across calls?",
-          "Normalizing tool-call formats across different harnesses seems like the tricky bit — do you translate to a common schema, or run each harness natively?"
+          "'Any harness, any LLM' is the hard promise to actually keep — most of these quietly lock you into one stack the moment you're past the demo. Building it as neutral infra you point at whatever you're already running is the right call. Congrats on shipping.",
+          "How do you keep state across runs — is each invocation stateless, or is there a persistent workspace that survives between calls? That distinction tends to decide what people can actually build on top of it.",
+          "The quietly hard problem behind 'any harness' is that each one has its own idea of what a tool call, a turn, even a context reset actually is — normalizing across that without flattening what makes each harness good is genuinely tricky. Curious whether you translate everything to a common schema or run each natively and reconcile at the edges.",
+          "What does cold-start look like for on-demand agents — warm pools, or spun up fresh each time? For anything interactive, that latency floor usually makes or breaks the experience."
         ] },
       { phrank: 8, name: "Snapdown", tagline: "Turn anything on your Mac screen into clean Markdown", href: "/products/snapdown-2",
         comments: [
-          "Screen-to-Markdown is one of those tiny tools you end up reaching for ten times a day — clean tables out of a screenshot alone is worth it. Nice build.",
-          "Is it pure OCR, or are you reading the accessibility tree where it's available? Curious how it keeps tables and code blocks structured instead of flattened.",
-          "How does it handle nested structure — a table inside a card, say? That's usually where screen-to-markdown tools collapse everything into flat text."
+          "This is one of those small tools you end up reaching for ten times a day without noticing — getting a clean Markdown table straight out of a screenshot alone justifies it, and the tight scope is refreshing. Nice build.",
+          "Is it pure OCR, or are you reading the macOS accessibility tree where it's exposed? Curious how you keep tables and code blocks structured rather than collapsing them into flat text.",
+          "The subtle thing about screen-to-Markdown is that 'clean' is really a structure problem, not a text problem — anyone can OCR the words, but rebuilding hierarchy (this is a heading, that's a nested list, this is a code block) from pixels is where these usually fall apart. Curious how far you push that vs. leaving it flat.",
+          "How does it handle nested layouts — a table inside a card, or a code block inside a callout? That's the case where most of these quietly give up and flatten everything."
         ] },
       { phrank: 4, name: "Qwen3.8-Max", tagline: "Qwen's most capable model for coding and cowork", href: "/products/qwen3",
         comments: [
-          "Qwen's coding models have been quietly getting really strong — good to see a Max tier aimed squarely at coding. Congrats on the release.",
-          "Where does this land on agentic use vs one-shot coding — does it hold up over long tool-calling runs, or is it tuned more for single completions?",
-          "What's the context window on this one? For 'cowork' the ceiling on how much repo it can hold at once tends to matter more than raw benchmark scores."
+          "Qwen's coding models have been quietly closing the gap for a while, so a Max tier aimed squarely at coding is a logical and welcome step — good to see the open ecosystem pushing at the top end. Congrats on the release.",
+          "Where does this land on agentic use vs. one-shot completion — does it hold together over long tool-calling runs, or is it tuned more for single strong completions? That gap is where a lot of 'great at coding' models actually struggle.",
+          "The interesting question with any new coding model isn't the benchmark number, it's how gracefully it degrades — most are fine on a clean function and fall apart once the context is a messy 40-file repo with half-broken state. Curious how it behaves at the ugly end, because that's where the real work lives.",
+          "What's the context window here, and how does quality hold up as it fills? For 'cowork' the practical ceiling on how much repo it can reason over at once tends to matter more than the headline length."
         ] }
     ] },
   "2026-08-02": {
