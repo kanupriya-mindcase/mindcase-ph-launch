@@ -4,6 +4,40 @@
    Voice = grounded technical peer. 3 options per pick. Never pitch Mindcase.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-03": {
+    label: "Monday, August 3, 2026",
+    picks: [
+      { phrank: 7, name: "yapyap", tagline: "Own your voice again. Local-first voice & meeting recorder", href: "/products/yapyap-3",
+        comments: [
+          "Local-first is the right call for anything touching meeting audio — that's data most people don't want leaving the machine. Congrats on shipping.",
+          "How's the local model hold up on multi-speaker meetings — is speaker diarization done on-device too, or is that the part that's still hard offline?",
+          "'Own your voice again' is a sharp framing — the recorder space is crowded but almost none are actually local-first. Nice angle."
+        ] },
+      { phrank: 11, name: "mpai", tagline: "Make existing Codex and Claude Code sessions multiplayer", href: "/products/mpai",
+        comments: [
+          "Adding multiplayer on top of existing Claude Code / Codex sessions is smart — you're not asking anyone to switch tools. Open-source too. Nice.",
+          "When two people are in the same session, who gates the agent's file writes — is there a single driver, or can anyone approve edits?",
+          "Does everyone share one agent context, or does each person get their own view that syncs? Curious how you keep the agent from getting confused by two prompts at once."
+        ] },
+      { phrank: 1, name: "AgentSky", tagline: "Any harness, any LLM — cloud-hosted agents on demand", href: "/products/agentsky",
+        comments: [
+          "The 'any harness, any LLM' angle is the hard part to pull off — most of these lock you into one stack. Good to see it built as real infra. Congrats.",
+          "How do you keep state between runs — is each invocation stateless, or is there a persistent workspace that survives across calls?",
+          "Normalizing tool-call formats across different harnesses seems like the tricky bit — do you translate to a common schema, or run each harness natively?"
+        ] },
+      { phrank: 8, name: "Snapdown", tagline: "Turn anything on your Mac screen into clean Markdown", href: "/products/snapdown-2",
+        comments: [
+          "Screen-to-Markdown is one of those tiny tools you end up reaching for ten times a day — clean tables out of a screenshot alone is worth it. Nice build.",
+          "Is it pure OCR, or are you reading the accessibility tree where it's available? Curious how it keeps tables and code blocks structured instead of flattened.",
+          "How does it handle nested structure — a table inside a card, say? That's usually where screen-to-markdown tools collapse everything into flat text."
+        ] },
+      { phrank: 4, name: "Qwen3.8-Max", tagline: "Qwen's most capable model for coding and cowork", href: "/products/qwen3",
+        comments: [
+          "Qwen's coding models have been quietly getting really strong — good to see a Max tier aimed squarely at coding. Congrats on the release.",
+          "Where does this land on agentic use vs one-shot coding — does it hold up over long tool-calling runs, or is it tuned more for single completions?",
+          "What's the context window on this one? For 'cowork' the ceiling on how much repo it can hold at once tends to matter more than raw benchmark scores."
+        ] }
+    ] },
   "2026-08-02": {
     label: "Sunday, August 2, 2026",
     picks: [
