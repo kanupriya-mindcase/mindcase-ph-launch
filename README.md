@@ -2,10 +2,10 @@
 
 Warm-up comment desk + launch playbook for Mindcase's Product Hunt launch.
 
-**Live:** https://mindcase-ph-launch.netlify.app
+**Live:** https://kanupriya-mindcase.github.io/mindcase-ph-launch/
 
 ## How it works
-- Static site (no build step). Deployed via Netlify continuous deployment — every push to `main` auto-deploys.
+- Static site (no build step). Hosted on **GitHub Pages** — every push to `main` auto-deploys (free, no build minutes).
 - `boards.js` holds the daily warm-up boards, keyed by date. A scheduled agent updates it every day at **1 PM IST**: pulls Product Hunt's top ~20, triages 5 in Mindcase's lane, drafts comment options (per the "How to comment" rules in the Playbook), commits, and pushes — which auto-deploys.
 - See `DAILY-REFRESH.md` for the daily runbook.
 
