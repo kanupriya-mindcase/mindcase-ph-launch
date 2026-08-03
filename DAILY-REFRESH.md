@@ -2,6 +2,7 @@
 
 **Schedule:** every day at **1:00 PM IST** (PH's day resets 12:30 PM IST, so products are live and gaining votes).
 **Status:** ✅ Live on **GitHub Pages** (free, no card). Push to `main` auto-deploys — no build minutes, no throttle.
+**Automation:** ✅ AUTOMATED via cloud routine `trig_01YBRYbeHgbE5p3ywLBhq2j3` (daily 07:30 UTC / 13:00 IST) — runs steps 1–7 below on its own and pushes. Manage: https://claude.ai/code/routines/trig_01YBRYbeHgbE5p3ywLBhq2j3. The steps below are the same recipe, kept for manual runs / reference.
 **Launcher account being warmed up:** Kritish (@kritish).
 **Host:** GitHub Pages · repo `kanupriya-mindcase/mindcase-ph-launch` (public, branch `main`, root) · **https://kanupriya-mindcase.github.io/mindcase-ph-launch/**
 **(Netlify retired** — free tier demanded payment; moved off it 2026-08-03.)
