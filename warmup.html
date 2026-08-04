@@ -57,6 +57,9 @@
   .postbox input{ accent-color:var(--good); width:15px; height:15px; }
   .card.posted .postbox{ color:var(--good); border-color:var(--good); background:var(--good-soft); }
   .readonly-note{ font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin:2px 0 0; }
+  .syncst{ font-family:var(--mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); white-space:nowrap; margin-left:6px; }
+  .syncst.ok{ color:var(--good); }
+  .syncst.warn{ color:var(--warn); }
 </style>
 </head>
 <body data-page="warmup">
@@ -80,6 +83,7 @@
     </div>
     <div class="spacer"></div>
     <div class="progress"><div class="pmeter"><i id="pfill"></i></div><span><b id="pdone">0</b>/<span id="ptotal">0</span> posted</span></div>
+    <span class="syncst" id="syncStatus" title="Posted ticks sync across every device and person">syncing…</span>
   </div>
   <p class="readonly-note" id="pastNote" hidden>Viewing a past day — for reference. Comments are best posted the day a product launches.</p>
 
@@ -103,6 +107,58 @@ const slugOf = (href) => href.split("/").pop();
 function loadState(date, slug){ try{ return JSON.parse(localStorage.getItem(KEY(date,slug)))||{}; }catch(e){ return {}; } }
 function saveState(date, slug, s){ localStorage.setItem(KEY(date,slug), JSON.stringify(s)); }
 
+/* ---- Shared, durable Posted state (syncs across every device + person) ---- */
+const SYNC_URL = "https://jsonblob.com/api/jsonBlob/019fcc2e-b952-7d54-bee7-8d363961fd63";
+let SHARED = { posted: {} };
+let sharedLoaded = false;
+function setSync(txt, cls){ const e = document.getElementById("syncStatus"); if (e){ e.textContent = txt; e.className = "syncst " + (cls || ""); } }
+function isPosted(date, slug){
+  if (sharedLoaded) return !!(SHARED.posted[date] && SHARED.posted[date][slug]);
+  return !!loadState(date, slug).posted; // offline: fall back to this device's copy
+}
+async function pullShared(){
+  try {
+    const r = await fetch(SYNC_URL, { headers:{ Accept:"application/json" }, cache:"no-store" });
+    if (r.ok){
+      const d = await r.json();
+      SHARED = { posted: (d && d.posted && typeof d.posted === "object") ? d.posted : {} };
+      sharedLoaded = true; setSync("synced", "ok");
+      return true;
+    }
+  } catch(e){}
+  setSync("offline · saved here", "warn");
+  return false;
+}
+async function pushShared(){
+  try {
+    setSync("saving…", "");
+    const r = await fetch(SYNC_URL, { method:"PUT", headers:{ "Content-Type":"application/json", Accept:"application/json" }, body: JSON.stringify(SHARED) });
+    if (r.ok){ setSync("synced", "ok"); return true; }
+  } catch(e){}
+  setSync("offline · saved here", "warn");
+  return false;
+}
+function migrateLocalToShared(){
+  let changed = false;
+  Object.keys(window.BOARDS).forEach(function(d){
+    window.BOARDS[d].picks.forEach(function(p){
+      const slug = slugOf(p.href);
+      if (loadState(d, slug).posted && !(SHARED.posted[d] && SHARED.posted[d][slug])){
+        SHARED.posted[d] = SHARED.posted[d] || {}; SHARED.posted[d][slug] = true; changed = true;
+      }
+    });
+  });
+  return changed;
+}
+let refreshing = false;
+async function refreshFromShared(){
+  if (refreshing) return; refreshing = true;
+  const ok = await pullShared();
+  const typing = document.activeElement && document.activeElement.tagName === "TEXTAREA";
+  if (ok && window.BOARDS[currentDate] && !typing) render(currentDate);
+  refreshing = false;
+}
+
 const activeEl = document.getElementById("cardsActive");
 const postedEl = document.getElementById("cardsPosted");
 const tabActive = document.getElementById("tabActive");
@@ -116,7 +172,7 @@ tabPosted.addEventListener("click", () => { currentView = "posted"; applyView();
 function counts(){
   const picks = window.BOARDS[currentDate] ? window.BOARDS[currentDate].picks : [];
   let posted = 0;
-  picks.forEach(p => { if (loadState(currentDate, slugOf(p.href)).posted) posted++; });
+  picks.forEach(p => { if (isPosted(currentDate, slugOf(p.href))) posted++; });
   return { posted, active: picks.length - posted, total: picks.length };
 }
 function updateStats(){
@@ -160,7 +216,7 @@ function buildCard(date, p, i){
   const st = loadState(date, slug);
   const chosen = (st.opt != null) ? st.opt : 0;
   const card = document.createElement("section");
-  card.className = "card" + (st.posted ? " posted" : "");
+  card.className = "card" + (isPosted(date, slug) ? " posted" : "");
   card.dataset.idx = i;
   const optBtns = p.comments.map((c, idx) =>
     `<button class="opt${idx===chosen?" active":""}" data-i="${idx}">Option ${idx+1}</button>`).join("");
@@ -182,7 +238,7 @@ function buildCard(date, p, i){
       <button class="btn btn-copy act">Copy</button>
       <a class="btn btn-primary" href="${PH}${p.href}" target="_blank" rel="noopener">Open on Product Hunt →</a>
       <span class="spacer"></span>
-      <label class="postbox"><input type="checkbox" class="posted-cb" ${st.posted ? "checked" : ""}/> Posted</label>
+      <label class="postbox"><input type="checkbox" class="posted-cb" ${isPosted(date, slug) ? "checked" : ""}/> Posted</label>
     </div>`;
 
   const ta = card.querySelector("textarea");
@@ -208,11 +264,21 @@ function buildCard(date, p, i){
   });
 
   const cb = card.querySelector(".posted-cb");
-  cb.addEventListener("change", () => {
-    const s = loadState(date,slug); s.posted = cb.checked; saveState(date,slug,s);
-    card.classList.toggle("posted", cb.checked);
-    if (cb.checked) postedEl.appendChild(card); else moveBackToActive(card, i);
+  cb.addEventListener("change", async () => {
+    const val = cb.checked;
+    // optimistic: update shared state + this-device mirror + the DOM right away
+    SHARED.posted[date] = SHARED.posted[date] || {};
+    if (val) SHARED.posted[date][slug] = true; else delete SHARED.posted[date][slug];
+    const s = loadState(date,slug); s.posted = val; saveState(date,slug,s);
+    card.classList.toggle("posted", val);
+    if (val) postedEl.appendChild(card); else moveBackToActive(card, i);
     updateStats(); refreshEmpty();
+    // persist to the shared store, merging others' recent ticks so nothing is clobbered
+    try {
+      const r = await fetch(SYNC_URL, { headers:{ Accept:"application/json" }, cache:"no-store" });
+      if (r.ok){ const d = await r.json(); if (d && d.posted){ SHARED.posted = d.posted; SHARED.posted[date] = SHARED.posted[date] || {}; if (val) SHARED.posted[date][slug] = true; else delete SHARED.posted[date][slug]; } }
+    } catch(e){}
+    await pushShared();
   });
   return card;
 }
@@ -224,8 +290,7 @@ function render(date){
   const picks = window.BOARDS[date].picks;
   picks.forEach((p, i) => {
     const card = buildCard(date, p, i);
-    const st = loadState(date, slugOf(p.href));
-    (st.posted ? postedEl : activeEl).appendChild(card);
+    (isPosted(date, slugOf(p.href)) ? postedEl : activeEl).appendChild(card);
   });
   updateStats();
   applyView();
@@ -250,7 +315,12 @@ function go(date){
 }
 sel.addEventListener("change", () => go(sel.value));
 todayBtn.addEventListener("click", () => { sel.value = latest; go(latest); });
-go(latest);
+window.addEventListener("focus", refreshFromShared);
+(async function init(){
+  await pullShared();
+  if (migrateLocalToShared()) await pushShared();  // recover any older ticks saved only on this device
+  go(latest);
+})();
 </script>
 </body>
 </html>
