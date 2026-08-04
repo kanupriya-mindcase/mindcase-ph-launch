@@ -4,6 +4,45 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-04": {
+    label: "Tuesday, August 4, 2026",
+    picks: [
+      { phrank: 1, name: "MOTHER", tagline: "A terminal built for Claude Code w/ one-click session resume", href: "/products/mother-claude-code-terminal",
+        comments: [
+          "One-click session resume is the kind of small thing that quietly changes how much you lean on an agent day to day. Losing context on a dropped session is a tax nobody really talks about, so building the terminal around fixing it is a sharp focus. Congrats on shipping.",
+          "How does resume rebuild state, does it replay the full session or snapshot the working context and pick up from there? Curious where you draw the line on what actually survives a resume.",
+          "The interesting problem with a Claude Code specific terminal is that a session isn't just scrollback, it's the working tree, open files, and half-finished tool calls. Deciding what's worth resuming versus what you rebuild fresh is the real design call, and I'd love to know how you drew that boundary.",
+          "Does it stay in lockstep with Claude Code's own updates, or is there a translation layer so you don't break every time the underlying tool ships? That coupling usually decides how maintainable these wrappers stay."
+        ] },
+      { phrank: 15, name: "SpeakoFlow", tagline: "Open-source local voice assistant for your desktop", href: "/products/speakoflow",
+        comments: [
+          "Local plus open-source is the right combination for a desktop voice assistant, since an always-on mic is exactly what people don't want phoning home. Doing it in the open so anyone can verify that is the trust move that matters here. Nice work.",
+          "What's running speech-to-text under the hood, a local Whisper variant or something lighter you built for latency? Curious where you landed on the accuracy versus speed tradeoff on consumer hardware.",
+          "The hard part with a local voice assistant isn't transcription, it's keeping the wake-and-intent loop responsive without a GPU while not draining the battery. That balance is where most on-device assistants quietly fall back to the cloud, so I'm genuinely curious how you kept it fully local and still snappy.",
+          "How extensible is it, can people wire in their own commands or skills, or is the action set fixed for now? Open-source voice tends to live or die on how easy that is."
+        ] },
+      { phrank: 13, name: "Atlaso", tagline: "One memory for every AI you use", href: "/products/atlaso",
+        comments: [
+          "A single memory layer across every AI tool sounds obvious and is brutally hard to actually pull off. If it holds up, never re-explaining yourself to each new tool is a real quality-of-life jump. Congrats on the launch.",
+          "How do you handle conflicting memories across tools, if one assistant learns something that contradicts another, what wins? That reconciliation is usually where shared-memory ideas get messy.",
+          "The genuinely interesting question with 'one memory for every AI' is trust direction: you become the source every tool reads and writes, which is powerful but also the single point where one stale or wrong fact propagates everywhere. Curious how you think about correcting or expiring memories before they spread.",
+          "Is the memory portable and inspectable, can a user actually see and edit what's stored, or is it a black box the models manage? For something this central, that visibility tends to matter a lot."
+        ] },
+      { phrank: 14, name: "space ocr", tagline: "OCR that checks its own answers, as an app or an API", href: "/products/space-ocr",
+        comments: [
+          "OCR that verifies its own output is the right instinct, because the failure people hate isn't a wrong character, it's confidently wrong text you can't tell is wrong. Building the self-check in rather than bolting it on later is a smart call. Nice.",
+          "What does the self-check actually compare against, a second pass with a different model, or a confidence signal from the same one? Curious how you stop it from just agreeing with its own mistake.",
+          "The subtle thing here is that checking its own answers only helps if the checker fails differently from the reader, otherwise you're just doubling the same blind spots. Getting genuine independence between the two passes is the whole game, and it's the part most self-verifying OCR skips. Really curious how you approached it.",
+          "How does it hold up on the ugly inputs, handwriting, low-contrast scans, dense tables, versus clean printed text? That gap is usually where OCR reliability actually gets decided."
+        ] },
+      { phrank: 19, name: "Karve", tagline: "The API client for developers on Windows", href: "/products/karve",
+        comments: [
+          "A genuinely native API client built for Windows first is overdue, most of the good ones treat Windows as an afterthought port. Betting on the platform the rest of the field ignores is a clean wedge. Congrats on shipping.",
+          "What makes it Windows-native beyond the UI, are you leaning on platform APIs for things like secure credential storage and system proxies? Those integrations are usually what separate native from just running there.",
+          "The interesting tension for a new API client is that the category is crowded but everyone's frustrated with the incumbents for the same reasons: bloat, forced accounts, and cloud sync they didn't ask for. Which of those you deliberately refuse to do says more about the product than any feature list, so I'm curious what you're consciously leaving out.",
+          "How do you handle collections and environments across a team, local files you can commit to git, or a sync layer? For dev tools that choice tends to decide whether teams actually adopt it."
+        ] }
+    ] },
   "2026-08-03": {
     label: "Monday, August 3, 2026",
     picks: [
