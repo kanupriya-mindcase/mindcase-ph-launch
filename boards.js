@@ -1,7 +1,7 @@
 /* ============================================================
    WARM-UP BOARDS — one entry per day, newest anywhere (sorted at render).
    The daily 1 PM IST routine ADDS a new dated key here each day.
-   Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase.
+   Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
   "2026-08-05": {
@@ -9,38 +9,38 @@ window.BOARDS = {
     picks: [
       { phrank: 7, name: "ngrok AI Gateway", tagline: "One private gateway for every AI model", href: "/products/ngrok-ai-gateway",
         comments: [
-          "One private gateway for every model is the right abstraction — routing, keys, and policy in one place beats scattering config across a dozen SDKs. Congrats on shipping.",
-          "How does routing work when one agent run needs different models per step — one endpoint with rules, or per-request model selection at the gateway? Curious how you keep that predictable for callers.",
+          "One private gateway for every model is the right abstraction: routing, keys, and policy in one place beats scattering config across a dozen SDKs. Congrats on shipping.",
+          "How does routing work when one agent run needs different models per step: one endpoint with rules, or per-request model selection at the gateway? Curious how you keep that predictable for callers.",
           "Does the gateway terminate and inspect payloads, or act as a pure forward proxy? Where you draw the line on what it sees versus what stays client-side changes the trust model a lot.",
-          "The hard part with a unified AI gateway isn't picking models, it's making policy portable — the same agent should behave identically whether it's hitting OpenAI or Anthropic through you, and most gateways leak provider-specific quirks at the edges. Curious how you normalized that without flattening what makes each model useful."
+          "The hard part with a unified AI gateway isn't picking models, it's making policy portable. The same agent should behave identically whether it's hitting OpenAI or Anthropic through you, and most gateways leak provider-specific quirks at the edges. Curious how you normalized that without flattening what makes each model useful."
         ] },
       { phrank: 3, name: "Aegisora", tagline: "The narrow control plane for AI agent tool and API calls.", href: "/products/aegisora",
         comments: [
-          "A narrow control plane for agent tool calls is exactly the layer that's been missing — most teams bolt auth on after the fact. Open-sourcing it is a strong move. Congrats on the launch.",
+          "A narrow control plane for agent tool calls is exactly the layer that's been missing. Most teams bolt auth on after the fact. Open-sourcing it is a strong move. Congrats on the launch.",
           "When you block a tool call, does the agent get a structured rejection it can reason about, or does it just fail opaque? That feedback loop usually decides whether guardrails feel helpful or random.",
-          "How do you catch semantic prompt injection that tries to smuggle tool args through natural language — static rules, or something closer to intent classification at the boundary?",
-          "Runtime security for agents is deceptively asymmetric — blocking bad calls is easy compared to not blocking good ones when the agent is mid multi-step plan and the same API call is legitimate in one context and dangerous in another. That context sensitivity is where most control planes get brittle. Really curious how you scoped 'narrow' to keep it usable."
+          "How do you catch semantic prompt injection that tries to smuggle tool args through natural language: static rules, or something closer to intent classification at the boundary?",
+          "Runtime security for agents is deceptively asymmetric. Blocking bad calls is easy compared to not blocking good ones when the agent is mid multi-step plan and the same API call is legitimate in one context and dangerous in another. That context sensitivity is where most control planes get brittle. Really curious how you scoped 'narrow' to keep it usable."
         ] },
       { phrank: 8, name: "npm i -g hotcell", tagline: "Local sandboxes for AI agents on your Mac, Linux, bare metal", href: "/products/npm-i-g-hotcell",
         comments: [
-          "Local sandboxes for AI agents on bare metal is the right default — giving agents filesystem and network without a containment layer is how you get the horror stories. Nice ship.",
-          "What's the isolation model — containers, lightweight VMs, or something custom? Curious how heavy it feels on a laptop running a coding agent alongside the sandbox.",
+          "Local sandboxes for AI agents on bare metal is the right default. Giving agents filesystem and network without a containment layer is how you get the horror stories. Nice ship.",
+          "What's the isolation model: containers, lightweight VMs, or something custom? Curious how heavy it feels on a laptop running a coding agent alongside the sandbox.",
           "Can agents share artifacts across sandboxes, or is every session fully walled off? That tradeoff matters a lot for multi-step coding workflows where you want isolation but not starting from zero each time.",
           "The interesting tension with local agent sandboxes is that the agent needs enough access to be useful but any persistent state becomes an exfil path the moment the model goes sideways. Deciding what survives between runs versus what gets wiped is basically the whole security story. Would love to know where hotcell drew that line."
         ] },
       { phrank: 5, name: "Kiro Crew", tagline: "Open source agentic development workspace", href: "/products/kiro",
         comments: [
-          "An open-source agentic development workspace fills a real gap — most of the good tooling here is either closed or tied to one vendor. Congrats on launching it in the open.",
-          "How does it hook into the agents underneath — native support for Claude Code and Codex, or a harness-agnostic layer you plug providers into?",
+          "An open-source agentic development workspace fills a real gap. Most of the good tooling here is either closed or tied to one vendor. Congrats on launching it in the open.",
+          "How does it hook into the agents underneath: native support for Claude Code and Codex, or a harness-agnostic layer you plug providers into?",
           "Is the workspace file-based so you can commit project state to git, or is everything in an internal store? That choice shapes whether teams actually adopt it day to day.",
-          "Agentic dev workspaces live or die on session continuity — not just chat history but which files changed, which tool calls are in flight, and whether two people can pair on the same agent without corrupting context. Most tools pick one of those and punt the rest. Curious which problem Kiro Crew optimized for first."
+          "Agentic dev workspaces live or die on session continuity, not just chat history but which files changed, which tool calls are in flight, and whether two people can pair on the same agent without corrupting context. Most tools pick one of those and punt the rest. Curious which problem Kiro Crew optimized for first."
         ] },
       { phrank: 6, name: "BackEngine MCP", tagline: "Make private company knowledge usable for AI", href: "/products/backengine-mcp",
         comments: [
-          "Making private company knowledge usable for AI through MCP is a clean wedge — the hard part was never connecting the model, it was getting trustworthy retrieval without leaking the wrong doc. Congrats on shipping.",
-          "How do you handle access control at query time — does MCP inherit the user's existing permissions, or do you maintain a separate ACL layer for what the agent can see?",
-          "When source docs update, how quickly does the agent's view refresh — live sync, scheduled re-index, or on-demand pull? Freshness is usually where these setups quietly fail.",
-          "Company knowledge for agents usually fails on freshness and provenance, not retrieval quality — the agent cites a policy from six months ago with full confidence because nothing in the stack told it the doc was superseded. Getting invalidation right is quietly harder than the RAG pipeline itself. Curious how BackEngine handles that."
+          "Making private company knowledge usable for AI through MCP is a clean wedge. The hard part was never connecting the model, it was getting trustworthy retrieval without leaking the wrong doc. Congrats on shipping.",
+          "How do you handle access control at query time: does MCP inherit the user's existing permissions, or do you maintain a separate ACL layer for what the agent can see?",
+          "When source docs update, how quickly does the agent's view refresh: live sync, scheduled re-index, or on-demand pull? Freshness is usually where these setups quietly fail.",
+          "Company knowledge for agents usually fails on freshness and provenance, not retrieval quality. The agent cites a policy from six months ago with full confidence because nothing in the stack told it the doc was superseded. Getting invalidation right is quietly harder than the RAG pipeline itself. Curious how BackEngine handles that."
         ] }
     ] },
   "2026-08-04": {
