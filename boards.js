@@ -4,6 +4,45 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-06": {
+    label: "Thursday, August 6, 2026",
+    picks: [
+      { phrank: 4, name: "Muse Code", tagline: "Meta's terminal agent for long-horizon coding", href: "/products/meta",
+        comments: [
+          "A terminal agent built for long-horizon coding is the right bet. Most agents fall apart once the task spans more than a few tool calls, so shipping something aimed at that failure mode is a sharp focus. Congrats on the launch.",
+          "How do you decide when a long-running run should checkpoint versus keep going? Curious where you draw the line between useful persistence and an agent that just burns tokens chasing a dead end.",
+          "Does the main loop hand sub-tasks to specialized workers with their own context windows, or is everything still one shared transcript under the hood? That architecture choice usually decides whether long-horizon actually stays coherent.",
+          "Long-horizon coding agents usually fail on goal drift, not raw capability. Midway through a multi-file change the agent quietly optimizes for a local fix and loses the original intent. Keeping that north star intact across hundreds of steps is the hard problem. Curious how Muse Code keeps the run honest without babysitting."
+        ] },
+      { phrank: 2, name: "Superlog Responder", tagline: "FREE, open-source AI bug-fixing agent", href: "/products/superlog",
+        comments: [
+          "An open-source agent that goes from production signal to a fix PR is the loop a lot of teams still do by hand at 2am. Shipping the harness as something you can drop on existing telemetry is a strong move. Congrats on launching it free.",
+          "When the proposed fix is wrong, what's the feedback path: does Responder learn from the rejected PR, or is each run still stateless against the same alert? Curious how that loop closes in practice.",
+          "How do you tell a flaky test or noisy spike apart from a real regression before you open a PR? That triage call is usually where automated fixers either earn trust or burn it.",
+          "The hard part with AI bug-fixers isn't generating a patch. It's knowing when not to. A confident wrong fix that merges quietly is worse than the original alert. Building that restraint into an open harness, especially on top of someone else's telemetry, is the real product. Curious how you calibrated when Responder should stay quiet."
+        ] },
+      { phrank: 1, name: "Cloudflare OS", tagline: "Build the AI operating system for your company", href: "/products/cloudflare",
+        comments: [
+          "An AI operating system for the company is the right layer to bet on. Most teams are still wiring models into one-off workflows and calling it done. Congrats on shipping this open.",
+          "How do you handle cross-team context: does each group get an isolated agent workspace, or is there a shared company memory with permissions on top? That tenancy model usually makes or breaks adoption.",
+          "What does 'OS' mean in practice for an agent run: process isolation, tool permissions, scheduling, or all three? Curious which primitives you treated as non-negotiable in v1.",
+          "Company-wide AI OS projects usually die on permissioning, not model quality. The moment an agent can see payroll and a public marketing doc in the same session, trust collapses. Getting the isolation model right on day one is the whole game. Curious how Cloudflare OS scoped that without making every agent useless."
+        ] },
+      { phrank: 6, name: "Website to Markdown API", tagline: "Turn any website into LLM-ready Markdown", href: "/products/website-to-markdown-api",
+        comments: [
+          "LLM-ready Markdown from any URL is the kind of boring infrastructure agents quietly depend on. Congrats on shipping a clean API for it.",
+          "How do you handle JS-rendered pages: headless render, cached snapshots, or fail closed? Curious where you landed on freshness versus cost for SPAs.",
+          "When a page is mostly chrome (nav, ads, footers), how aggressive is the cleanup before Markdown? Over-stripping kills tables and code blocks; under-stripping floods the context window.",
+          "The hard part with web-to-Markdown for LLMs isn't conversion. It's deciding what counts as signal. Two pages with the same article can produce wildly different tokens depending on boilerplate stripping, and agents will confidently cite whichever garbage you fed them. Getting that extraction boundary right is the real product. Curious how you evaluate 'LLM-ready' beyond round-tripping HTML."
+        ] },
+      { phrank: 11, name: "Channels SDK", tagline: "Agents in Slack & Teams without the production headaches.", href: "/products/copilotkit",
+        comments: [
+          "An SDK that absorbs the Slack and Teams production headaches for agents is overdue. Most teams learn those edge cases the hard way in prod. Congrats on open-sourcing it.",
+          "How do you model thread continuity: does the agent see the full channel history, just the thread, or a summarized window? That choice shapes both cost and whether replies feel coherent.",
+          "When an agent needs to take an action that requires elevated permissions (posting to a private channel, reading a doc), is that expressed as a first-class auth flow in the SDK or left to the app author?",
+          "Shipping agents into Slack or Teams fails less on the model and more on the messy middle: retries, slash-command quirks, socket vs HTTP modes, and who the bot is allowed to ping at 9am. An SDK that owns that layer is the difference between a demo and something a team actually leaves running. Curious which production failure you designed around first."
+        ] }
+    ] },
   "2026-08-05": {
     label: "Wednesday, August 5, 2026",
     picks: [
