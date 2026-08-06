@@ -92,13 +92,7 @@
 </div>
 
 <script src="nav.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/kanupriya-mindcase/mindcase-ph-launch@main/boards.js"></script>
-<script>
-// Fallback if the CDN is slow/blocked — local boards.js (same origin on GitHub Pages / localhost)
-if (!window.BOARDS) {
-  document.write('<script src="boards.js"><\\/script>');
-}
-</script>
+<script src="boards.js"></script>
 <script>
 const PH = "https://www.producthunt.com";
 const allDates = Object.keys(window.BOARDS).sort();  // ascending
