@@ -92,7 +92,13 @@
 </div>
 
 <script src="nav.js"></script>
-<script src="boards.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kanupriya-mindcase/mindcase-ph-launch@main/boards.js"></script>
+<script>
+// Fallback if the CDN is slow/blocked — local boards.js (same origin on GitHub Pages / localhost)
+if (!window.BOARDS) {
+  document.write('<script src="boards.js"><\\/script>');
+}
+</script>
 <script>
 const PH = "https://www.producthunt.com";
 const allDates = Object.keys(window.BOARDS).sort();  // ascending
@@ -116,9 +122,13 @@ function isPosted(date, slug){
   if (sharedLoaded) return !!(SHARED.posted[date] && SHARED.posted[date][slug]);
   return !!loadState(date, slug).posted; // offline: fall back to this device's copy
 }
+function fetchOpts(extra){
+  // jsonblob occasionally hangs; never block the desk on sync
+  return Object.assign({ cache:"no-store", signal: AbortSignal.timeout(6000) }, extra || {});
+}
 async function pullShared(){
   try {
-    const r = await fetch(SYNC_URL, { headers:{ Accept:"application/json" }, cache:"no-store" });
+    const r = await fetch(SYNC_URL, fetchOpts({ headers:{ Accept:"application/json" } }));
     if (r.ok){
       const d = await r.json();
       SHARED = { posted: (d && d.posted && typeof d.posted === "object") ? d.posted : {} };
@@ -132,7 +142,7 @@ async function pullShared(){
 async function pushShared(){
   try {
     setSync("saving…", "");
-    const r = await fetch(SYNC_URL, { method:"PUT", headers:{ "Content-Type":"application/json", Accept:"application/json" }, body: JSON.stringify(SHARED) });
+    const r = await fetch(SYNC_URL, fetchOpts({ method:"PUT", headers:{ "Content-Type":"application/json", Accept:"application/json" }, body: JSON.stringify(SHARED) }));
     if (r.ok){ setSync("synced", "ok"); return true; }
   } catch(e){}
   setSync("offline · saved here", "warn");
@@ -317,9 +327,11 @@ sel.addEventListener("change", () => go(sel.value));
 todayBtn.addEventListener("click", () => { sel.value = latest; go(latest); });
 window.addEventListener("focus", refreshFromShared);
 (async function init(){
+  // Paint the board first — don't leave the desk blank while sync is pending.
+  go(latest);
   await pullShared();
   if (migrateLocalToShared()) await pushShared();  // recover any older ticks saved only on this device
-  go(latest);
+  if (window.BOARDS[currentDate]) render(currentDate);  // re-apply shared Posted ticks
 })();
 </script>
 </body>
