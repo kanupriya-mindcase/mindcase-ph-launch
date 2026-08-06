@@ -12,27 +12,33 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
       - name: Assemble static site
         run: |
-          mkdir _site
-          cp -R *.html *.js *.css *.md .nojekyll _site/ 2>/dev/null || true
-          # keep optional assets if present
-          for d in assets images; do
-            [ -d "$d" ] && cp -R "$d" _site/
-          done
-      - uses: actions/configure-pages@v5
+          set -euo pipefail
+          mkdir -p _site
+          cp -v *.html *.js *.css .nojekyll _site/
+          ls -la _site
+          test -f _site/index.html
+          test -f _site/boards.js
+          test -f _site/warmup.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
