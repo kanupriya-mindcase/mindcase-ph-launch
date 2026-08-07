@@ -4,6 +4,45 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-07": {
+    label: "Friday, August 7, 2026",
+    picks: [
+      { phrank: 5, name: "Progress AI Observability", tagline: "Trace, evaluate, and improve AI agents in production", href: "/products/progress-ai-observability",
+        comments: [
+          "Agent observability that can explain why a run went sideways is the layer most teams still fake with logs. Congrats on shipping something aimed at that gap.",
+          "When you flag an ungrounded answer, how do you decide it was hallucination versus a missing tool result the agent never fetched? Curious where that boundary lives in the product.",
+          "Do traces stay useful once an agent fans out into parallel tool calls, or does the timeline get noisy fast? Curious how you keep multi-step runs readable without flattening the graph.",
+          "Production agent debugging usually fails on attribution, not dashboards. You can see tokens climb and still not know which context chunk or tool return poisoned the next step. Getting that causal chain right is the whole product. Curious how Progress AI Observability keeps the story honest when the failure is quiet and confident."
+        ] },
+      { phrank: 6, name: "BrowserOS neo", tagline: "The Missing Browser for Claude, Cowork & Codex", href: "/products/browseros_ai",
+        comments: [
+          "A local browser built for agents, with your real logins and a cockpit to watch them, is exactly the missing piece between terminal agents and the messy web. Congrats on the launch.",
+          "When an agent hits a CAPTCHA or step-up auth mid-flow, does neo pause for a human handoff, or does the run just fail? Curious how you designed that interrupt.",
+          "Simplified page snapshots burn fewer tokens than screenshots, but they can drop interactive state. How do you decide what stays in the snapshot when the agent needs to click a non-obvious control?",
+          "The hard part with agent browsers isn't driving the DOM. It's trust: giving an agent your real session without turning every tab into an exfil path. Parallel agents, sacred human tabs, and scrubbable session video are the right instincts. Curious which of those you would still tighten before handing neo your banking login."
+        ] },
+      { phrank: 7, name: "Crew", tagline: "A tiny crew of monsters for your Claude Code agents", href: "/products/crew-a-tiny-crew-for-claude-code",
+        comments: [
+          "Giving every Claude Code chat a little on-screen body that signals when it needs you is sneakily useful. Congrats on shipping something playful that still solves a real attention problem.",
+          "With several subagents running, how do you keep the sprites from becoming noise? Curious whether each creature only hops on block, or also on quieter state changes.",
+          "If two sessions need approval at once, is there a queue, or do both creatures demand attention? That multi-wait case is usually where desktop agent UX gets messy.",
+          "Permission UX for coding agents is mostly a focus problem. The terminal already waits, but you lose minutes hunting which window wants a yes. Moving that signal into the periphery without adding a second security model is the interesting design. Curious how Crew stays out of the way when nothing is blocked."
+        ] },
+      { phrank: 14, name: "The new Firecrawl MCP", tagline: "Agent-ready web context for any MCP client.", href: "/products/extract-by-firecrawl",
+        comments: [
+          "Agent-ready web context over MCP is the right packaging. Most agents still duct-tape scrape calls and hope the client handles retries. Congrats on the new MCP launch.",
+          "When an MCP client asks for a page that is mostly chrome or paywalled, what does the tool return: structured empty, partial content, or an error the agent can reason about?",
+          "How do you bound cost and latency when an agent chains multiple Firecrawl tools in one turn? Curious whether the MCP layer exposes budgets the client can set, or if that stays server-side.",
+          "MCP web tools live or die on honesty about incomplete fetches. Agents will confidently invent the missing fields if the tool smiles and returns half a page. Making failure modes legible to the model is harder than the scrape itself. Curious how the new Firecrawl MCP surfaces that without drowning the context window."
+        ] },
+      { phrank: 2, name: "Soloop", tagline: "Approval-first Agent OS for solo founders", href: "/products/soloop",
+        comments: [
+          "An approval-first Agent OS with a shared company goal across CEO, CTO, and CMO agents is a sharp take on the solo founder bottleneck. Congrats on shipping it.",
+          "When the AI CMO's user signals disagree with the AI CTO's build plan, who wins before it hits your approval queue? Curious how Soloop resolves that conflict without dumping the whole mess on the founder.",
+          "How sticky is the daily review memory across days: does the system keep a durable company state, or does each review mostly re-derive from recent chats?",
+          "Multi-agent founder tools usually fail on handoffs. Each role sounds smart in isolation, then the founder becomes the integration layer again. Organizing around one goal plus an approval gate is the right shape. Curious which decision types Soloop still refuses to auto-route because judgment matters more than speed."
+        ] }
+    ] },
   "2026-08-06": {
     label: "Thursday, August 6, 2026",
     picks: [
