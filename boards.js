@@ -4,6 +4,45 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-08": {
+    label: "Saturday, August 8, 2026",
+    picks: [
+      { phrank: 3, name: "Hexis", tagline: "Git-backed skills, tools & context for AI agents", href: "/products/bevel-4",
+        comments: [
+          "Putting agent skills, tools, and context under git is the right instinct. The moment an agent's behavior lives in versioned, reviewable files instead of scattered prompts, it stops being a black box. Congrats on shipping this.",
+          "How does an agent pick which skills to load for a given task, is it always the full set in context, or is there a retrieval step so you don't blow the window? Curious how you keep it lean.",
+          "The genuinely hard part with git-backed agent context is drift: the repo says one thing, but the live environment the agent runs against has moved on, so the versioned context is confidently stale. How you detect or reconcile that gap is the whole game, and it is the part most 'context as code' tools quietly skip. Really curious how you handle it.",
+          "When two people edit the same skill and it changes how the agent behaves, do you get real diffs and review on that, or does it merge like plain text and hope for the best? That review loop is usually what makes this trustworthy on a team."
+        ] },
+      { phrank: 5, name: "Toolport", tagline: "Every tool, one port. One MCP setup for all your AI agents", href: "/products/conduit-12",
+        comments: [
+          "One MCP endpoint fronting every tool is the consolidation this space badly needs. Wiring the same ten servers into every agent separately gets old fast, so a single port for all of it is a clean idea. Nice work.",
+          "When you put many MCP servers behind one port, how do you handle tool name collisions and per-tool auth, does each agent still scope down to a subset, or see everything by default? Curious how you keep it from becoming one big unguarded surface.",
+          "The subtle risk with a single gateway for every tool is blast radius: one aggregation point is one place where a bad permission or a compromised server reaches all your agents at once. Whether you built it as a proxy that enforces policy or just a passthrough changes everything about how safe it is. Curious which side you leaned.",
+          "Does the single port add a latency or reliability hop in front of tools that used to be called directly? For anything an agent hits in a tight loop, that overhead tends to show up fast."
+        ] },
+      { phrank: 1, name: "The GTM Co-Founder", tagline: "Open-source GTM skills for technical founders", href: "/products/the-gtm-co-founder",
+        comments: [
+          "Packaging GTM as open-source skills a technical founder can actually run is a smart framing. Most GTM advice is either a vague thread or a pricey consultant, so something composable and in the open is genuinely useful. Congrats on the launch.",
+          "How opinionated are the skills, do they encode a specific playbook, or adapt to the product and market you point them at? Curious how you avoid generic advice that reads like it came from any blog.",
+          "The interesting tension here is that great GTM is deeply contextual, it lives in the specific wedge and buyer, yet skills have to generalize to be reusable. Where you draw that line, a reusable framework versus a fill-in-the-blank template that quietly produces sameness, is the whole bet. Curious how you thought about it.",
+          "Since it is open source, are you counting on the community to contribute their own GTM skills, and if so how do you keep quality high rather than a pile of untested playbooks? That curation usually decides whether an open library stays worth using."
+        ] },
+      { phrank: 4, name: "Basedash Subscriptions", tagline: "Subscribe to any dashboard. Delivered on schedule.", href: "/products/basedash",
+        comments: [
+          "Push instead of pull for dashboards is a small shift that changes behavior a lot. The dashboards people actually read are the ones that show up on their own, so scheduling the delivery is the right lever. Nice.",
+          "What lands in the subscription, a static snapshot at send time, or a live link that reflects the data when opened? That difference matters a lot for anything people make decisions on.",
+          "The quietly hard part with scheduled dashboards is that a number without its cause trains people to ignore it. A metric that moved is only useful if the delivery also carries the why, otherwise you have built a very reliable way to send noise. Curious whether you lean on annotation or a summary rather than just shipping the chart.",
+          "How do you handle the case where the underlying query breaks or returns nothing on send day, does the subscription fail loudly, or quietly deliver an empty chart? That failure mode is usually where scheduled reports lose trust."
+        ] },
+      { phrank: 13, name: "Arbyn", tagline: "AI support agent for Shopify that acts on your orders", href: "/products/arbyn",
+        comments: [
+          "A support agent that actually acts on orders, not just drafts a reply, is the harder and more useful version of this. Answering is easy; safely taking an action on someone's real order is where the value and the risk both live. Congrats on shipping it.",
+          "What are the guardrails on actions, is there a refund or spend ceiling where it has to hand off to a human, or can it act fully autonomously? Curious where you drew the line between convenience and control.",
+          "The real challenge with an agent that mutates orders is that support requests are often adversarial: people learn to phrase things to get a refund the policy would not allow. So the hard part is not understanding the request, it is the agent holding a policy line under social pressure. Curious how you keep it from being talked into things a human rep would refuse.",
+          "When it acts on an order and gets it wrong, how reversible is that, is there an audit trail and an undo, or does a bad action just become a real-world mess? For anything touching money, that safety net usually decides adoption."
+        ] }
+    ] },
   "2026-08-07": {
     label: "Friday, August 7, 2026",
     picks: [
