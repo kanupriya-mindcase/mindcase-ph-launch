@@ -1,6 +1,7 @@
 /* ============================================================
    WARM-UP BOARDS — one entry per day, newest anywhere (sorted at render).
    The daily 1 PM IST routine ADDS a new dated key here each day.
+   Target 10 picks/day (fall back to fewer only on a thin-lane day; do not pad with off-topic apps).
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
@@ -41,6 +42,41 @@ window.BOARDS = {
           "What are the guardrails on actions, is there a refund or spend ceiling where it has to hand off to a human, or can it act fully autonomously? Curious where you drew the line between convenience and control.",
           "The real challenge with an agent that mutates orders is that support requests are often adversarial: people learn to phrase things to get a refund the policy would not allow. So the hard part is not understanding the request, it is the agent holding a policy line under social pressure. Curious how you keep it from being talked into things a human rep would refuse.",
           "When it acts on an order and gets it wrong, how reversible is that, is there an audit trail and an undo, or does a bad action just become a real-world mess? For anything touching money, that safety net usually decides adoption."
+        ] },
+      { phrank: 139, name: "Proxync", tagline: "Developer Tunneling Workspace Studio", href: "/products/proxync",
+        comments: [
+          "A proper workspace around dev tunneling, not just a single ephemeral URL, is a nice step up. Anyone who has juggled five ngrok tabs for webhooks and local previews knows the raw tunnel is only half the job. Congrats on shipping.",
+          "How do you handle stable URLs across restarts, does a tunnel keep its address so webhooks and callbacks do not break every time you relaunch? That persistence is usually the difference between a demo and daily use.",
+          "The quietly hard part with tunneling is that you are punching a hole from the public internet straight to a dev machine, so the studio is really a security surface as much as a convenience. Whether you make it easy to scope, auth, and expire a tunnel, or just expose the port, is what separates a tool teams trust from one security bans. Curious where you landed.",
+          "Does it handle team sharing, can a teammate hit your tunnel with access control, or is it single-user for now? For anything past solo debugging, that sharing model tends to decide adoption."
+        ] },
+      { phrank: 15, name: "Notewarp", tagline: "Turn messy thoughts into clear, reusable notes with AI", href: "/products/notewarp",
+        comments: [
+          "The reusable part is the interesting promise here. Plenty of tools clean up a note once; far fewer make it something you can actually pull back into the next thing you write. If you nail that, it is genuinely useful. Congrats on launching.",
+          "What does reusable mean in practice, are notes getting tagged and linked so they resurface later, or is it more of a one-time cleanup pass? Curious how much structure it imposes versus leaves to you.",
+          "The subtle risk with AI note cleanup is that messy thoughts often carry the actual signal, the half-formed connection you had not articulated yet. Polish too aggressively and you can sand off the very idea that made the note worth keeping. Curious how you balance clarity against preserving the raw insight.",
+          "How does it decide what to keep versus cut when it cleans a note up, and can you see or undo that? For anything that rewrites your own words, that transparency usually determines whether people trust it."
+        ] },
+      { phrank: 8, name: "Pesterly", tagline: "Automated client document collection that follows up for you", href: "/products/pesterly",
+        comments: [
+          "Chasing clients for documents is the unglamorous work that quietly eats a whole role at agencies and firms. Automating the follow-up specifically, not just the request, is the right place to aim. Congrats on shipping it.",
+          "How smart is the follow-up cadence, does it adapt to whether a client has opened or partially uploaded, or is it a fixed reminder schedule? The line between helpful nudge and annoying pest is thin, so I am curious how you tune it.",
+          "The interesting tension with automated chasing is that the tone that gets a document from a slow client is usually warmth and specificity, and automation tends to drift toward generic and pushy. Getting a nudge to still feel like a real person on your team is the hard part, and where most of these read as spam. Curious how you keep it human.",
+          "What happens on the receiving end, does the client need an account and a portal, or can they just reply or drop a file? That friction on their side usually decides whether the collection actually completes."
+        ] },
+      { phrank: 12, name: "Otiumz", tagline: "AI-powered social app for every side of you", href: "/products/otiumz",
+        comments: [
+          "The every-side-of-you framing is a genuinely different take in a space where most social apps flatten people into one profile. Leaning into context and multiple selves is a bolder bet than another feed. Congrats on launching.",
+          "Where does the AI actually sit, is it shaping what you see, helping you create and post, or matching you to people? Social plus AI can mean very different products, so curious which one this is at its core.",
+          "The hard problem hiding in every side of you is boundary management: the whole appeal is keeping your contexts separate, but one wrong crossover, the wrong side shown to the wrong people, is exactly the failure that burns trust in a social app permanently. How you enforce those walls is the real product. Curious how you thought about it.",
+          "How are you seeding the early network, since a social app is only as good as who else is on it? The cold-start path tends to matter more than any single feature at launch."
+        ] },
+      { phrank: 7, name: "Patch", tagline: "Lock down your digital life and stay on top of it", href: "/products/patch-your-security-center",
+        comments: [
+          "A single place to actually see and act on your digital security, rather than a scattered checklist you never finish, is a real gap for most people. Making it feel manageable instead of scary is the right framing. Congrats on the launch.",
+          "How much can it act on your behalf versus just surface issues, can it actually close a risky session or rotate an exposed login, or does it hand you a to-do list? That gap between telling and doing is usually where security tools live or die.",
+          "The paradox with a security center is that to protect everything it has to connect to everything, so the tool meant to reduce your risk becomes a very high-value target itself. How you earn trust for that access, what you see, what you store, what stays local, is arguably the whole product. Curious how you approached it.",
+          "How do you keep it from becoming alert fatigue, where every scan surfaces ten scary items and people tune it out? Prioritizing what actually matters is usually harder and more valuable than finding everything."
         ] }
     ] },
   "2026-08-07": {
