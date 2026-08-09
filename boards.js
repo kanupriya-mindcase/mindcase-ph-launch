@@ -5,6 +5,80 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-09": {
+    label: "Sunday, August 9, 2026",
+    picks: [
+      { phrank: 4, name: "Proxy Tester by ScrapeOps", tagline: "Benchmark proxies for reliable, target-specific scraping", href: "/products/proxy-benchmark-by-scrapeops",
+        comments: [
+          "Target-specific is the key word here. A proxy pool that looks great in aggregate can be quietly useless against the one site you actually need, so benchmarking per target is the honest way to measure it. Congrats on shipping this.",
+          "How fresh are the benchmarks, since proxy quality against a given target can flip within hours as blocks roll out? Curious whether this is a point-in-time score or something continuously re-measured.",
+          "The genuinely hard part with proxy benchmarking is that measuring changes the result: hammer a target to score your pool and you help it fingerprint and burn those very IPs. So the interesting question is how you benchmark aggressively enough to be useful without accelerating the blocks you are trying to measure. Curious how you thread that.",
+          "Do you separate the proxy from the rest of the fingerprint when scoring, since a failure is often headers or TLS, not the IP itself? Curious how you attribute a block to the proxy specifically versus the whole request shape."
+        ] },
+      { phrank: 1, name: "Omniwork", tagline: "The Creative Agent OS, create better with desktop AI agents", href: "/products/omniwork-2",
+        comments: [
+          "Framing it as an OS for creative agents rather than one more chat box is the right ambition. The value shows up when agents can actually reach your files and tools on the desktop, not just talk about them. Congrats on the launch.",
+          "What can a desktop agent here actually touch, is it driving real apps and the filesystem, or working in its own sandbox and handing you output? That boundary changes a lot about what it can do.",
+          "The interesting tension in a creative agent OS is that creative work is subjective, so an agent that acts confidently can just as easily produce polished work you did not want. Where you put the human checkpoint, before it acts or after, is the whole feel of the product. Curious how you decided when it asks versus when it just does.",
+          "How do multiple agents coordinate here, is there a shared context they all see, or does each run in isolation? For anything called an OS, that orchestration layer is usually where the real value or the real mess lives."
+        ] },
+      { phrank: 10, name: "DocsAlot CLI", tagline: "Let Claude or Codex create and maintain good looking docs", href: "/products/docsalot-2",
+        comments: [
+          "The maintain part is the real promise. Anyone can generate docs once; the reason docs rot is that nobody updates them as the code moves. Aiming an agent at the upkeep specifically is the right target. Congrats on shipping.",
+          "What triggers a doc update, every commit, a CI step, or on demand? Curious how you keep docs current without regenerating everything and burning tokens on unchanged sections.",
+          "The subtle problem with agent-maintained docs is confident drift: the agent will happily rewrite a section to match code it half-understood, and now the docs are wrong in a way that reads authoritative. Stale docs at least look stale; confidently wrong ones are worse. Curious how you guard against it documenting intent it inferred rather than intent that is real.",
+          "How does it decide what deserves docs versus what is noise, since not every function or flag needs a page? That editorial judgment is usually what separates useful docs from an exhausting wall of generated text."
+        ] },
+      { phrank: 3, name: "VoiceOS App Store", tagline: "The app store for voice native apps that lives in your notch", href: "/products/voiceos",
+        comments: [
+          "A dedicated home for voice-native apps is a real gap, since voice tools have had nowhere to be discovered the way the App Store does for mobile. Putting it in the notch as an always-available surface is a clever placement. Congrats on launching.",
+          "What makes an app voice native here versus just voice-enabled, is there a shared runtime or intent layer these apps plug into, or is it more of a curated directory? Curious how deep the platform goes.",
+          "The hard problem for any voice platform is disambiguation across apps: once several voice apps are listening, deciding which one an utterance was meant for, without a tap to pick, is genuinely unsolved for most. Whether you route by explicit invocation or try to infer intent is the make-or-break call. Curious which way you went.",
+          "How does an app get discovered by voice rather than by browsing, can I ask for a capability and get the right app surfaced, or do I still install by name first? That discovery loop is what would make it feel like a real store instead of a list."
+        ] },
+      { phrank: 8, name: "Argos", tagline: "The AI that acts as you, right in your browser", href: "/products/argos-2",
+        comments: [
+          "Acting inside your own browser with your real sessions is the version of this that is actually useful, since most of the web that matters is behind a login. It is also the harder and riskier build, which is where the value is. Congrats on shipping.",
+          "What are the guardrails when it acts as you on real accounts, is there a confirmation step before anything irreversible like a send, a purchase, or a delete? Curious where you drew the line between autonomy and a checkpoint.",
+          "The deep challenge with an agent that acts as you is that it inherits all of your authority with none of your sense of consequences, so a small misread on a page can become a real action on a real account. The interesting part is not the automation, it is how you teach it which actions are cheap and reversible versus which it must never take alone. Curious how you model that.",
+          "How does it hold up when a site actively resists automation, do you lean on the real browser and its logged-in state to look human, or does it break the moment a site tightens its bot checks? That resilience usually decides whether it survives past the demo."
+        ] },
+      { phrank: 16, name: "Soup CLI", tagline: "Fine-tune an 8B LLM on a 4 GB laptop GPU", href: "/products/soup-cli",
+        comments: [
+          "Fine-tuning an 8B model on a 4 GB GPU sounds almost implausible, and making it a simple CLI is the part that could get people actually trying it instead of just reading about it. If the results hold, that is real democratization. Congrats on shipping.",
+          "What is the trick to fit it, aggressive quantization plus LoRA with offloading, and what is the honest quality gap versus running it on a proper GPU? Curious where the tradeoff bites.",
+          "The interesting question with ultra-constrained fine-tuning is not whether it runs, it is whether the adapter actually learned the task or just memorized your tiny dataset, which is exactly what tight-budget setups tend to do. So the real story is how you keep a 4 GB run from overfitting into something that looks trained but generalizes to nothing. Curious how you approached it.",
+          "What is the realistic dataset size and wall-clock time for a useful result on that hardware, minutes, or an overnight run? That practical envelope usually decides whether people adopt it or just star the repo."
+        ] },
+      { phrank: 5, name: "AgentConnect", tagline: "Tag any agent, wherever work happens", href: "/products/agentconnect",
+        comments: [
+          "Being able to tag an agent wherever the work already lives, instead of leaving for a separate app, is the right interaction model. The best agent is the one you can reach without changing context. Congrats on the launch.",
+          "When you tag an agent in a thread, how much of that surrounding context does it actually get, just the message, or the whole conversation and its history? That window into the workspace usually determines whether the reply is useful.",
+          "The quietly hard part with agents that live across every tool is permission inheritance: tag an agent into a channel and it can suddenly see everything a member sees, so the tag becomes an access-granting act people do casually. Whether the agent scopes down to the task or inherits the full room is the real security story. Curious how you handle it.",
+          "How do you keep multiple agents from stepping on each other when several get tagged in the same place, is there a routing or handoff model, or do they all just respond? That coordination gets messy fast at team scale."
+        ] },
+      { phrank: 6, name: "Prompt Golf", tagline: "Prompt Engineering As a Sport", href: "/products/prompt-golf",
+        comments: [
+          "Turning prompt engineering into a scored game is a genuinely fun way to build intuition that usually only comes from grinding. Constraints like fewest tokens force the kind of precision people skip. Congrats on the launch.",
+          "How do you score a submission fairly when the same prompt can give different outputs run to run, do you average over many samples, or pin the model and settings? That determinism problem seems central to a leaderboard being trustworthy.",
+          "The interesting risk with competitive prompting is that winning strategies often overfit the judge, not the task: people learn to game the specific grader or model quirks rather than write genuinely good prompts. So the design question is whether the sport teaches transferable skill or just how to beat your scoring function. Curious how you keep it the former.",
+          "Is it locked to one model, or can a prompt be scored across several, since a prompt that wins on one can flop on another? Cross-model robustness would make the skill feel a lot more real."
+        ] },
+      { phrank: 14, name: "Workflo", tagline: "Mac workspace automation that never sees your screen", href: "/products/workflo-2",
+        comments: [
+          "The 'never sees your screen' framing is a smart wedge, since most Mac automation and agent tools quietly rely on screenshots, which makes people nervous. Getting the automation without the surveillance is the right promise. Congrats on shipping.",
+          "If it is not watching the screen, what is it driving, the accessibility tree, app-level APIs, system events? Curious what it hooks into to act reliably without visual input.",
+          "The interesting tradeoff here is that screen-based automation is ugly but universal, it works on any app because everything renders pixels, while a no-screen approach is cleaner but only as good as the hooks each app exposes. So the real question is coverage: what breaks the moment an app has no accessibility support or a custom UI. Curious how you handle the long tail.",
+          "How do you handle an automation that goes wrong mid-run without a visual to confirm state, is there a dry-run or a way to verify it did what you meant? Acting blind to the screen makes that check harder and more important."
+        ] },
+      { phrank: 19, name: "Bunzee 3.0", tagline: "Idea to IA to wireframes to design to build, via MCP", href: "/products/bunzee-ai",
+        comments: [
+          "Compressing the whole idea-to-build path into one flow, and wiring it through MCP so it plugs into tools people already use, is an ambitious and sensible bet. The handoffs between design and build are exactly where projects stall. Congrats on the launch.",
+          "Where in that chain does the human steer, can I redirect at the wireframe or IA stage, or is it mostly one long generation you accept at the end? Those checkpoints usually decide whether the output is yours or just the model's.",
+          "The hard part in any idea-to-build pipeline is that error compounds across stages: a slightly off IA becomes wrong wireframes becomes a build that misses the point, and by the end it is hard to see where it went sideways. So the interesting question is whether each stage can be corrected in isolation, or whether a late fix means regenerating everything downstream. Curious how you contain that.",
+          "How production-real is the build at the end, shippable code you own, or a prototype you rebuild for anything serious? That gap between demo-fast and actually-usable is where these pipelines get judged."
+        ] }
+    ] },
   "2026-08-08": {
     label: "Saturday, August 8, 2026",
     picks: [
