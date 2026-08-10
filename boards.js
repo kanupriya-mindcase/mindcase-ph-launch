@@ -5,6 +5,80 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-10": {
+    label: "Monday, August 10, 2026",
+    picks: [
+      { phrank: 3, name: "Paritok", tagline: "Spend up to 85% less and run 3x longer coding agent sessions", href: "/products/paritok",
+        comments: [
+          "Cost and session length are the two things that quietly cap how much people actually lean on coding agents, so aiming straight at both is smart. 85% less is a bold number to put on the box. Congrats on shipping.",
+          "Where does the saving come from, prompt caching, context pruning, cheaper models for sub-steps, or all three? Curious which lever does the heavy lifting and what quality cost, if any, comes with it.",
+          "The interesting tension with running agents 3x longer is that the reason long sessions fail is not just token cost, it is context rot: the further in you go, the more the agent is reasoning over its own stale summaries and drifts. So the real trick is not fitting more tokens, it is keeping the agent coherent deep into a session. Curious whether you are compressing context or actually curating what stays.",
+          "Does the cost reduction change behavior at all, does the agent get more cautious about expensive steps, or is it purely under the hood and invisible to how it works? Curious whether the savings ever leak into output quality."
+        ] },
+      { phrank: 1, name: "oqoqo", tagline: "Build evals and custom benchmarks for real-world tasks", href: "/products/oqoqo",
+        comments: [
+          "Evals for real-world tasks, not just tidy benchmarks, is exactly where the gap is. Everyone ships a demo that works and then has no idea if a prompt change quietly broke it. Making that measurable is the unglamorous but crucial part. Congrats on shipping.",
+          "For open-ended tasks where there is no single right answer, how do you define pass or fail, an LLM judge, reference outputs, rubric scoring? Curious how you keep the grader from becoming the least reliable part of the eval.",
+          "The quietly hard problem with custom evals is that they rot faster than code: the model updates, the task shifts, and last month's benchmark now measures the wrong thing while still reporting a confident number. So the real question is not building an eval, it is knowing when to stop trusting one. Curious how you surface that staleness.",
+          "How much work is it to keep an eval set representative as real usage drifts, do you pull failing production cases back into the suite automatically, or is it manual curation? That feedback loop usually decides whether evals stay honest."
+        ] },
+      { phrank: 5, name: "Prime Agent", tagline: "A coding agent that can refine its own harness", href: "/products/prime-intellect",
+        comments: [
+          "An agent that can improve its own harness, not just its output, is a genuinely interesting direction, since the scaffolding is usually the ceiling on what these can do. Open-sourcing that is a bold move. Congrats on shipping.",
+          "When it refines its own harness, what stops it from making itself worse, is there an eval gate that has to pass before a change to the scaffolding sticks? Curious how you keep self-modification from drifting somewhere bad.",
+          "The fascinating and slightly unnerving part of a self-refining harness is the feedback loop: the agent judges its own improvements with the very reasoning it is trying to improve, which can quietly converge on what looks better to itself rather than what actually works. So the deep question is where the external ground truth comes from. Curious how you anchor it to something outside the agent's own judgment.",
+          "Are the harness changes it makes durable and inspectable, can a human read the diff and roll it back, or does it evolve in ways that are hard to audit? For anything self-modifying, that visibility is usually the whole safety story."
+        ] },
+      { phrank: 10, name: "Heym", tagline: "Build agentic systems. Run them with confidence", href: "/products/heym",
+        comments: [
+          "The 'run them with confidence' half is the part most agent frameworks skip. Building an agent is a weekend; trusting it in production is the actual problem, so leaning into reliability is the right emphasis. Congrats on the launch.",
+          "What does confidence concretely look like here, replay and tracing, guardrails, evals in the loop? Curious where you draw the line between a framework and an actual reliability layer.",
+          "The genuinely hard thing about running agents with confidence is that they are non-deterministic by nature, so a system that passed every test yesterday can fail today on the same input for reasons that are not a bug you can fix. The interesting question is whether you aim for reproducibility, or for graceful failure when the agent inevitably goes off script. Curious which philosophy you built around.",
+          "When an agent misbehaves in production, how fast can someone actually see why, is there a trace that shows the reasoning and tool calls, or does it come back as an opaque bad result? That debuggability tends to decide whether teams keep it running."
+        ] },
+      { phrank: 6, name: "AI Group Call", tagline: "Type a goal, join a live voice call with six AI minds", href: "/products/ai-group-call",
+        comments: [
+          "A live voice room with several AI minds is a genuinely novel format, closer to a brainstorm than a chat. The bet that multiple perspectives out loud beats one long answer is worth testing. Congrats on the launch.",
+          "How do you handle turn-taking so six AI voices do not talk over each other or turn into noise, is there a moderator model routing who speaks? Curious how you keep it a conversation rather than a pile-up.",
+          "The interesting risk with many AI minds in one room is that they tend to converge, not diverge: models trained similarly often agree with each other and with you, so you get the feeling of a debate with none of the friction that makes debate useful. The real design question is how you engineer genuine disagreement rather than six voices politely nodding. Curious how you keep them distinct.",
+          "Does the voice format actually add something over reading six takes, or is the latency of talking a cost you are betting people will pay for the feel of it? Curious what you have seen people reach for it for."
+        ] },
+      { phrank: 9, name: "Remix", tagline: "Figma, but on your production app. Test variants and ship.", href: "/products/remix-8",
+        comments: [
+          "Editing on the real production app instead of a mockup closes the gap where design intent usually dies in handoff. If what you tweak is what actually ships, that is a meaningful shortcut. Congrats on launching.",
+          "When you change a variant on the production app, where does that live, an overlay or CSS layer on top, or actual changes to the codebase? Curious how a visual tweak becomes something engineers can trust and merge.",
+          "The hard part with editing a live production app is that the app is not static markup, it is state, data, and logic, so a variant that looks perfect on your screen can break the moment real data or a different user state loads. The interesting question is how you test a variant against the messy reality of production rather than the happy path you are looking at. Curious how you handle that.",
+          "How do you keep experiments from stepping on the real app for real users, is there isolation so a test variant never leaks into production traffic by accident? That safety boundary usually decides whether teams let it near prod."
+        ] },
+      { phrank: 31, name: "OutageDeck", tagline: "Outage alerts for 172 cloud vendors, from official feeds", href: "/products/outagedeck",
+        comments: [
+          "One place for outage alerts across 172 vendors is the kind of boring-but-essential tool ops teams end up depending on. Pulling from official feeds rather than guessing is the trustworthy way to do it. Congrats on shipping.",
+          "How do you handle the lag where a vendor is clearly down but their official status page still says all green for another 30 minutes? Curious whether you supplement the official feed with anything faster, or stay strictly official on purpose.",
+          "The subtle limitation of official-feeds-only is that status pages are a vendor's PR surface as much as a technical one, so they under-report and lag exactly when an outage is worst. The interesting question is whether pure official data is a feature (no false alarms) or the core weakness (you learn last), and how you frame that tradeoff. Curious where you land.",
+          "Can it map which of your own services actually depend on each vendor, so an alert is about my stack rather than a generic AWS notice? That relevance filter is usually what turns an outage feed from noise into something you act on."
+        ] },
+      { phrank: 4, name: "SecondBrain Note by GenSpark", tagline: "A MagSafe AI Recorder That Acts for You", href: "/products/genspark",
+        comments: [
+          "A dedicated capture device plus an agent that acts on what it heard is a cleaner take than another app fighting for phone attention. The recorder that also does something with the recording is the useful version. Congrats on shipping.",
+          "When it acts for you off a conversation, what is the confirmation loop, does it draft actions for you to approve, or execute directly from what it thinks it heard? Mishearing a meeting and acting on it is a scary failure mode, so curious how you gate it.",
+          "The quietly hard part with an always-available recorder is not the transcription, it is consent and context: it will inevitably capture people and moments that did not agree to be recorded or acted on, and how you handle that socially and technically is more make-or-break than accuracy. Curious how you thought about the other people in the room, not just the wearer.",
+          "How much runs on-device versus in the cloud, since a recorder people carry everywhere lives or dies on whether that audio ever leaves their possession? Curious where you drew that line."
+        ] },
+      { phrank: 24, name: "FirstSignal", tagline: "AI voice agent for first-round interview screening", href: "/products/firstsignal",
+        comments: [
+          "First-round screening is genuinely the most repetitive, time-sucking part of hiring, so pointing a voice agent at exactly that stage, rather than the whole process, is a sensible scope. Congrats on the launch.",
+          "What signal is the voice screen actually scoring, structured answers to set questions, or something softer about communication? Curious how you keep it measuring the job rather than accent, fluency, or confidence that correlate with the wrong things.",
+          "The unavoidable hard problem here is bias and fairness: an automated voice screen makes a first cut on real people at scale, so any skew in what it rewards gets applied uniformly and quietly to everyone. The interesting question is not whether it is faster, it is how you audit that it is not filtering out good candidates for the wrong reasons. Curious how you approach that.",
+          "On the candidate side, does talking to an AI in round one help or hurt how people feel about the company, and have you seen good candidates opt out? That experience cost is easy to underweight and hard to undo."
+        ] },
+      { phrank: 7, name: "Gutta", tagline: "A tiny, offline task list for your Mac menu bar", href: "/products/gutta",
+        comments: [
+          "In a space where every to-do app wants an account, a sync engine, and AI, a tiny offline menu-bar list is a refreshing anti-pitch. Sometimes the feature is the restraint. Congrats on shipping it.",
+          "Offline by design is a clear stance, but do people eventually want it on two machines, and if so how do you keep the simplicity while adding any sync? That is usually the moment tiny tools start to bloat.",
+          "The interesting thing about deliberately tiny tools is that their whole value is what they refuse to do, but every happy user brings one more reasonable feature request, and saying yes a few times quietly turns it into the thing it was reacting against. The real product decision here is what you will never add. Curious what is firmly off the list.",
+          "What is the one thing you found people kept reaching for that you decided to leave out anyway? That line usually says more about the product than the feature list does."
+        ] }
+    ] },
   "2026-08-09": {
     label: "Sunday, August 9, 2026",
     picks: [
