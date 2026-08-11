@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hunters · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .hunter-list{ display:flex; flex-direction:column; gap:12px; margin-top:18px; }
+  .hcard{ border:1px solid var(--line); background:var(--surface); padding:15px 17px; }
+  .hcard.top{ border-left:3px solid var(--ph); }
+  .hcard .htop{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .hcard .hname{ font-family:var(--mono); font-weight:700; font-size:15px; color:var(--ink); }
+  .hcard .hhandle{ font-family:var(--mono); font-size:12px; }
+  .hcard .hcount{ margin-left:auto; font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ph); white-space:nowrap; }
+  .hcard .note{ font-size:12px; color:var(--ink-faint); margin-top:3px; }
+  .hcard .prods{ margin-top:11px; display:flex; flex-direction:column; gap:6px; }
+  .hcard .prod{ font-size:14px; color:var(--ink-soft); display:flex; align-items:baseline; gap:9px; }
+  .hcard .prod .rank{ font-family:var(--mono); font-size:11px; color:var(--ink-faint); font-variant-numeric:tabular-nums; min-width:26px; }
+  .hcard .prod a.pname{ color:var(--ink); font-weight:700; }
+  .hcard .prod .tag{ color:var(--ink-faint); font-size:13px; font-weight:400; }
+  .self{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); border:1px solid var(--line); padding:1px 6px; }
+  .hunter-list a{ color:var(--ph); }
+</style>
+</head>
+<body data-page="hunters">
+<div id="app-nav"></div>
+<div class="wrap page">
+  <div class="kicker">Research · Product Hunt, July 2026</div>
+  <h2 class="title">Hunters</h2>
+  <p class="lead">Who hunted July's top 17 products, grouped by hunter. The people who hunted several are the well-connected names in this space, worth knowing when we decide who could hunt Mindcase. Pulled from the Product Hunt API. Hunter is the person who posted the launch; products marked <span class="self">self</span> were hunted by their own maker.</p>
+
+  <div class="section">
+    <h3>Prolific hunters (2 or more)</h3>
+    <p class="readonly-note">These four hunted 11 of the 17 between them. The strongest leads for an outside hunter.</p>
+    <div class="hunter-list">
+
+      <div class="hcard top">
+        <div class="htop"><span class="hname">Rohan Chaubey</span> <a class="hhandle" href="https://www.producthunt.com/@rohanrecommends" target="_blank" rel="noopener">@rohanrecommends</a> <span class="hcount">4 hunts</span></div>
+        <div class="note">A prolific community hunter, launches AI and dev tools constantly.</div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#6</span><a class="pname" href="https://www.producthunt.com/products/fuzzy-ai-2" target="_blank" rel="noopener">Fuzzy AI</a><span class="tag">warm prospects before outreach</span></div>
+          <div class="prod"><span class="rank">#8</span><a class="pname" href="https://www.producthunt.com/products/unabyss" target="_blank" rel="noopener">Unabyss for Claude</a><span class="tag">shared memory across LLMs</span></div>
+          <div class="prod"><span class="rank">#14</span><a class="pname" href="https://www.producthunt.com/products/prefactor" target="_blank" rel="noopener">Prefactor</a><span class="tag">evaluate AI agents in real-time</span></div>
+          <div class="prod"><span class="rank">#15</span><a class="pname" href="https://www.producthunt.com/products/prelint" target="_blank" rel="noopener">Prelint</a><span class="tag">prevent drift in AI-written code</span></div>
+        </div>
+      </div>
+
+      <div class="hcard top">
+        <div class="htop"><span class="hname">Chris Messina</span> <a class="hhandle" href="https://www.producthunt.com/@chrismessina" target="_blank" rel="noopener">@chrismessina</a> <span class="hcount">3 hunts</span></div>
+        <div class="note">The all-time #1 Product Hunt hunter. Inventor of the hashtag. Enormous reach.</div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#5</span><a class="pname" href="https://www.producthunt.com/products/anysearch" target="_blank" rel="noopener">AnySearch</a><span class="tag">real-time structured search for agents</span></div>
+          <div class="prod"><span class="rank">#7</span><a class="pname" href="https://www.producthunt.com/products/glaze-4" target="_blank" rel="noopener">Glaze by Raycast</a><span class="tag">build Mac apps by chatting with AI</span></div>
+          <div class="prod"><span class="rank">#10</span><a class="pname" href="https://www.producthunt.com/products/fypro" target="_blank" rel="noopener">Fypro</a><span class="tag">turn TikTok followers into customers</span></div>
+        </div>
+      </div>
+
+      <div class="hcard top">
+        <div class="htop"><span class="hname">Garry Tan</span> <a class="hhandle" href="https://www.producthunt.com/@garrytan" target="_blank" rel="noopener">@garrytan</a> <span class="hcount">2 hunts</span></div>
+        <div class="note">President and CEO of Y Combinator. Both were YC-linked launches.</div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#2</span><a class="pname" href="https://www.producthunt.com/products/pazi" target="_blank" rel="noopener">Pazi</a><span class="tag">vibe code business operations</span></div>
+          <div class="prod"><span class="rank">#9</span><a class="pname" href="https://www.producthunt.com/products/sim-studio" target="_blank" rel="noopener">Sim</a><span class="tag">open-source workspace for AI agents</span></div>
+        </div>
+      </div>
+
+      <div class="hcard top">
+        <div class="htop"><span class="hname">Zac Zuo</span> <a class="hhandle" href="https://www.producthunt.com/@zaczuo" target="_blank" rel="noopener">@zaczuo</a> <span class="hcount">2 hunts</span></div>
+        <div class="note">Frequent hunter of AI and 3D or media tools.</div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#13</span><a class="pname" href="https://www.producthunt.com/products/lev8" target="_blank" rel="noopener">Lev8</a><span class="tag">find, research, and reach the right people</span></div>
+          <div class="prod"><span class="rank">#17</span><a class="pname" href="https://www.producthunt.com/products/v2fun" target="_blank" rel="noopener">V2Fun</a><span class="tag">generate 3D characters with AI</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Single launches</h3>
+    <p class="readonly-note">One hunt each. Four were self-hunted (the maker posted their own product).</p>
+    <div class="hunter-list">
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">Anand Balakrishnan</span> <a class="hhandle" href="https://www.producthunt.com/@anand_balakrishnan5" target="_blank" rel="noopener">@anand_balakrishnan5</a> <span class="hcount">1 hunt</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#16</span><a class="pname" href="https://www.producthunt.com/products/ski" target="_blank" rel="noopener">SKI</a><span class="tag">free voice coding for Claude Code, Codex</span></div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">fmerian</span> <a class="hhandle" href="https://www.producthunt.com/@fmerian" target="_blank" rel="noopener">@fmerian</a> <span class="hcount">1 hunt</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#3</span><a class="pname" href="https://www.producthunt.com/products/openseo" target="_blank" rel="noopener">OpenSEO</a><span class="tag">the open source Ahrefs alternative</span></div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">Doran Gouron Le Roch</span> <a class="hhandle" href="https://www.producthunt.com/@dorangouron" target="_blank" rel="noopener">@dorangouron</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#1</span><a class="pname" href="https://www.producthunt.com/products/acti-2" target="_blank" rel="noopener">Acti</a><span class="tag">agentic keyboard for mobile</span></div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">Yahia Bakour</span> <a class="hhandle" href="https://www.producthunt.com/@yahia_bakour3" target="_blank" rel="noopener">@yahia_bakour3</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#4</span><a class="pname" href="https://www.producthunt.com/products/context-dev" target="_blank" rel="noopener">Context.dev</a><span class="tag">one API to scrape, enrich, extract the web</span></div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">Chi T.</span> <a class="hhandle" href="https://www.producthunt.com/@chitran241" target="_blank" rel="noopener">@chitran241</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#11</span><a class="pname" href="https://www.producthunt.com/products/velo-4" target="_blank" rel="noopener">Velo 3.0</a><span class="tag">AI video infrastructure</span></div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="htop"><span class="hname">Konstantin Borimechkov</span> <a class="hhandle" href="https://www.producthunt.com/@konstantimb" target="_blank" rel="noopener">@konstantimb</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
+        <div class="prods">
+          <div class="prod"><span class="rank">#12</span><a class="pname" href="https://www.producthunt.com/products/yc-company-explorer" target="_blank" rel="noopener">ExploreYC</a><span class="tag">open-source API for YC and a16z data</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Read of it</h3>
+    <div class="panel">
+      <p><b>Chris Messina</b> and <b>Rohan Chaubey</b> are the two obvious names if we ever want an outside hunter with real reach. Messina is the platform's most famous hunter; Chaubey hunts AI and dev tools almost daily, which is exactly our audience. <b>Garry Tan</b> only hunts YC-connected launches, so realistic only if that applies. Most other top products were self-hunted, which is a reminder that self-hunting is completely normal at the top and an outside hunter is a bonus, not a requirement.</p>
+    </div>
+  </div>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
