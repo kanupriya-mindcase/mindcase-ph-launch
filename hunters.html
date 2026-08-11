@@ -23,6 +23,9 @@
   .hcard .prod a.pname{ color:var(--ink); font-weight:700; }
   .hcard .prod .tag{ color:var(--ink-faint); font-size:13px; font-weight:400; }
   .self{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); border:1px solid var(--line); padding:1px 6px; }
+  .hrank{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); font-weight:700; margin-right:2px; }
+  .d1prods{ margin-top:9px; font-size:12.5px; line-height:1.85; color:var(--ink-soft); }
+  .d1prods a{ color:var(--ink); white-space:nowrap; }
   .hunter-list a{ color:var(--ph); }
 </style>
 </head>
@@ -31,11 +34,17 @@
 <div class="wrap page">
   <div class="kicker">Research · Product Hunt, July 2026</div>
   <h2 class="title">Hunters</h2>
-  <p class="lead">Who hunted July's top 17 products, grouped by hunter. The people who hunted several are the well-connected names in this space, worth knowing when we decide who could hunt Mindcase. Pulled from the Product Hunt API. Hunter is the person who posted the launch; products marked <span class="self">self</span> were hunted by their own maker.</p>
+  <p class="lead">Who hunts the products that reach the top, so we know who could hunt Mindcase. Two views, both from the Product Hunt API: the hunters behind the daily #1 over the last three months, and July's top 17 by hunter. Hunter is the person who posted the launch; products marked <span class="self">self</span> were hunted by their own maker.</p>
 
   <div class="section">
-    <h3>Prolific hunters (2 or more)</h3>
-    <p class="readonly-note">These four hunted 11 of the 17 between them. The strongest leads for an outside hunter.</p>
+    <h3>Who hunts the daily #1 (May to July 2026)</h3>
+    <p class="readonly-note">Across all 92 days, ranked by how many daily-#1 launches each person hunted. This is the sharpest signal of who reliably lands the top spot.</p>
+    <div class="hunter-list" id="daily1-list"></div>
+  </div>
+
+  <div class="section">
+    <h3>July top 17, by hunter (2 or more)</h3>
+    <p class="readonly-note">These four hunted 11 of the 17 between them.</p>
     <div class="hunter-list">
 
       <div class="hcard top">
@@ -81,7 +90,7 @@
   </div>
 
   <div class="section">
-    <h3>Single launches</h3>
+    <h3>July top 17, single launches</h3>
     <p class="readonly-note">One hunt each. Four were self-hunted (the maker posted their own product).</p>
     <div class="hunter-list">
 
@@ -133,10 +142,33 @@
   <div class="section">
     <h3>Read of it</h3>
     <div class="panel">
-      <p><b>Chris Messina</b> and <b>Rohan Chaubey</b> are the two obvious names if we ever want an outside hunter with real reach. Messina is the platform's most famous hunter; Chaubey hunts AI and dev tools almost daily, which is exactly our audience. <b>Garry Tan</b> only hunts YC-connected launches, so realistic only if that applies. Most other top products were self-hunted, which is a reminder that self-hunting is completely normal at the top and an outside hunter is a bonus, not a requirement.</p>
+      <p>The three-month view makes the answer obvious. <b>Rohan Chaubey</b> hunted 25 of 92 daily #1s, a quarter of every single day, almost all of them AI and dev tools, which is exactly our audience. He is the standout target for an outside hunter. <b>Ben Lang</b> and <b>Chris Messina</b> tie next at 12 each; Messina is the platform's most famous hunter, Ben Lang is the ex-Notion community lead with deep reach. <b>Garry Tan</b> (8) only hunts YC-connected launches, so realistic only if that applies to us.</p>
+      <p style="margin-top:10px;">That said, plenty of #1s were self-hunted, so self-hunting is completely normal at the top and an outside hunter is a bonus, not a requirement. If we do pursue one, Chaubey is the clear first ask.</p>
     </div>
   </div>
 </div>
+<script src="daily1.js"></script>
+<script>
+(function(){
+  var el = document.getElementById('daily1-list');
+  if(!el || !window.DAILY1){ return; }
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  window.DAILY1.hunters.forEach(function(h,i){
+    var prods = h.products.map(function(p){
+      var mm = parseInt(p.date.slice(5,7),10), dd = parseInt(p.date.slice(8,10),10);
+      return '<a href="https://www.producthunt.com/products/'+esc(p.slug)+'" target="_blank" rel="noopener">'+MON[mm-1]+' '+dd+' '+esc(p.name)+'</a>';
+    }).join(' &middot; ');
+    var card = document.createElement('div');
+    card.className = 'hcard' + (h.count>=3 ? ' top' : '');
+    card.innerHTML = '<div class="htop"><span class="hrank">'+(i+1)+'</span><span class="hname">'+esc(h.name)+'</span> '
+      + '<a class="hhandle" href="https://www.producthunt.com/@'+esc(h.username)+'" target="_blank" rel="noopener">@'+esc(h.username)+'</a> '
+      + '<span class="hcount">'+h.count+' &#35;1s</span></div>'
+      + '<div class="d1prods">'+prods+'</div>';
+    el.appendChild(card);
+  });
+})();
+</script>
 <script src="nav.js"></script>
 </body>
 </html>
