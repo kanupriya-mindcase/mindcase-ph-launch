@@ -9,164 +9,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 <style>
-  .hunter-list{ display:flex; flex-direction:column; gap:12px; margin-top:18px; }
-  .hcard{ border:1px solid var(--line); background:var(--surface); padding:15px 17px; }
-  .hcard.top{ border-left:3px solid var(--ph); }
-  .hcard .htop{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
-  .hcard .hname{ font-family:var(--mono); font-weight:700; font-size:15px; color:var(--ink); }
-  .hcard .hhandle{ font-family:var(--mono); font-size:12px; }
-  .hcard .hcount{ margin-left:auto; font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ph); white-space:nowrap; }
-  .hcard .note{ font-size:12px; color:var(--ink-faint); margin-top:3px; }
-  .hcard .prods{ margin-top:11px; display:flex; flex-direction:column; gap:6px; }
-  .hcard .prod{ font-size:14px; color:var(--ink-soft); display:flex; align-items:baseline; gap:9px; }
-  .hcard .prod .rank{ font-family:var(--mono); font-size:11px; color:var(--ink-faint); font-variant-numeric:tabular-nums; min-width:26px; }
-  .hcard .prod a.pname{ color:var(--ink); font-weight:700; }
-  .hcard .prod .tag{ color:var(--ink-faint); font-size:13px; font-weight:400; }
-  .self{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); border:1px solid var(--line); padding:1px 6px; }
-  .hrank{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); font-weight:700; margin-right:2px; }
-  .d1prods{ margin-top:9px; font-size:12.5px; line-height:1.85; color:var(--ink-soft); }
-  .d1prods a{ color:var(--ink); white-space:nowrap; }
-  .hunter-list a{ color:var(--ph); }
+  /* stat tiles */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+  @media (max-width:640px){ .stats{ grid-template-columns:1fr 1fr; } }
+  .stat{ border:1px solid var(--line); background:var(--surface); padding:14px 16px; }
+  .stat .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); }
+  .stat .v{ font-family:var(--mono); font-size:24px; font-weight:700; color:var(--ink); margin-top:5px; font-variant-numeric:tabular-nums; }
+  .stat .v.accent{ color:var(--ph); }
+  .stat .sub{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
+
+  /* leaderboard */
+  .lb-wrap{ margin-top:18px; }
+  .lb-item{ margin-bottom:6px; }
+  .lb-row{ display:flex; align-items:center; gap:14px; width:100%; padding:10px 13px; background:var(--surface); border:1px solid var(--line); cursor:pointer; text-align:left; font-family:inherit; color:inherit; }
+  .lb-row:hover{ border-color:var(--line-strong); }
+  .lb-row.open{ border-color:var(--ph); }
+  .lb-row .rk{ flex:0 0 24px; font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink-faint); font-variant-numeric:tabular-nums; }
+  .lb-row .who{ flex:0 0 180px; min-width:0; display:flex; flex-direction:column; gap:1px; }
+  .lb-row .who b{ font-family:var(--mono); font-size:13.5px; font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lb-row .who span{ font-size:11px; color:var(--ink-faint); }
+  .lb-track{ flex:1 1 auto; height:9px; background:var(--muted); min-width:34px; }
+  .lb-fill{ display:block; height:100%; background:var(--ph); }
+  .lb-row .cnt{ flex:0 0 30px; text-align:right; font-family:var(--mono); font-size:14px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .lb-detail{ padding:11px 14px 13px 51px; font-size:12.5px; line-height:1.95; color:var(--ink-soft); background:var(--surface); border:1px solid var(--line); border-top:none; }
+  .lb-detail a{ color:var(--ink); white-space:nowrap; }
+  @media (max-width:560px){ .lb-row .who{ flex-basis:120px; } .lb-detail{ padding-left:18px; } }
 </style>
 </head>
 <body data-page="hunters">
 <div id="app-nav"></div>
 <div class="wrap page">
-  <div class="kicker">Research · Product Hunt, July 2026</div>
+  <div class="kicker">Research · Product Hunt</div>
   <h2 class="title">Hunters</h2>
-  <p class="lead">Who hunts the products that reach the top, so we know who could hunt Mindcase. Two views, both from the Product Hunt API: the hunters behind the daily #1 over the last three months, and July's top 17 by hunter. Hunter is the person who posted the launch; products marked <span class="self">self</span> were hunted by their own maker.</p>
+  <p class="lead">Every day's #1 product for the last 12 months, grouped by who hunted it. Pulled from the Product Hunt API. The names at the top are the people who reliably land the #1 spot, and who to approach first if we ever want an outside hunter for Mindcase.</p>
+
+  <div class="stats" id="stats"></div>
 
   <div class="section">
-    <h3>Who hunts the daily #1 (May to July 2026)</h3>
-    <p class="readonly-note">Across all 92 days, ranked by how many daily-#1 launches each person hunted. This is the sharpest signal of who reliably lands the top spot.</p>
-    <div class="hunter-list" id="daily1-list"></div>
-  </div>
-
-  <div class="section">
-    <h3>July top 17, by hunter (2 or more)</h3>
-    <p class="readonly-note">These four hunted 11 of the 17 between them.</p>
-    <div class="hunter-list">
-
-      <div class="hcard top">
-        <div class="htop"><span class="hname">Rohan Chaubey</span> <a class="hhandle" href="https://www.producthunt.com/@rohanrecommends" target="_blank" rel="noopener">@rohanrecommends</a> <span class="hcount">4 hunts</span></div>
-        <div class="note">A prolific community hunter, launches AI and dev tools constantly.</div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#6</span><a class="pname" href="https://www.producthunt.com/products/fuzzy-ai-2" target="_blank" rel="noopener">Fuzzy AI</a><span class="tag">warm prospects before outreach</span></div>
-          <div class="prod"><span class="rank">#8</span><a class="pname" href="https://www.producthunt.com/products/unabyss" target="_blank" rel="noopener">Unabyss for Claude</a><span class="tag">shared memory across LLMs</span></div>
-          <div class="prod"><span class="rank">#14</span><a class="pname" href="https://www.producthunt.com/products/prefactor" target="_blank" rel="noopener">Prefactor</a><span class="tag">evaluate AI agents in real-time</span></div>
-          <div class="prod"><span class="rank">#15</span><a class="pname" href="https://www.producthunt.com/products/prelint" target="_blank" rel="noopener">Prelint</a><span class="tag">prevent drift in AI-written code</span></div>
-        </div>
-      </div>
-
-      <div class="hcard top">
-        <div class="htop"><span class="hname">Chris Messina</span> <a class="hhandle" href="https://www.producthunt.com/@chrismessina" target="_blank" rel="noopener">@chrismessina</a> <span class="hcount">3 hunts</span></div>
-        <div class="note">The all-time #1 Product Hunt hunter. Inventor of the hashtag. Enormous reach.</div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#5</span><a class="pname" href="https://www.producthunt.com/products/anysearch" target="_blank" rel="noopener">AnySearch</a><span class="tag">real-time structured search for agents</span></div>
-          <div class="prod"><span class="rank">#7</span><a class="pname" href="https://www.producthunt.com/products/glaze-4" target="_blank" rel="noopener">Glaze by Raycast</a><span class="tag">build Mac apps by chatting with AI</span></div>
-          <div class="prod"><span class="rank">#10</span><a class="pname" href="https://www.producthunt.com/products/fypro" target="_blank" rel="noopener">Fypro</a><span class="tag">turn TikTok followers into customers</span></div>
-        </div>
-      </div>
-
-      <div class="hcard top">
-        <div class="htop"><span class="hname">Garry Tan</span> <a class="hhandle" href="https://www.producthunt.com/@garrytan" target="_blank" rel="noopener">@garrytan</a> <span class="hcount">2 hunts</span></div>
-        <div class="note">President and CEO of Y Combinator. Both were YC-linked launches.</div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#2</span><a class="pname" href="https://www.producthunt.com/products/pazi" target="_blank" rel="noopener">Pazi</a><span class="tag">vibe code business operations</span></div>
-          <div class="prod"><span class="rank">#9</span><a class="pname" href="https://www.producthunt.com/products/sim-studio" target="_blank" rel="noopener">Sim</a><span class="tag">open-source workspace for AI agents</span></div>
-        </div>
-      </div>
-
-      <div class="hcard top">
-        <div class="htop"><span class="hname">Zac Zuo</span> <a class="hhandle" href="https://www.producthunt.com/@zaczuo" target="_blank" rel="noopener">@zaczuo</a> <span class="hcount">2 hunts</span></div>
-        <div class="note">Frequent hunter of AI and 3D or media tools.</div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#13</span><a class="pname" href="https://www.producthunt.com/products/lev8" target="_blank" rel="noopener">Lev8</a><span class="tag">find, research, and reach the right people</span></div>
-          <div class="prod"><span class="rank">#17</span><a class="pname" href="https://www.producthunt.com/products/v2fun" target="_blank" rel="noopener">V2Fun</a><span class="tag">generate 3D characters with AI</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="section">
-    <h3>July top 17, single launches</h3>
-    <p class="readonly-note">One hunt each. Four were self-hunted (the maker posted their own product).</p>
-    <div class="hunter-list">
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">Anand Balakrishnan</span> <a class="hhandle" href="https://www.producthunt.com/@anand_balakrishnan5" target="_blank" rel="noopener">@anand_balakrishnan5</a> <span class="hcount">1 hunt</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#16</span><a class="pname" href="https://www.producthunt.com/products/ski" target="_blank" rel="noopener">SKI</a><span class="tag">free voice coding for Claude Code, Codex</span></div>
-        </div>
-      </div>
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">fmerian</span> <a class="hhandle" href="https://www.producthunt.com/@fmerian" target="_blank" rel="noopener">@fmerian</a> <span class="hcount">1 hunt</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#3</span><a class="pname" href="https://www.producthunt.com/products/openseo" target="_blank" rel="noopener">OpenSEO</a><span class="tag">the open source Ahrefs alternative</span></div>
-        </div>
-      </div>
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">Doran Gouron Le Roch</span> <a class="hhandle" href="https://www.producthunt.com/@dorangouron" target="_blank" rel="noopener">@dorangouron</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#1</span><a class="pname" href="https://www.producthunt.com/products/acti-2" target="_blank" rel="noopener">Acti</a><span class="tag">agentic keyboard for mobile</span></div>
-        </div>
-      </div>
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">Yahia Bakour</span> <a class="hhandle" href="https://www.producthunt.com/@yahia_bakour3" target="_blank" rel="noopener">@yahia_bakour3</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#4</span><a class="pname" href="https://www.producthunt.com/products/context-dev" target="_blank" rel="noopener">Context.dev</a><span class="tag">one API to scrape, enrich, extract the web</span></div>
-        </div>
-      </div>
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">Chi T.</span> <a class="hhandle" href="https://www.producthunt.com/@chitran241" target="_blank" rel="noopener">@chitran241</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#11</span><a class="pname" href="https://www.producthunt.com/products/velo-4" target="_blank" rel="noopener">Velo 3.0</a><span class="tag">AI video infrastructure</span></div>
-        </div>
-      </div>
-
-      <div class="hcard">
-        <div class="htop"><span class="hname">Konstantin Borimechkov</span> <a class="hhandle" href="https://www.producthunt.com/@konstantimb" target="_blank" rel="noopener">@konstantimb</a> <span class="hcount">1 hunt</span> <span class="self">self</span></div>
-        <div class="prods">
-          <div class="prod"><span class="rank">#12</span><a class="pname" href="https://www.producthunt.com/products/yc-company-explorer" target="_blank" rel="noopener">ExploreYC</a><span class="tag">open-source API for YC and a16z data</span></div>
-        </div>
-      </div>
-
-    </div>
+    <h3>Daily #1 leaderboard</h3>
+    <p class="readonly-note">Aug 2025 to Jul 2026. Bar is relative to the top hunter. Click a row to see that hunter's #1 launches.</p>
+    <div class="lb-wrap" id="lb"></div>
+    <p class="readonly-note" id="tail" style="margin-top:14px;"></p>
   </div>
 
   <div class="section">
     <h3>Read of it</h3>
     <div class="panel">
-      <p>The three-month view makes the answer obvious. <b>Rohan Chaubey</b> hunted 25 of 92 daily #1s, a quarter of every single day, almost all of them AI and dev tools, which is exactly our audience. He is the standout target for an outside hunter. <b>Ben Lang</b> and <b>Chris Messina</b> tie next at 12 each; Messina is the platform's most famous hunter, Ben Lang is the ex-Notion community lead with deep reach. <b>Garry Tan</b> (8) only hunts YC-connected launches, so realistic only if that applies to us.</p>
-      <p style="margin-top:10px;">That said, plenty of #1s were self-hunted, so self-hunting is completely normal at the top and an outside hunter is a bonus, not a requirement. If we do pursue one, Chaubey is the clear first ask.</p>
+      <p>Two hunters dominate the year: <b>Rohan Chaubey</b> (53 daily #1s) and <b>Chris Messina</b> (49) posted the #1 product on more than a quarter of all days between them. Behind them, <b>fmerian</b> (31), <b>Zac Zuo</b> (28), <b>Garry Tan</b> (26), and <b>Ben Lang</b> (24) complete a top six that hunted well over half of the year's #1s.</p>
+      <p style="margin-top:10px;">For Mindcase, <b>Rohan Chaubey</b> is the clear first ask: the most prolific by far, and almost entirely AI and dev tools, which is our exact audience. <b>Chris Messina</b> is next for sheer reach, with <b>fmerian</b> and <b>Ben Lang</b> as strong follow-ups. <b>Garry Tan</b> is realistic only through Y Combinator. And note the long tail: dozens of hunters landed just one #1 all year, a reminder that self-hunting is completely normal at the top and an outside hunter is a bonus, not a requirement.</p>
     </div>
   </div>
 </div>
+
 <script src="daily1.js"></script>
 <script>
 (function(){
-  var el = document.getElementById('daily1-list');
-  if(!el || !window.DAILY1){ return; }
+  var D = window.DAILY1; if(!D || !D.hunters || !D.hunters.length) return;
+  var hs = D.hunters, max = hs[0].count;
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  window.DAILY1.hunters.forEach(function(h,i){
+
+  var top6 = hs.slice(0,6).reduce(function(a,h){return a+h.count;},0);
+  var tiles = [
+    ['Days tracked', D.daysCovered, '365 days, full year', false],
+    ['Distinct hunters', D.uniqueHunters, 'landed a #1', false],
+    ['Most #1s', hs[0].count, hs[0].name, true],
+    ['Top 6 share', Math.round(top6/D.daysCovered*100)+'%', 'of all daily #1s', false]
+  ];
+  document.getElementById('stats').innerHTML = tiles.map(function(t){
+    return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v'+(t[3]?' accent':'')+'">'+esc(String(t[1]))+'</div><div class="sub">'+esc(t[2])+'</div></div>';
+  }).join('');
+
+  var lb = document.getElementById('lb');
+  hs.filter(function(h){return h.count>=2;}).forEach(function(h,i){
+    var w = Math.max(3, Math.round(h.count/max*100));
     var prods = h.products.map(function(p){
-      var mm = parseInt(p.date.slice(5,7),10), dd = parseInt(p.date.slice(8,10),10);
+      var mm=+p.date.slice(5,7), dd=+p.date.slice(8,10);
       return '<a href="https://www.producthunt.com/products/'+esc(p.slug)+'" target="_blank" rel="noopener">'+MON[mm-1]+' '+dd+' '+esc(p.name)+'</a>';
     }).join(' &middot; ');
-    var card = document.createElement('div');
-    card.className = 'hcard' + (h.count>=3 ? ' top' : '');
-    card.innerHTML = '<div class="htop"><span class="hrank">'+(i+1)+'</span><span class="hname">'+esc(h.name)+'</span> '
-      + '<a class="hhandle" href="https://www.producthunt.com/@'+esc(h.username)+'" target="_blank" rel="noopener">@'+esc(h.username)+'</a> '
-      + '<span class="hcount">'+h.count+' &#35;1s</span></div>'
-      + '<div class="d1prods">'+prods+'</div>';
-    el.appendChild(card);
+    var item = document.createElement('div'); item.className='lb-item';
+    var row = document.createElement('button'); row.type='button'; row.className='lb-row';
+    row.innerHTML = '<span class="rk">'+(i+1)+'</span>'
+      + '<span class="who"><b>'+esc(h.name)+'</b><span>@'+esc(h.username)+'</span></span>'
+      + '<span class="lb-track"><i class="lb-fill" style="width:'+w+'%"></i></span>'
+      + '<span class="cnt">'+h.count+'</span>';
+    var det = document.createElement('div'); det.className='lb-detail'; det.hidden=true; det.innerHTML = prods;
+    row.addEventListener('click', function(){ det.hidden = !det.hidden; row.classList.toggle('open', !det.hidden); });
+    item.appendChild(row); item.appendChild(det); lb.appendChild(item);
   });
+
+  var singles = hs.filter(function(h){return h.count===1;}).length;
+  document.getElementById('tail').textContent = 'Plus ' + singles + ' hunters who landed a single #1 over the year (not shown).';
 })();
 </script>
 <script src="nav.js"></script>
