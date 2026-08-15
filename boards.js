@@ -5,6 +5,81 @@
    Voice = grounded technical peer. 4 options/pick (validation, 2 questions, 1 knowledgeable-with-intrigue), 2-3 lines each. Never pitch Mindcase. Never use em-dashes.
    ============================================================ */
 window.BOARDS = {
+  "2026-08-15": {
+    label: "Saturday, August 15, 2026",
+    picks: [
+      { phrank: 1, name: "Inferock Bench", tagline: "An independent receipt for every LLM API call", href: "/products/inferock-bench",
+        comments: [
+          "An independent receipt for every LLM call gets at something people are only starting to worry about: you have no real proof the provider ran the model and settings you paid for. Making that auditable is quietly important. Congrats on shipping.",
+          "How does the receipt verify what actually happened server-side, are you fingerprinting output distributions, checking logprobs, or attesting the request and response you saw rather than the provider's internal path? Curious what it can and cannot prove.",
+          "The deep problem here is that inference is a black box you cannot reproduce: the same prompt at temperature zero can still drift across a provider's silent model swaps or quantization, so 'did I get what I paid for' has no clean ground truth to check against. The interesting bet is whether a receipt can convince without the provider's cooperation. Curious where you draw the line between proof and strong signal.",
+          "Does this sit inline on the hot path or run as an async audit after the fact, since anything adding latency to every call is a hard sell for production traffic? Curious how you kept the overhead invisible."
+        ] },
+      { phrank: 3, name: "Zetik", tagline: "A chief of staff in your pocket", href: "/products/zetik",
+        comments: [
+          "Framing it as a chief of staff rather than another assistant sets a higher bar: a chief of staff has context and initiative, not just task execution. If it holds that, it is a different category. Congrats on the launch.",
+          "What does it need access to before it is genuinely useful, calendar, email, messages, and how do you handle the cold start where it knows nothing about how I actually work? Curious how long before it feels like it has context.",
+          "The hard part of a chief of staff is not doing tasks, it is knowing which things matter without being told, and that judgment is exactly what is hard to encode: a real one earns it over months of watching you. An AI version starts every day with amnesia unless you solve memory, so the interesting question is how it accumulates a model of your priorities. Curious how persistent it actually is.",
+          "Where is the line between it suggesting and it acting, does it draft and wait, or take things off your plate on its own? Curious how much trust it asks for on day one."
+        ] },
+      { phrank: 4, name: "GLM-5.3", tagline: "Coding leap from scaled post-training on the same base", href: "/products/glm-5-3",
+        comments: [
+          "A coding jump from scaled post-training on the same base is a useful data point in itself: it says a lot of headroom is still in the post-training, not just bigger pretraining. Open-sourcing it makes that testable. Congrats on shipping.",
+          "What did the post-training lean on most for the coding gains, more RL on execution feedback, better data curation, longer context over real repos? Curious which lever moved the needle on the same base.",
+          "The quietly interesting claim is 'same base,' because it separates two things people usually conflate: raw model capability versus how well it was elicited. If most of the leap came from post-training, it suggests the base was already capable and under-tapped, which changes where the next gains come from. Curious whether you saw diminishing returns or still-open runway there.",
+          "How does it hold up on real multi-file repo tasks versus single-function benchmarks, since that gap is where most coding models quietly fall apart? Curious what you are seeing beyond the eval numbers."
+        ] },
+      { phrank: 5, name: "Attyn", tagline: "Bringing intelligence to your cursor", href: "/products/attyn",
+        comments: [
+          "Putting the AI at the cursor instead of in a separate window is the right instinct, since the context switch to a chat tab is where most of the friction lives. Meeting people where they already are matters. Congrats on the launch.",
+          "How does it get enough context to be useful inline, does it read the active app and selection, and where does that processing happen, locally or in the cloud? Curious about the privacy line for something that can see everything under the cursor.",
+          "The hard thing about intelligence at the cursor is that context is everything and the cursor gives you almost none: a highlighted sentence with no app, document, or intent around it is thin soil for a good answer. The tools that win here read the surrounding state without becoming a surveillance layer, and that balance is delicate. Curious how much context you pull versus how much you deliberately do not.",
+          "What is the invocation, a hotkey, a gesture, floating on selection, since a system-wide tool lives or dies on whether triggering it feels lighter than just opening a chat? Curious what you landed on."
+        ] },
+      { phrank: 6, name: "nenspace", tagline: "the lo-fi of LLMs: your mind, made larger", href: "/products/nenspace",
+        comments: [
+          "The lo-fi framing is a real point of view: most LLM tools push for maximum output, and positioning as a calmer thinking space is a deliberate counter-move. Tone as a design choice is underrated. Congrats on shipping.",
+          "What does 'made larger' mean in practice, is it surfacing your own past notes and thoughts back to you, or generating new material, since those are very different products? Curious where the line sits between your mind and the model's.",
+          "The tension in a tool meant to enlarge your own thinking is that LLMs are naturally centripetal: they complete, summarize, and smooth, which can quietly replace your thinking rather than extend it. The design challenge is staying a mirror and a prompt rather than an answer machine, and that is more a restraint problem than a capability one. Curious how you keep it from just thinking for the person.",
+          "Does it hold a persistent model of what you have been working through over time, or is each session fresh, since 'made larger' really implies memory of your own trajectory? Curious how continuity works."
+        ] },
+      { phrank: 8, name: "FileRouter", tagline: "Take control of files and editors", href: "/products/filerouter",
+        comments: [
+          "The default-app model on Mac is genuinely blunt, one editor per extension regardless of context, so a routing layer that decides on more than the file type is a real gap. Small tool, real papercut. Congrats on shipping.",
+          "What signals does it route on beyond the extension, the folder, the project, the file's contents, since the same .json might want a different editor depending on where it lives? Curious how much context it reads before deciding.",
+          "The subtle challenge with a routing layer is that it inserts itself into muscle memory: opening a file is something people do a hundred times a day without thinking, so any wrong guess or added latency is felt immediately and forgiven slowly. The bar for something this deep in the workflow is basically invisibility. Curious how you tuned it to disappear when it guesses right.",
+          "Can the rules be explicit and inspectable, so power users pin exactly which files go where, or is it mostly automatic? That control usually decides whether the crowd that cares about this adopts it."
+        ] },
+      { phrank: 11, name: "Clamshell", tagline: "Close your MacBook. Keep the work running.", href: "/products/clamshell",
+        comments: [
+          "Closing the lid and having long jobs keep running solves a real dev annoyance, since sleep killing a build or a training run midway is a genuine daily papercut. Scoped and useful. Congrats on the launch.",
+          "How do you keep things alive without just disabling sleep and cooking the battery in a bag, is it selective per process, and does it cope with the display staying off? Curious how you avoid the obvious thermal and power traps.",
+          "The tricky part is that clamshell sleep on a Mac is not one setting, it is a cascade of power assertions, and staying awake with no display or power connected is exactly the state the OS works hardest to shut down. So the real engineering is holding just enough of the system awake for the task while everything else sleeps. Curious how deep you had to go and how durable it stays across OS updates.",
+          "Does it distinguish which work deserves to keep running, a long build yes, a runaway process no, or is it a blanket keep-awake while the lid is shut? Curious how much control it gives."
+        ] },
+      { phrank: 12, name: "Agent Orchestrator", tagline: "Your coding agent fleet manager", href: "/products/agent-orchestrator",
+        comments: [
+          "A fleet manager for coding agents is where things are clearly heading: once you run more than one or two, the bottleneck stops being the agent and becomes coordinating them. Naming that problem early is smart. Congrats on shipping.",
+          "When several agents touch the same repo, how do you stop them stepping on each other, separate worktrees or branches per agent, and who resolves the conflicts when they merge back? Curious how you handle the shared-state problem.",
+          "The hard problem with a fleet of coding agents is not spinning them up, it is that their work collides: two agents editing overlapping files produce diffs that each look right and together break, and no single agent has the whole picture. So the real value is in the merge and review layer, not the orchestration. Curious whether you isolate agents fully or let them coordinate, and how you catch the conflicts they cannot see.",
+          "How does a human stay in the loop across a fleet without it becoming a full-time job reviewing output, is there a triage view of what each agent did? That oversight scaling usually decides whether more agents actually means more throughput."
+        ] },
+      { phrank: 13, name: "Mermail", tagline: "Your AI can now sign up and pay", href: "/products/mermail",
+        comments: [
+          "Letting an agent handle sign-up and payment closes a real gap, since agents hit a wall the moment a task needs an inbox or a card. Giving them their own is a logical missing piece. Congrats on the launch.",
+          "What are the guardrails on the pay part, spending limits, per-merchant approval, a human confirm over a threshold, since an agent with a live payment method is exactly where a small mistake gets expensive fast? Curious how you bound it.",
+          "The thorny part of agents that can sign up and pay is accountability: when an autonomous agent creates accounts and spends money, who agreed to the terms and who is liable for the charge gets murky in a way that is easy to skip in a demo. The interesting design work is the consent and audit trail, not the transaction itself. Curious how you thought about who is on the hook.",
+          "How do services on the other side tell an agent apart from a person, and are you betting they will not care or that they will want to know? Curious where you sit on disclosing that it is an agent signing up."
+        ] },
+      { phrank: 17, name: "ilolink", tagline: "The registry your team's AI agents actually read", href: "/products/ilolink",
+        comments: [
+          "A registry that agents actually read gets at a real emerging mess: every team is accumulating internal tools, endpoints, and docs that agents need to discover, and right now that lives in scattered prompts. Centralizing it is the right idea. Congrats on shipping.",
+          "What makes a registry agent-readable versus just another doc site, is it structured schemas, an MCP-style interface, something agents query at runtime? Curious how an agent finds and trusts the right entry.",
+          "The subtle challenge with a registry agents rely on is staleness: humans tolerate a slightly out-of-date wiki because they apply judgment, but an agent will confidently act on a dead endpoint or a renamed tool because it cannot tell the registry is wrong. So the hard part is not storing entries, it is keeping them true, and that is where most internal registries quietly die. Curious how you keep it from rotting.",
+          "Who writes and updates the entries, the humans who own each tool, or is some discovered automatically, since adoption usually hinges on it not being yet another thing to maintain by hand? Curious how you lower that cost."
+        ] }
+    ]
+  },
   "2026-08-10": {
     label: "Monday, August 10, 2026",
     picks: [
