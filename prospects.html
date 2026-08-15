@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prospects · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+  @media (max-width:640px){ .stats{ grid-template-columns:1fr 1fr; } }
+  .stat{ border:1px solid var(--line); background:var(--surface); padding:14px 16px; }
+  .stat .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); }
+  .stat .v{ font-family:var(--mono); font-size:24px; font-weight:700; color:var(--ink); margin-top:5px; font-variant-numeric:tabular-nums; }
+  .stat .v.accent{ color:var(--ph); }
+  .stat .sub{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
+
+  .ctrl{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:24px; }
+  .ctrl .spacer{ flex:1; }
+  .seg{ display:flex; border:1px solid var(--line-strong); flex-wrap:wrap; }
+  .seg button{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:8px 13px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; }
+  .seg button:last-child{ border-right:none; }
+  .seg button.active{ background:var(--ph); color:#fff; }
+  .chips{ display:flex; gap:6px; }
+  .chip{ font-family:var(--mono); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:6px 11px; background:var(--surface); color:var(--ink-soft); border:1px solid var(--line-strong); cursor:pointer; }
+  .chip.active{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .search{ font-family:var(--mono); font-size:13px; padding:8px 12px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); min-width:200px; }
+  .cap{ font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-top:14px; }
+
+  .tblwrap{ overflow-x:auto; margin-top:10px; border:1px solid var(--line); }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:560px; }
+  .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 12px; border-bottom:1px solid var(--line-strong); background:var(--surface); position:sticky; top:0; }
+  .tbl td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  .tbl tr:last-child td{ border-bottom:none; }
+  .tbl tr:hover td{ background:var(--muted); }
+  .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:34px; }
+  .tbl .nm b{ color:var(--ink); font-weight:700; }
+  .tbl .detail{ color:var(--ink-soft); }
+  .tbl .detail .p{ color:var(--ink); font-weight:700; }
+  .tbl a.x{ color:var(--ph); white-space:nowrap; font-family:var(--mono); font-size:12px; }
+  .tbl a.ph{ color:var(--ink-soft); white-space:nowrap; font-family:var(--mono); font-size:12px; }
+  .tbl .none{ color:var(--ink-faint); }
+  .badge{ font-family:var(--mono); font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:2px 6px; border:1px solid var(--line-strong); color:var(--ink-soft); white-space:nowrap; }
+  .badge.hunter{ color:var(--ph); border-color:var(--ph); }
+  .badge.top3{ background:var(--ph); color:#fff; border-color:var(--ph); }
+  .empty{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); padding:20px; text-align:center; }
+</style>
+</head>
+<body data-page="prospects">
+<div id="app-nav"></div>
+<div class="wrap page">
+  <div class="kicker">Research · Product Hunt</div>
+  <h2 class="title">Prospects</h2>
+  <p class="lead">A broad reach-out pool pulled fresh from the Product Hunt API and leaderboards. Two hundred people behind the top launches of the last 7 days, two hundred more from the last 30 days with no overlap, and the 100 most active community members this week by Kitty Points. Each row carries one key detail so you can personalize. Reach via X where they linked it, otherwise their Product Hunt profile.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="ctrl">
+    <div class="seg" id="listseg"></div>
+    <span class="spacer"></span>
+    <input class="search" id="search" type="search" placeholder="Search name or detail" />
+  </div>
+  <div class="ctrl" id="rolebar" style="margin-top:10px;">
+    <div class="chips" id="rolechips"></div>
+  </div>
+
+  <p class="cap" id="cap"></p>
+  <div id="tbl"></div>
+
+  <div class="section" style="margin-top:30px;">
+    <h3>How to use this</h3>
+    <div class="panel">
+      <p><b>Hunters</b> are the people who posted these top launches for others. They have the reach and the taste, and their detail shows how many of these top launches they hunted (plus all-time where we have pulled their profile). Approach them the way you would a curator.</p>
+      <p style="margin-top:10px;"><b>Makers</b> made a product that ranked in the window. Those flagged <span class="badge top3">Top 3</span> made a genuine hit, lead with that. <b>Kitty Points</b> people are the most active members right now, the ones who reliably comment and review on launch day. That is exactly the behavior you want on yours.</p>
+    </div>
+  </div>
+</div>
+
+<script src="prospects.js"></script>
+<script>
+(function(){
+  var P = window.PROSPECTS; if(!P) return;
+  function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function x(tw){ return tw ? '<a class="x" href="https://x.com/'+esc(tw)+'" target="_blank" rel="noopener">@'+esc(tw)+'</a>' : '<span class="none">&mdash;</span>'; }
+  function ph(u){ return '<a class="ph" href="https://www.producthunt.com/@'+esc(u)+'" target="_blank" rel="noopener">@'+esc(u)+'</a>'; }
+
+  var lists = [
+    ['week',  'Last 7 days · '+P.stats.week.total,  P.week,  P.weekLabel],
+    ['month', 'Last 30 days · '+P.stats.month.total, P.month, P.monthLabel],
+    ['kitty', 'Kitty Points · '+P.stats.kitty,       P.kitty, P.kittyLabel]
+  ];
+  var cur = 'week', role = 'all', term = '';
+
+  var s = P.stats;
+  document.getElementById('stats').innerHTML = [
+    ['Unique people', s.unique, 'across all three lists', true],
+    ['On X / Twitter', s.tw, 'the rest via PH profile', false],
+    ['Hunters', s.week.hunters + s.month.hunters, 'posted top launches', false],
+    ['Active members', s.kitty, 'top Kitty Points, this week', false]
+  ].map(function(t){ return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v'+(t[3]?' accent':'')+'">'+esc(String(t[1]))+'</div><div class="sub">'+esc(t[2])+'</div></div>'; }).join('');
+
+  var seg = document.getElementById('listseg');
+  seg.innerHTML = lists.map(function(l){ return '<button data-k="'+l[0]+'"'+(l[0]===cur?' class="active"':'')+'>'+esc(l[1])+'</button>'; }).join('');
+  seg.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ cur=b.getAttribute('data-k'); role='all'; render(); }); });
+
+  document.getElementById('search').addEventListener('input', function(e){ term=e.target.value.toLowerCase().trim(); render(); });
+
+  function renderRoleChips(){
+    var bar=document.getElementById('rolebar');
+    if(cur==='kitty'){ bar.style.display='none'; return; }
+    bar.style.display='flex';
+    var opts=[['all','All'],['hunter','Hunters'],['maker','Makers']];
+    document.getElementById('rolechips').innerHTML = opts.map(function(o){ return '<button class="chip'+(o[0]===role?' active':'')+'" data-r="'+o[0]+'">'+o[1]+'</button>'; }).join('');
+    document.querySelectorAll('#rolechips .chip').forEach(function(c){ c.addEventListener('click', function(){ role=c.getAttribute('data-r'); render(); }); });
+  }
+
+  function render(){
+    seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-k')===cur); });
+    renderRoleChips();
+    var meta = lists.find(function(l){return l[0]===cur;});
+    var rows = meta[2].slice();
+    if(cur!=='kitty' && role!=='all') rows = rows.filter(function(r){ return r.role===role; });
+    if(term) rows = rows.filter(function(r){ return (r.name+' '+r.phuser+' '+(r.detail||'')).toLowerCase().indexOf(term)>=0; });
+
+    document.getElementById('cap').textContent = rows.length+' shown · '+meta[3];
+
+    var html;
+    if(!rows.length){ html = '<div class="tblwrap"><div class="empty">No matches.</div></div>'; }
+    else if(cur==='kitty'){
+      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="r">#</th><th>Member</th><th>Activity this week</th><th>Product Hunt</th></tr></thead><tbody>'
+        + rows.map(function(r,i){ return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td class="detail">'+esc(r.detail)+'</td><td>'+ph(r.phuser)+'</td></tr>'; }).join('')
+        + '</tbody></table></div>';
+    } else {
+      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="r">#</th><th>Person</th><th>Type</th><th>Key detail</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'
+        + rows.map(function(r,i){
+            var badge = r.role==='hunter' ? '<span class="badge hunter">Hunter</span>'
+                      : (r.top3 ? '<span class="badge top3">Top 3</span>' : '<span class="badge">Maker</span>');
+            return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td>'+badge+'</td><td class="detail">'+esc(r.detail)+'</td><td>'+x(r.tw)+'</td><td>'+ph(r.phuser)+'</td></tr>';
+          }).join('')
+        + '</tbody></table></div>';
+    }
+    document.getElementById('tbl').innerHTML = html;
+  }
+  render();
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
