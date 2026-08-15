@@ -33,6 +33,12 @@
   <p class="lead">A tight list of people worth reaching for launch-day support. The hunters are the ones who could hunt or back Mindcase, shown by how many products they have hunted all-time. The makers are only those who hit #1, #2, or #3 recently, the biggest launches. Reach via X where linked, otherwise their Product Hunt profile. Approach as a peer offering mutual support, not a cold upvote ask.</p>
 
   <div class="section">
+    <h3>All makers, last 30 days</h3>
+    <p class="readonly-note" id="m30note"></p>
+    <div class="tblwrap"><table class="tbl" id="tbl-makers30"></table></div>
+  </div>
+
+  <div class="section">
     <h3>Top hunters</h3>
     <p class="readonly-note">The most prolific hunters in your space. These are the people to court if you want an outside hunter, or a heavyweight comment on launch day.</p>
     <div class="tblwrap"><table class="tbl" id="tbl-hunters"></table></div>
@@ -81,6 +87,18 @@
   }).join('');
   document.getElementById('tbl-kitty').innerHTML =
     '<thead><tr><th class="r">#</th><th>Member</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+kb+'</tbody>';
+
+  var m30 = O.makers30||[];
+  var m30b = m30.map(function(m,i){
+    var pr = esc(m.products[0]||'');
+    if(m.products.length>1) pr += ', +'+(m.products.length-1)+' more';
+    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.name||m.phuser)+'</b></td>'
+      + '<td class="made">'+pr+'</td><td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
+  }).join('');
+  document.getElementById('tbl-makers30').innerHTML =
+    '<thead><tr><th class="r">#</th><th>Maker</th><th>Made</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+m30b+'</tbody>';
+  var note = document.getElementById('m30note');
+  if(note) note.textContent = (O.makers30Products||'')+' top launches, '+(O.makers30Label||'')+'. '+m30.length+' unique makers, each with their PH profile ('+m30.filter(function(z){return z.tw;}).length+' also have X).';
 })();
 </script>
 <script src="nav.js"></script>
