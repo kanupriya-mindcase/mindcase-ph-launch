@@ -9,13 +9,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 <style>
+  .ctrl{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:20px; }
+  .ctrl .spacer{ flex:1; }
+  .seg{ display:flex; border:1px solid var(--line-strong); }
+  .seg button{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:8px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; }
+  .seg button:last-child{ border-right:none; }
+  .seg button.active{ background:var(--ph); color:#fff; }
+  .btn2{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:8px 13px; background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); cursor:pointer; }
+  .btn2:hover{ background:var(--muted); }
   .tblwrap{ overflow-x:auto; margin-top:14px; border:1px solid var(--line); }
-  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:520px; }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:540px; }
   .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 12px; border-bottom:1px solid var(--line-strong); background:var(--surface); }
   .tbl td{ padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
   .tbl tr:last-child td{ border-bottom:none; }
   .tbl tr:hover td{ background:var(--muted); }
-  .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:30px; }
+  .tbl .cb{ width:28px; }
+  .tbl .cb input{ width:16px; height:16px; accent-color:var(--good); cursor:pointer; }
+  .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:28px; }
   .tbl .nm b{ color:var(--ink); font-weight:700; }
   .tbl .big{ font-family:var(--mono); font-weight:700; color:var(--ph); font-variant-numeric:tabular-nums; }
   .tbl .made{ color:var(--ink-soft); }
@@ -23,6 +33,8 @@
   .tbl a.x{ color:var(--ph); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl a.ph{ color:var(--ink-soft); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl .none{ color:var(--ink-faint); }
+  .empty{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); padding:20px; text-align:center; }
+  .sec{ }
 </style>
 </head>
 <body data-page="outreach">
@@ -30,31 +42,22 @@
 <div class="wrap page">
   <div class="kicker">Research · Product Hunt</div>
   <h2 class="title">Outreach list</h2>
-  <p class="lead">A tight list of people worth reaching for launch-day support. The hunters are the ones who could hunt or back Mindcase, shown by how many products they have hunted all-time. The makers are only those who hit #1, #2, or #3 recently, the biggest launches. Reach via X where linked, otherwise their Product Hunt profile. Approach as a peer offering mutual support, not a cold upvote ask.</p>
+  <p class="lead">People to reach for launch-day support. Tick someone once you have messaged them and they move to the Reached out view. Hunters are shown by all-time products hunted, makers by their launch and rank. Reach via X where linked, otherwise their Product Hunt profile.</p>
 
-  <div class="section">
-    <h3>All makers, last 30 days</h3>
-    <p class="readonly-note" id="m30note"></p>
-    <div class="tblwrap"><table class="tbl" id="tbl-makers30"></table></div>
+  <div class="ctrl">
+    <div class="seg">
+      <button id="v-todo">To reach out · <span id="c-todo">0</span></button>
+      <button id="v-done">Reached out · <span id="c-done">0</span></button>
+    </div>
+    <span class="spacer"></span>
+    <button class="btn2" id="tickall">Tick all reached</button>
+    <button class="btn2" id="resetall">Reset</button>
   </div>
 
-  <div class="section">
-    <h3>Top hunters</h3>
-    <p class="readonly-note">The most prolific hunters in your space. These are the people to court if you want an outside hunter, or a heavyweight comment on launch day.</p>
-    <div class="tblwrap"><table class="tbl" id="tbl-hunters"></table></div>
-  </div>
-
-  <div class="section">
-    <h3>Top makers (#1 to #3)</h3>
-    <p class="readonly-note">Makers of the very top launches of last week and last month. Recent, proven, and their audience overlaps yours.</p>
-    <div class="tblwrap"><table class="tbl" id="tbl-makers"></table></div>
-  </div>
-
-  <div class="section">
-    <h3>Top Kitty Points members</h3>
-    <p class="readonly-note">Product Hunt's most active community members right now (last week). Most have not linked X, so reach them via their PH profile. A comment from them carries real weight.</p>
-    <div class="tblwrap"><table class="tbl" id="tbl-kitty"></table></div>
-  </div>
+  <div class="section sec"><h3>All makers, last 30 days</h3><p class="readonly-note" id="m30note"></p><div id="w-makers30"></div></div>
+  <div class="section sec"><h3>Top hunters</h3><div id="w-hunters"></div></div>
+  <div class="section sec"><h3>Top makers (#1 to #3)</h3><div id="w-makers"></div></div>
+  <div class="section sec"><h3>Top Kitty Points members</h3><div id="w-kitty"></div></div>
 </div>
 
 <script src="outreach.js"></script>
@@ -64,41 +67,65 @@
   function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function x(tw){ return tw ? '<a class="x" href="https://x.com/'+esc(tw)+'" target="_blank" rel="noopener">@'+esc(tw)+'</a>' : '<span class="none">&mdash;</span>'; }
   function ph(u){ return u ? '<a class="ph" href="https://www.producthunt.com/@'+esc(u)+'" target="_blank" rel="noopener">@'+esc(u)+'</a>' : '<span class="none">&mdash;</span>'; }
+  function cb(u){ return '<td class="cb"><input type="checkbox" class="rcb" data-u="'+esc(u)+'"'+(reached.has(u)?' checked':'')+'></td>'; }
 
-  var hb = (O.hunters||[]).map(function(h,i){
-    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(h.name)+'</b></td>'
-      + '<td class="big">'+(h.hunted!=null?h.hunted.toLocaleString():'')+'</td>'
-      + '<td>'+x(h.tw)+'</td><td>'+ph(h.phuser)+'</td></tr>';
-  }).join('');
-  document.getElementById('tbl-hunters').innerHTML =
-    '<thead><tr><th class="r">#</th><th>Hunter</th><th>Products hunted, all-time</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+hb+'</tbody>';
+  var lists = ['makers30','hunters','topMakers','kitty'];
+  var allUnique = []; var seen = {};
+  lists.forEach(function(k){ (O[k]||[]).forEach(function(r){ if(r.phuser && !seen[r.phuser]){ seen[r.phuser]=1; allUnique.push(r.phuser); } }); });
 
-  var mb = (O.topMakers||[]).map(function(m,i){
-    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.person||m.phuser)+'</b></td>'
-      + '<td class="made"><span class="p">'+esc(m.product)+'</span>, #'+m.rank+' '+esc(m.period)+'</td>'
-      + '<td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
-  }).join('');
-  document.getElementById('tbl-makers').innerHTML =
-    '<thead><tr><th class="r">#</th><th>Maker</th><th>Made</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+mb+'</tbody>';
+  var reached;
+  try { var s = localStorage.getItem('reachedSet'); reached = s ? new Set(JSON.parse(s)) : new Set(O.reachedOut||[]); }
+  catch(e){ reached = new Set(O.reachedOut||[]); }
+  var view = localStorage.getItem('reachView') || 'done';
+  function save(){ localStorage.setItem('reachedSet', JSON.stringify(Array.prototype.slice.call(reached))); }
 
-  var kb = (O.kitty||[]).map(function(k,i){
-    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(k.name||k.phuser)+'</b></td>'
-      + '<td>'+x(k.tw)+'</td><td>'+ph(k.phuser)+'</td></tr>';
-  }).join('');
-  document.getElementById('tbl-kitty').innerHTML =
-    '<thead><tr><th class="r">#</th><th>Member</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+kb+'</tbody>';
+  function keep(u){ return reached.has(u) === (view==='done'); }
 
-  var m30 = O.makers30||[];
-  var m30b = m30.map(function(m,i){
-    var pr = esc(m.products[0]||'');
-    if(m.products.length>1) pr += ', +'+(m.products.length-1)+' more';
-    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.name||m.phuser)+'</b></td>'
-      + '<td class="made">'+pr+'</td><td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
-  }).join('');
-  document.getElementById('tbl-makers30').innerHTML =
-    '<thead><tr><th class="r">#</th><th>Maker</th><th>Made</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+m30b+'</tbody>';
-  var note = document.getElementById('m30note');
-  if(note) note.textContent = (O.makers30Products||'')+' top launches, '+(O.makers30Label||'')+'. '+m30.length+' unique makers, each with their PH profile ('+m30.filter(function(z){return z.tw;}).length+' also have X).';
+  function tbl(rows, headCols, rowFn){
+    var visible = rows.filter(function(r){ return keep(r.phuser); });
+    if(!visible.length) return '<div class="tblwrap"><div class="empty">'+(view==='done'?'None reached out yet in this group.':'All reached out here.')+'</div></div>';
+    var head = '<thead><tr><th class="cb"></th>'+headCols.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead>';
+    var body = visible.map(function(r,i){ return '<tr>'+cb(r.phuser)+rowFn(r,i)+'</tr>'; }).join('');
+    return '<div class="tblwrap"><table class="tbl">'+head+'<tbody>'+body+'</tbody></table></div>';
+  }
+
+  function renderAll(){
+    document.getElementById('w-makers30').innerHTML = tbl(O.makers30||[],
+      ['#','Maker','Made','X','Product Hunt'],
+      function(m,i){ var pr=esc(m.products[0]||''); if(m.products.length>1) pr+=', +'+(m.products.length-1)+' more';
+        return '<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.name||m.phuser)+'</b></td><td class="made">'+pr+'</td><td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td>'; });
+    document.getElementById('w-hunters').innerHTML = tbl(O.hunters||[],
+      ['#','Hunter','Products hunted, all-time','X','Product Hunt'],
+      function(h,i){ return '<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(h.name)+'</b></td><td class="big">'+(h.hunted!=null?h.hunted.toLocaleString():'')+'</td><td>'+x(h.tw)+'</td><td>'+ph(h.phuser)+'</td>'; });
+    document.getElementById('w-makers').innerHTML = tbl(O.topMakers||[],
+      ['#','Maker','Made','X','Product Hunt'],
+      function(m,i){ return '<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.person||m.phuser)+'</b></td><td class="made"><span class="p">'+esc(m.product)+'</span>, #'+m.rank+' '+esc(m.period)+'</td><td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td>'; });
+    document.getElementById('w-kitty').innerHTML = tbl(O.kitty||[],
+      ['#','Member','X','Product Hunt'],
+      function(k,i){ return '<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(k.name||k.phuser)+'</b></td><td>'+x(k.tw)+'</td><td>'+ph(k.phuser)+'</td>'; });
+
+    var done = allUnique.filter(function(u){return reached.has(u);}).length;
+    document.getElementById('c-done').textContent = done;
+    document.getElementById('c-todo').textContent = allUnique.length - done;
+    document.getElementById('v-todo').classList.toggle('active', view==='todo');
+    document.getElementById('v-done').classList.toggle('active', view==='done');
+    var note=document.getElementById('m30note');
+    if(note) note.textContent = (O.makers30Products||'')+' top launches, '+(O.makers30Label||'')+'.';
+  }
+
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.classList && e.target.classList.contains('rcb')){
+      var u=e.target.getAttribute('data-u');
+      if(e.target.checked) reached.add(u); else reached.delete(u);
+      save(); renderAll();
+    }
+  });
+  document.getElementById('v-todo').addEventListener('click', function(){ view='todo'; localStorage.setItem('reachView',view); renderAll(); });
+  document.getElementById('v-done').addEventListener('click', function(){ view='done'; localStorage.setItem('reachView',view); renderAll(); });
+  document.getElementById('tickall').addEventListener('click', function(){ allUnique.forEach(function(u){reached.add(u);}); save(); renderAll(); });
+  document.getElementById('resetall').addEventListener('click', function(){ reached.clear(); save(); renderAll(); });
+
+  renderAll();
 })();
 </script>
 <script src="nav.js"></script>
