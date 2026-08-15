@@ -10,26 +10,19 @@
 <link rel="stylesheet" href="style.css" />
 <style>
   .tblwrap{ overflow-x:auto; margin-top:14px; border:1px solid var(--line); }
-  table.tbl{ width:100%; border-collapse:collapse; font-size:13px; min-width:640px; }
-  .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 11px; border-bottom:1px solid var(--line-strong); background:var(--surface); }
-  .tbl td{ padding:10px 11px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:520px; }
+  .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 12px; border-bottom:1px solid var(--line-strong); background:var(--surface); }
+  .tbl td{ padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
   .tbl tr:last-child td{ border-bottom:none; }
   .tbl tr:hover td{ background:var(--muted); }
   .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:30px; }
-  .tbl .who{ width:190px; }
-  .tbl .who b{ color:var(--ink); font-weight:700; }
-  .tbl .hl{ display:block; font-size:11px; color:var(--ink-faint); margin-top:2px; }
-  .tbl .ctx{ color:var(--ink-soft); }
+  .tbl .nm b{ color:var(--ink); font-weight:700; }
+  .tbl .big{ font-family:var(--mono); font-weight:700; color:var(--ph); font-variant-numeric:tabular-nums; }
+  .tbl .made{ color:var(--ink-soft); }
+  .tbl .made .p{ color:var(--ink); font-weight:700; }
   .tbl a.x{ color:var(--ph); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl a.ph{ color:var(--ink-soft); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl .none{ color:var(--ink-faint); }
-  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
-  @media (max-width:640px){ .stats{ grid-template-columns:1fr; } }
-  .stat{ border:1px solid var(--line); background:var(--surface); padding:14px 16px; }
-  .stat .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); }
-  .stat .v{ font-family:var(--mono); font-size:23px; font-weight:700; color:var(--ink); margin-top:5px; }
-  .stat .v.accent{ color:var(--ph); }
-  .stat .sub{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
 </style>
 </head>
 <body data-page="outreach">
@@ -37,56 +30,57 @@
 <div class="wrap page">
   <div class="kicker">Research · Product Hunt</div>
   <h2 class="title">Outreach list</h2>
-  <p class="lead">People to reach out to for launch-day support, deduplicated so each person appears once. Each row carries a hook to personalize the message: their best recent launch and its rank, how many daily #1s they have hunted this past year, their Kitty Points standing, and PH followers. Contact via X where they linked it, and always via their Product Hunt profile. LinkedIn is not in Product Hunt's data, so for that, look up the top few by hand. Reach out as a peer offering mutual support, not a cold upvote ask.</p>
-
-  <div class="stats" id="stats"></div>
+  <p class="lead">A tight list of people worth reaching for launch-day support. The hunters are the ones who could hunt or back Mindcase, shown by how many products they have hunted all-time. The makers are only those who hit #1, #2, or #3 recently, the biggest launches. Reach via X where linked, otherwise their Product Hunt profile. Approach as a peer offering mutual support, not a cold upvote ask.</p>
 
   <div class="section">
-    <h3>In your lane</h3>
-    <p class="readonly-note">Makers and hunters of AI, agent, data, API, and dev-tool products. Start at the top. These are the ones whose audience overlaps yours and who are most likely to reciprocate.</p>
-    <div class="tblwrap"><table class="tbl" id="tbl-lane"></table></div>
+    <h3>Top hunters</h3>
+    <p class="readonly-note">The most prolific hunters in your space. These are the people to court if you want an outside hunter, or a heavyweight comment on launch day.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-hunters"></table></div>
   </div>
 
   <div class="section">
-    <h3>Wider net</h3>
-    <p class="readonly-note">Recent top makers and active community members outside the core lane. Lower priority, but still relevant, recent, and reachable.</p>
-    <div class="tblwrap"><table class="tbl" id="tbl-rest"></table></div>
+    <h3>Top makers (#1 to #3)</h3>
+    <p class="readonly-note">Makers of the very top launches of last week and last month. Recent, proven, and their audience overlaps yours.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-makers"></table></div>
+  </div>
+
+  <div class="section">
+    <h3>Top Kitty Points members</h3>
+    <p class="readonly-note">Product Hunt's most active community members right now (last week). Most have not linked X, so reach them via their PH profile. A comment from them carries real weight.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-kitty"></table></div>
   </div>
 </div>
 
 <script src="outreach.js"></script>
 <script>
 (function(){
-  var O = window.OUTREACH; if(!O || !O.contacts) return;
+  var O = window.OUTREACH; if(!O) return;
   function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function x(tw){ return tw ? '<a class="x" href="https://x.com/'+esc(tw)+'" target="_blank" rel="noopener">@'+esc(tw)+'</a>' : '<span class="none">&mdash;</span>'; }
   function ph(u){ return u ? '<a class="ph" href="https://www.producthunt.com/@'+esc(u)+'" target="_blank" rel="noopener">@'+esc(u)+'</a>' : '<span class="none">&mdash;</span>'; }
 
-  function table(id, rows){
-    var head='<thead><tr><th class="r">#</th><th>Contact</th><th>Personalize with</th><th>X</th><th>Product Hunt</th></tr></thead>';
-    var body=rows.map(function(c,i){
-      return '<tr><td class="r">'+(i+1)+'</td>'
-        + '<td class="who"><b>'+esc(c.name||c.phuser)+'</b>'+(c.headline?'<span class="hl">'+esc(c.headline)+'</span>':'')+'</td>'
-        + '<td class="ctx">'+esc(c.context||'')+'</td>'
-        + '<td>'+x(c.tw)+'</td><td>'+ph(c.phuser)+'</td></tr>';
-    }).join('');
-    document.getElementById(id).innerHTML = head + '<tbody>' + body + '</tbody>';
-  }
-
-  var contacts = O.contacts;
-  var lane = contacts.filter(function(c){return c.inLane;});
-  var rest = contacts.filter(function(c){return !c.inLane;});
-  table('tbl-lane', lane);
-  table('tbl-rest', rest);
-
-  var tiles = [
-    ['Unique contacts', contacts.length, 'each listed once', false],
-    ['In your lane', lane.length, 'AI, data, dev, agents', true],
-    ['Reachable on X', contacts.filter(function(c){return c.tw;}).length, 'rest via PH profile', false]
-  ];
-  document.getElementById('stats').innerHTML = tiles.map(function(t){
-    return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v'+(t[3]?' accent':'')+'">'+esc(String(t[1]))+'</div><div class="sub">'+esc(t[2])+'</div></div>';
+  var hb = (O.hunters||[]).map(function(h,i){
+    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(h.name)+'</b></td>'
+      + '<td class="big">'+(h.hunted!=null?h.hunted.toLocaleString():'')+'</td>'
+      + '<td>'+x(h.tw)+'</td><td>'+ph(h.phuser)+'</td></tr>';
   }).join('');
+  document.getElementById('tbl-hunters').innerHTML =
+    '<thead><tr><th class="r">#</th><th>Hunter</th><th>Products hunted, all-time</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+hb+'</tbody>';
+
+  var mb = (O.topMakers||[]).map(function(m,i){
+    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(m.person||m.phuser)+'</b></td>'
+      + '<td class="made"><span class="p">'+esc(m.product)+'</span>, #'+m.rank+' '+esc(m.period)+'</td>'
+      + '<td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
+  }).join('');
+  document.getElementById('tbl-makers').innerHTML =
+    '<thead><tr><th class="r">#</th><th>Maker</th><th>Made</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+mb+'</tbody>';
+
+  var kb = (O.kitty||[]).map(function(k,i){
+    return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(k.name||k.phuser)+'</b></td>'
+      + '<td>'+x(k.tw)+'</td><td>'+ph(k.phuser)+'</td></tr>';
+  }).join('');
+  document.getElementById('tbl-kitty').innerHTML =
+    '<thead><tr><th class="r">#</th><th>Member</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'+kb+'</tbody>';
 })();
 </script>
 <script src="nav.js"></script>
