@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Messages · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:16px; }
+  .legend code{ font-family:var(--mono); font-size:11px; color:var(--ph); }
+  .legend span{ font-size:12px; color:var(--ink-faint); }
+  .tabrow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; align-items:center; }
+  .tabrow .lbl{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); width:64px; flex:none; }
+  .seg{ display:flex; border:1px solid var(--line-strong); }
+  .seg button{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:8px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; transition:background .12s,color .12s; }
+  .seg button:last-child{ border-right:none; }
+  .seg button:hover{ background:var(--muted); }
+  .seg button.active{ background:var(--ph); color:#fff; }
+  .aud-desc{ font-size:12.5px; color:var(--ink-faint); margin-top:14px; font-style:italic; }
+  .msgs{ display:flex; flex-direction:column; gap:12px; margin-top:14px; }
+  .msg{ border:1px solid var(--line); background:var(--surface); padding:15px 16px; display:flex; gap:14px; align-items:flex-start; }
+  .msg .num{ font-family:var(--mono); font-size:12px; font-weight:700; color:var(--ink-faint); flex:none; width:20px; padding-top:2px; }
+  .msg .txt{ flex:1; font-size:14px; line-height:1.55; color:var(--ink); }
+  .msg .txt code{ font-family:var(--mono); font-size:12.5px; color:var(--ph); background:none; }
+  .copybtn{ flex:none; font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:7px 12px; background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); cursor:pointer; }
+  .copybtn:hover{ background:var(--muted); }
+  .copybtn.done{ background:var(--good); color:#fff; border-color:var(--good); }
+</style>
+</head>
+<body data-page="templates">
+<div id="app-nav"></div>
+<div class="wrap page">
+  <div class="kicker">Playbook · Outreach</div>
+  <h2 class="title">Messages</h2>
+  <p class="lead">Ready-to-send outreach templates, five variations for every audience and every phase of the launch. Pick an audience and a phase, then copy a line and personalize the brackets using the hooks on the Outreach tab. Keep it peer-to-peer, and never write "upvote," ask for their take, feedback, or a comment instead. That is allowed and lands better.</p>
+
+  <div class="legend">
+    <span><code>[Name]</code> the person</span>
+    <span><code>[Product]</code> their launch</span>
+    <span><code>[rank]</code> its rank</span>
+    <span><code>[N]</code> products they have hunted</span>
+    <span><code>[detail]</code> one specific thing about it</span>
+    <span><code>[one-liner]</code> what Mindcase does</span>
+    <span><code>[date]</code> your launch date</span>
+    <span><code>[link]</code> your PH link</span>
+  </div>
+
+  <div class="tabrow"><span class="lbl">Audience</span><div class="seg" id="audseg"></div></div>
+  <div class="tabrow"><span class="lbl">Phase</span><div class="seg" id="phaseg"></div></div>
+  <p class="aud-desc" id="auddesc"></p>
+
+  <div class="msgs" id="msgs"></div>
+</div>
+
+<script src="templates.js"></script>
+<script>
+(function(){
+  var T = window.TEMPLATES; if(!T) return;
+  var aud = T.meta.audiences[0][0], ph = T.meta.phases[0][0];
+  function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function hl(s){ return esc(s).replace(/(\[[^\]]+\])/g,'<code>$1</code>'); }
+
+  function buildSeg(id, items, cur, cb){
+    var el = document.getElementById(id);
+    el.innerHTML = items.map(function(it){
+      return '<button data-k="'+it[0]+'"'+(it[0]===cur?' class="active"':'')+'>'+esc(it[1])+'</button>';
+    }).join('');
+    el.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        el.querySelectorAll('button').forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active'); cb(b.getAttribute('data-k'));
+      });
+    });
+  }
+  function render(){
+    var desc = (T.meta.audiences.find(function(a){return a[0]===aud;})||[])[2] || '';
+    document.getElementById('auddesc').textContent = desc;
+    var list = (T[aud] && T[aud][ph]) || [];
+    document.getElementById('msgs').innerHTML = list.map(function(m,i){
+      return '<div class="msg"><span class="num">'+(i+1)+'</span>'
+        + '<div class="txt">'+hl(m)+'</div>'
+        + '<button class="copybtn" data-msg="'+esc(m)+'">Copy</button></div>';
+    }).join('');
+    document.querySelectorAll('#msgs .copybtn').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var text = b.getAttribute('data-msg');
+        try{ await navigator.clipboard.writeText(text); }catch(e){ var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+        b.textContent='Copied'; b.classList.add('done');
+        setTimeout(function(){ b.textContent='Copy'; b.classList.remove('done'); }, 1400);
+      });
+    });
+  }
+  buildSeg('audseg', T.meta.audiences, aud, function(k){ aud=k; render(); });
+  buildSeg('phaseg', T.meta.phases, ph, function(k){ ph=k; render(); });
+  render();
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

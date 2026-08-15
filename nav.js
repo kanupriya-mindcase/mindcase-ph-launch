@@ -9,6 +9,7 @@
     { id: "warmup",      label: "Warm-up",     href: "warmup.html" },
     { id: "hunters",     label: "Hunters",     href: "hunters.html" },
     { id: "outreach",    label: "Outreach",    href: "outreach.html" },
+    { id: "templates",   label: "Messages",    href: "templates.html" },
     { id: "communities", label: "Communities", href: "communities.html" },
     { id: "assets",      label: "Assets",      href: "assets.html" },
     { id: "audience",    label: "Audience",    href: "audience.html" },
