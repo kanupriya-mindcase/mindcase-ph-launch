@@ -9,18 +9,18 @@ window.TEMPLATES = {
   },
   makers: {
     pre: [
-      "Hey [Name], congrats on [Product] hitting #[rank], [detail]. We launch Mindcase on [date], [one-liner]. Would love your eyes on it, and happy to back your next launch too. Ok if I send the link when we go live?",
-      "[Name], [Product] was one of my favorite launches this month, [detail]. We ship Mindcase on [date] ([one-liner]). Building in the same world as you, so it would mean a lot to have you take a look. Mind if I share the link on the day?",
-      "Hi [Name], loved what you did with [Product]. We are launching something adjacent, Mindcase, on [date], [one-liner]. No ask right now, just wanted you on my radar, and happy to support your stuff. Cool if I ping you when we launch?",
-      "Hey [Name], fellow builder here. You just shipped [Product] (#[rank], nice), and we go live [date] with Mindcase, [one-liner]. Would genuinely value your eyes since you know this space. Open to a heads up on launch day?",
-      "[Name], quick one, big fan of [Product]. We launch Mindcase [date] ([one-liner]). I would love your honest take once it is live, and I am glad to return the favor whenever you launch next. That work?"
+      "Hey [Name], congrats on [Product] hitting #[rank], [detail]. We launch Mindcase on [date], ready-made APIs to pull data from any website. Would love your eyes on it, and happy to back your next launch too. Ok if I send the link when we go live?",
+      "[Name], [Product] was one of my favorite launches this month, [detail]. We ship Mindcase on [date] (ready-made APIs to pull data from any website). Building in the same world as you, so it would mean a lot to have you take a look. Mind if I share the link on the day?",
+      "Hi [Name], loved what you did with [Product]. We are launching something adjacent, Mindcase, on [date], ready-made APIs to pull data from any website. No ask right now, just wanted you on my radar, and happy to support your stuff. Cool if I ping you when we launch?",
+      "Hey [Name], fellow builder here. You just shipped [Product] (#[rank], nice), and we go live [date] with Mindcase, ready-made APIs to pull data from any website. Would genuinely value your eyes since you know this space. Open to a heads up on launch day?",
+      "[Name], quick one, big fan of [Product]. We launch Mindcase [date] (ready-made APIs to pull data from any website). I would love your honest take once it is live, and I am glad to return the favor whenever you launch next. That work?"
     ],
     start: [
-      "[Name], we just went live: [link]. Since you shipped [Product] recently, I think you will get what we are doing with [one-liner]. Would genuinely value your honest take. And I have got you whenever you go again.",
+      "[Name], we just went live: [link]. Since you shipped [Product] recently, I think you will get what we are doing with ready-made APIs to pull data from any website. Would genuinely value your honest take. And I have got you whenever you go again.",
       "[Name], we are live on Product Hunt: [link]. You clearly know this space after [Product], so your feedback would mean a lot. Would love to hear what you think.",
-      "Morning [Name], Mindcase is live: [link]. Building in your neighborhood ([one-liner]), so figured you would find it interesting. Any honest thoughts welcome, and congrats again on [Product].",
+      "Morning [Name], Mindcase is live: [link]. Building in your neighborhood (ready-made APIs to pull data from any website), so figured you would find it interesting. Any honest thoughts welcome, and congrats again on [Product].",
       "[Name], we launched: [link]. Would love your take as someone who just did this with [Product]. If it resonates, even a quick comment would be hugely appreciated.",
-      "Hey [Name], we are live: [link]. No pressure at all, but if you get a minute, your read on [one-liner] would be really valuable coming from you. Rooting for [Product] too."
+      "Hey [Name], we are live: [link]. No pressure at all, but if you get a minute, your read on ready-made APIs to pull data from any website would be really valuable coming from you. Rooting for [Product] too."
     ],
     end: [
       "[Name], final few hours of our launch: [link]. No worries if you did not get to it, but if you have a second, your feedback would mean a lot. Either way, congrats again on [Product].",
@@ -32,16 +32,16 @@ window.TEMPLATES = {
   },
   hunters: {
     pre: [
-      "Hi [Name], real respect, [N] products hunted is a serious eye for this space. We launch Mindcase on [date], [one-liner], right in the AI and dev world you follow. Would love to get it in front of you. Open to me sharing when we are live?",
-      "[Name], you have hunted [N] products, so you have seen more of this space than almost anyone. We ship Mindcase [date] ([one-liner]). Would value your read whenever it is live. Ok if I send it your way?",
-      "Hey [Name], big admirer of your taste, [N] hunts is no accident. We launch Mindcase on [date], [one-liner]. Would love for it to be on your radar. Mind if I ping you on the day?",
-      "Hi [Name], you clearly have a nose for good dev tools (all [N] of them). We are launching Mindcase [date], [one-liner]. No ask yet, just would love your eyes when we go live. That ok?",
-      "[Name], quick note from a builder in your lane. We launch Mindcase [date] ([one-liner]). Given you have hunted [N] products, your take would genuinely mean a lot. Cool if I share the link when it drops?"
+      "Hi [Name], real respect, [N] products hunted is a serious eye for this space. We launch Mindcase on [date], ready-made APIs to pull data from any website, right in the AI and dev world you follow. Would love to get it in front of you. Open to me sharing when we are live?",
+      "[Name], you have hunted [N] products, so you have seen more of this space than almost anyone. We ship Mindcase [date] (ready-made APIs to pull data from any website). Would value your read whenever it is live. Ok if I send it your way?",
+      "Hey [Name], big admirer of your taste, [N] hunts is no accident. We launch Mindcase on [date], ready-made APIs to pull data from any website. Would love for it to be on your radar. Mind if I ping you on the day?",
+      "Hi [Name], you clearly have a nose for good dev tools (all [N] of them). We are launching Mindcase [date], ready-made APIs to pull data from any website. No ask yet, just would love your eyes when we go live. That ok?",
+      "[Name], quick note from a builder in your lane. We launch Mindcase [date] (ready-made APIs to pull data from any website). Given you have hunted [N] products, your take would genuinely mean a lot. Cool if I share the link when it drops?"
     ],
     start: [
       "[Name], we are live: [link]. You have seen more launches than almost anyone ([N] hunts), so your take would mean a lot. If it is the kind of thing you would back, I would be honored, and totally understand if not.",
       "[Name], Mindcase just went live: [link]. Would love your read given your track record of spotting good ones. Honest thoughts very welcome.",
-      "Hey [Name], we launched: [link]. [one-liner]. You know this space cold, so if it lands for you I would be grateful, and either way your feedback is gold.",
+      "Hey [Name], we launched: [link]. ready-made APIs to pull data from any website. You know this space cold, so if it lands for you I would be grateful, and either way your feedback is gold.",
       "[Name], we are live on PH: [link]. Reaching out because you have hunted [N] products and clearly get what good looks like. Would value a minute of your time on this.",
       "Morning [Name], Mindcase is live: [link]. No pressure, but a look from someone with your eye would mean a lot. Thanks for all you do for the community."
     ],
@@ -55,16 +55,16 @@ window.TEMPLATES = {
   },
   active: {
     pre: [
-      "Hey [Name], I see you are one of the most active people on Product Hunt right now. We launch Mindcase on [date], [one-liner]. Would love your honest feedback when we go live, you clearly have a sharp eye. Cool if I ping you the link?",
-      "[Name], you are all over the best launches lately, love the energy. We ship Mindcase [date] ([one-liner]). Would really value your thoughts when it is live. Ok if I send it?",
-      "Hi [Name], you clearly know the PH community inside out. We are launching Mindcase on [date], [one-liner]. Your honest take would mean a lot. Mind if I share the link on the day?",
-      "Hey [Name], quick one from a soon-to-launch maker. We go live [date] with Mindcase ([one-liner]). You engage so thoughtfully with products, so I would love your eyes on ours. That work for you?",
-      "[Name], I keep seeing your comments on great products. We launch Mindcase [date], [one-liner]. Would genuinely value your feedback when it drops. Cool if I ping you?"
+      "Hey [Name], I see you are one of the most active people on Product Hunt right now. We launch Mindcase on [date], ready-made APIs to pull data from any website. Would love your honest feedback when we go live, you clearly have a sharp eye. Cool if I ping you the link?",
+      "[Name], you are all over the best launches lately, love the energy. We ship Mindcase [date] (ready-made APIs to pull data from any website). Would really value your thoughts when it is live. Ok if I send it?",
+      "Hi [Name], you clearly know the PH community inside out. We are launching Mindcase on [date], ready-made APIs to pull data from any website. Your honest take would mean a lot. Mind if I share the link on the day?",
+      "Hey [Name], quick one from a soon-to-launch maker. We go live [date] with Mindcase (ready-made APIs to pull data from any website). You engage so thoughtfully with products, so I would love your eyes on ours. That work for you?",
+      "[Name], I keep seeing your comments on great products. We launch Mindcase [date], ready-made APIs to pull data from any website. Would genuinely value your feedback when it drops. Cool if I ping you?"
     ],
     start: [
-      "[Name], we just launched: [link]. You engage with so many products, so I would genuinely love your honest take on ours, [one-liner]. Even a quick comment with your thoughts would mean a lot.",
+      "[Name], we just launched: [link]. You engage with so many products, so I would genuinely love your honest take on ours, ready-made APIs to pull data from any website. Even a quick comment with your thoughts would mean a lot.",
       "Hey [Name], Mindcase is live: [link]. You always have a sharp read on launches, so I would love yours on this. Thanks in advance for any thoughts.",
-      "[Name], we are live: [link]. [one-liner]. Reaching out because you are genuinely one of the most active people here, so I would value your feedback a lot.",
+      "[Name], we are live: [link]. ready-made APIs to pull data from any website. Reaching out because you are genuinely one of the most active people here, so I would value your feedback a lot.",
       "Morning [Name], we launched: [link]. If you get a minute, your honest take would mean a lot, you clearly know a good product when you see one.",
       "[Name], we just went live: [link]. No pressure at all, but I would love to hear what you think, your comments are always worth reading."
     ],
