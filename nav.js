@@ -8,6 +8,7 @@
     { id: "playbook",    label: "Playbook",    href: "index.html" },
     { id: "warmup",      label: "Warm-up",     href: "warmup.html" },
     { id: "hunters",     label: "Hunters",     href: "hunters.html" },
+    { id: "outreach",    label: "Outreach",    href: "outreach.html" },
     { id: "communities", label: "Communities", href: "communities.html" },
     { id: "assets",      label: "Assets",      href: "assets.html" },
     { id: "audience",    label: "Audience",    href: "audience.html" },

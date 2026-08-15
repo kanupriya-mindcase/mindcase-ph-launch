@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Outreach · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .tblwrap{ overflow-x:auto; margin-top:14px; border:1px solid var(--line); }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13px; min-width:520px; }
+  .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 11px; border-bottom:1px solid var(--line-strong); background:var(--surface); position:sticky; top:0; }
+  .tbl td{ padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .tbl tr:last-child td{ border-bottom:none; }
+  .tbl tr:hover td{ background:var(--muted); }
+  .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:30px; }
+  .tbl .prod a, .tbl .mem b{ color:var(--ink); font-weight:700; }
+  .tbl .who{ color:var(--ink-soft); }
+  .tbl .role{ font-family:var(--mono); font-size:10px; color:var(--ink-faint); text-transform:uppercase; margin-left:5px; }
+  .tbl .hl{ display:block; font-size:11px; color:var(--ink-faint); margin-top:1px; }
+  .tbl a.x{ color:var(--ph); white-space:nowrap; font-family:var(--mono); font-size:12px; }
+  .tbl a.ph{ color:var(--ink-soft); white-space:nowrap; font-family:var(--mono); font-size:12px; }
+  .tbl .none{ color:var(--ink-faint); }
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+  @media (max-width:640px){ .stats{ grid-template-columns:1fr; } }
+  .stat{ border:1px solid var(--line); background:var(--surface); padding:14px 16px; }
+  .stat .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); }
+  .stat .v{ font-family:var(--mono); font-size:22px; font-weight:700; color:var(--ink); margin-top:5px; }
+  .stat .sub{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
+</style>
+</head>
+<body data-page="outreach">
+<div id="app-nav"></div>
+<div class="wrap page">
+  <div class="kicker">Research · Product Hunt</div>
+  <h2 class="title">Outreach list</h2>
+  <p class="lead">People to reach out to for launch-day support: the makers behind last week's and last month's top products, plus the top Kitty Points community members. Contact channel is X where they have linked it, and always their Product Hunt profile (you can DM there). Note: PH does not expose LinkedIn through its API, so it is not included. Be genuine and offer mutual support, not a cold "please upvote."</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="section">
+    <h3>Top 50 products, last week (Aug 3 to 9)</h3>
+    <p class="readonly-note">Makers and hunters of the week's highest-voted launches. Best warm, recent contacts.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-week"></table></div>
+  </div>
+
+  <div class="section">
+    <h3>Top 100 products, last month (July)</h3>
+    <p class="readonly-note">A wider net of recent successful makers.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-month"></table></div>
+  </div>
+
+  <div class="section">
+    <h3>Top 50 Kitty Points members</h3>
+    <p class="readonly-note">Product Hunt's most active community members right now (last week). Most have not linked X, so reach them via their PH profile. High-value because they comment and engage daily.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-kitty"></table></div>
+  </div>
+</div>
+
+<script src="outreach.js"></script>
+<script>
+(function(){
+  var O = window.OUTREACH; if(!O) return;
+  function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function x(tw){ return tw ? '<a class="x" href="https://x.com/'+esc(tw)+'" target="_blank" rel="noopener">@'+esc(tw)+'</a>' : '<span class="none">&mdash;</span>'; }
+  function ph(u){ return u ? '<a class="ph" href="https://www.producthunt.com/@'+esc(u)+'" target="_blank" rel="noopener">@'+esc(u)+'</a>' : '<span class="none">&mdash;</span>'; }
+
+  function productTable(id, rows){
+    var head = '<thead><tr><th class="r">#</th><th>Product</th><th>Contact</th><th>X</th><th>Product Hunt</th></tr></thead>';
+    var body = rows.map(function(p){
+      return '<tr><td class="r">'+p.rank+'</td>'
+        + '<td class="prod"><a href="https://www.producthunt.com/products/'+esc(p.slug)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a></td>'
+        + '<td class="who">'+esc(p.person||'')+'<span class="role">'+esc(p.role||'')+'</span></td>'
+        + '<td>'+x(p.tw)+'</td><td>'+ph(p.phuser)+'</td></tr>';
+    }).join('');
+    document.getElementById(id).innerHTML = head + '<tbody>' + body + '</tbody>';
+  }
+  function kittyTable(id, rows){
+    var head = '<thead><tr><th class="r">#</th><th>Member</th><th>X</th><th>Product Hunt</th></tr></thead>';
+    var body = rows.map(function(m){
+      return '<tr><td class="r">'+m.rank+'</td>'
+        + '<td class="mem"><b>'+esc(m.name||m.phuser)+'</b>'+(m.headline?'<span class="hl">'+esc(m.headline)+'</span>':'')+'</td>'
+        + '<td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
+    }).join('');
+    document.getElementById(id).innerHTML = head + '<tbody>' + body + '</tbody>';
+  }
+
+  productTable('tbl-week', O.week||[]);
+  productTable('tbl-month', O.month||[]);
+  kittyTable('tbl-kitty', O.kitty||[]);
+
+  var twCount = ((O.week||[]).concat(O.month||[])).filter(function(p){return p.tw;}).length;
+  var tiles = [
+    ['Weekly makers', (O.week||[]).length, esc(O.weekLabel||'last week')],
+    ['Monthly makers', (O.month||[]).length, esc(O.monthLabel||'last month')],
+    ['X handles found', twCount, 'across the two product lists']
+  ];
+  document.getElementById('stats').innerHTML = tiles.map(function(t){
+    return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';
+  }).join('');
+})();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
