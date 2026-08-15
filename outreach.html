@@ -38,6 +38,12 @@
   <h2 class="title">Outreach list</h2>
   <p class="lead">People to reach out to for launch-day support: the makers behind last week's and last month's top products, plus the top Kitty Points community members. Contact channel is X where they have linked it, and always their Product Hunt profile (you can DM there). Note: PH does not expose LinkedIn through its API, so it is not included. Be genuine and offer mutual support, not a cold "please upvote."</p>
 
+  <div class="section">
+    <h3>Priority shortlist, start here</h3>
+    <p class="readonly-note">The 20 highest-value contacts: makers in Mindcase's exact lane (AI agents, data APIs, scraping, dev tools) who all have a public X handle, ranked by relevance and reach. If you want LinkedIn, look up just these by hand, not the whole 150. Reach everyone else via the full lists below.</p>
+    <div class="tblwrap"><table class="tbl" id="tbl-short"></table></div>
+  </div>
+
   <div class="stats" id="stats"></div>
 
   <div class="section">
@@ -85,6 +91,17 @@
         + '<td>'+x(m.tw)+'</td><td>'+ph(m.phuser)+'</td></tr>';
     }).join('');
     document.getElementById(id).innerHTML = head + '<tbody>' + body + '</tbody>';
+  }
+
+  if(O.shortlist && O.shortlist.length){
+    var sh = '<thead><tr><th class="r">#</th><th>Contact</th><th>Their product</th><th>X</th><th>Product Hunt</th></tr></thead>';
+    var sb = O.shortlist.map(function(p,i){
+      return '<tr><td class="r">'+(i+1)+'</td>'
+        + '<td class="who">'+esc(p.person||'')+'<span class="role">'+esc(p.role||'')+'</span></td>'
+        + '<td class="prod"><a href="https://www.producthunt.com/products/'+esc(p.slug)+'" target="_blank" rel="noopener">'+esc(p.product||'')+'</a>'+(p.tagline?'<span class="hl">'+esc(p.tagline)+'</span>':'')+'</td>'
+        + '<td>'+x(p.tw)+'</td><td>'+ph(p.phuser)+'</td></tr>';
+    }).join('');
+    document.getElementById('tbl-short').innerHTML = sh + '<tbody>' + sb + '</tbody>';
   }
 
   productTable('tbl-week', O.week||[]);
