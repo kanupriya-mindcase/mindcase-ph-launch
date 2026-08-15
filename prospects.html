@@ -15,9 +15,11 @@
   .stat .k{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); }
   .stat .v{ font-family:var(--mono); font-size:24px; font-weight:700; color:var(--ink); margin-top:5px; font-variant-numeric:tabular-nums; }
   .stat .v.accent{ color:var(--ph); }
+  .stat .v.good{ color:var(--good); }
   .stat .sub{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
 
   .ctrl{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:24px; }
+  .ctrl2{ margin-top:10px; }
   .ctrl .spacer{ flex:1; }
   .seg{ display:flex; border:1px solid var(--line-strong); flex-wrap:wrap; }
   .seg button{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:8px 13px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; }
@@ -26,19 +28,24 @@
   .chips{ display:flex; gap:6px; }
   .chip{ font-family:var(--mono); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:6px 11px; background:var(--surface); color:var(--ink-soft); border:1px solid var(--line-strong); cursor:pointer; }
   .chip.active{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .chip.done.active{ background:var(--good); color:#fff; border-color:var(--good); }
   .search{ font-family:var(--mono); font-size:13px; padding:8px 12px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); min-width:200px; }
+  .btn2{ font-family:var(--mono); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:7px 11px; background:var(--surface); color:var(--ink); border:1px solid var(--line-strong); cursor:pointer; }
+  .btn2:hover{ background:var(--muted); }
   .cap{ font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-top:14px; }
 
   .tblwrap{ overflow-x:auto; margin-top:10px; border:1px solid var(--line); }
-  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:560px; }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; min-width:580px; }
   .tbl th{ text-align:left; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding:9px 12px; border-bottom:1px solid var(--line-strong); background:var(--surface); position:sticky; top:0; }
   .tbl td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
   .tbl tr:last-child td{ border-bottom:none; }
   .tbl tr:hover td{ background:var(--muted); }
+  .tbl tr.done td{ opacity:.55; }
+  .tbl .cb{ width:30px; }
+  .tbl .cb input{ width:16px; height:16px; accent-color:var(--good); cursor:pointer; }
   .tbl .r{ font-family:var(--mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; width:34px; }
   .tbl .nm b{ color:var(--ink); font-weight:700; }
   .tbl .detail{ color:var(--ink-soft); }
-  .tbl .detail .p{ color:var(--ink); font-weight:700; }
   .tbl a.x{ color:var(--ph); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl a.ph{ color:var(--ink-soft); white-space:nowrap; font-family:var(--mono); font-size:12px; }
   .tbl .none{ color:var(--ink-faint); }
@@ -53,7 +60,7 @@
 <div class="wrap page">
   <div class="kicker">Research · Product Hunt</div>
   <h2 class="title">Prospects</h2>
-  <p class="lead">A broad reach-out pool pulled fresh from the Product Hunt API and leaderboards. Two hundred people behind the top launches of the last 7 days, two hundred more from the last 30 days with no overlap, and the 100 most active community members this week by Kitty Points. Each row carries one key detail so you can personalize. Reach via X where they linked it, otherwise their Product Hunt profile.</p>
+  <p class="lead">A broad reach-out pool pulled fresh from the Product Hunt API and leaderboards. Two hundred people behind the top launches of the last 7 days, two hundred more from the last 30 days with no overlap, and the 100 most active community members this week by Kitty Points. Each row carries one key detail so you can personalize. Tick people as you reach them, and filter to see who is left. Reach via X where they linked it, otherwise their Product Hunt profile.</p>
 
   <div class="stats" id="stats"></div>
 
@@ -62,8 +69,12 @@
     <span class="spacer"></span>
     <input class="search" id="search" type="search" placeholder="Search name or detail" />
   </div>
-  <div class="ctrl" id="rolebar" style="margin-top:10px;">
+  <div class="ctrl ctrl2">
     <div class="chips" id="rolechips"></div>
+    <div class="chips" id="reachedchips"></div>
+    <span class="spacer"></span>
+    <button class="btn2" id="markshown">Mark shown reached</button>
+    <button class="btn2" id="unmarkshown">Untick shown</button>
   </div>
 
   <p class="cap" id="cap"></p>
@@ -72,8 +83,8 @@
   <div class="section" style="margin-top:30px;">
     <h3>How to use this</h3>
     <div class="panel">
-      <p><b>Hunters</b> are the people who posted these top launches for others. They have the reach and the taste, and their detail shows how many of these top launches they hunted (plus all-time where we have pulled their profile). Approach them the way you would a curator.</p>
-      <p style="margin-top:10px;"><b>Makers</b> made a product that ranked in the window. Those flagged <span class="badge top3">Top 3</span> made a genuine hit, lead with that. <b>Kitty Points</b> people are the most active members right now, the ones who reliably comment and review on launch day. That is exactly the behavior you want on yours.</p>
+      <p><b>Hunters</b> are the people who posted these top launches for others. They have the reach and the taste, and their detail shows how many of these top launches they hunted plus their all-time count. <b>Makers</b> made a product that ranked in the window, those flagged <span class="badge top3">Top 3</span> made a genuine hit. <b>Kitty Points</b> people are the most active members right now, the ones who reliably comment and review on launch day.</p>
+      <p style="margin-top:10px;">Tick a row once you have reached someone. Use the <b>To reach out</b> and <b>Reached out</b> filters to see who is left in each list. The state is saved in this browser. The top 50 of the last 30 days are already ticked.</p>
     </div>
   </div>
 </div>
@@ -91,58 +102,83 @@
     ['month', 'Last 30 days · '+P.stats.month.total, P.month, P.monthLabel],
     ['kitty', 'Kitty Points · '+P.stats.kitty,       P.kitty, P.kittyLabel]
   ];
-  var cur = 'week', role = 'all', term = '';
+  var cur = 'month', role = 'all', reachf = 'all', term = '', shown = [];
 
-  var s = P.stats;
-  document.getElementById('stats').innerHTML = [
-    ['Unique people', s.unique, 'across all three lists', true],
-    ['On X / Twitter', s.tw, 'the rest via PH profile', false],
-    ['Hunters', s.week.hunters + s.month.hunters, 'posted top launches', false],
-    ['Active members', s.kitty, 'top Kitty Points, this week', false]
-  ].map(function(t){ return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v'+(t[3]?' accent':'')+'">'+esc(String(t[1]))+'</div><div class="sub">'+esc(t[2])+'</div></div>'; }).join('');
+  var reached;
+  try { var st = localStorage.getItem('prospectsReached'); reached = st ? new Set(JSON.parse(st)) : new Set(P.reachedOut||[]); }
+  catch(e){ reached = new Set(P.reachedOut||[]); }
+  function save(){ localStorage.setItem('prospectsReached', JSON.stringify(Array.prototype.slice.call(reached))); }
+
+  function renderStats(){
+    var s = P.stats;
+    document.getElementById('stats').innerHTML = [
+      ['Unique people', s.unique, 'across all three lists', ''],
+      ['Reached out', reached.size, 'ticked so far', 'good'],
+      ['On X / Twitter', s.tw, 'the rest via PH profile', ''],
+      ['Active members', s.kitty, 'top Kitty Points, this week', '']
+    ].map(function(t){ return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v'+(t[3]?' '+t[3]:'')+'">'+esc(String(t[1]))+'</div><div class="sub">'+esc(t[2])+'</div></div>'; }).join('');
+  }
 
   var seg = document.getElementById('listseg');
   seg.innerHTML = lists.map(function(l){ return '<button data-k="'+l[0]+'"'+(l[0]===cur?' class="active"':'')+'>'+esc(l[1])+'</button>'; }).join('');
   seg.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ cur=b.getAttribute('data-k'); role='all'; render(); }); });
-
   document.getElementById('search').addEventListener('input', function(e){ term=e.target.value.toLowerCase().trim(); render(); });
 
-  function renderRoleChips(){
-    var bar=document.getElementById('rolebar');
-    if(cur==='kitty'){ bar.style.display='none'; return; }
-    bar.style.display='flex';
-    var opts=[['all','All'],['hunter','Hunters'],['maker','Makers']];
-    document.getElementById('rolechips').innerHTML = opts.map(function(o){ return '<button class="chip'+(o[0]===role?' active':'')+'" data-r="'+o[0]+'">'+o[1]+'</button>'; }).join('');
-    document.querySelectorAll('#rolechips .chip').forEach(function(c){ c.addEventListener('click', function(){ role=c.getAttribute('data-r'); render(); }); });
+  function chipbar(id, opts, curval, cb){
+    document.getElementById(id).innerHTML = opts.map(function(o){ return '<button class="chip'+(o[2]?' '+o[2]:'')+(o[0]===curval?' active':'')+'" data-v="'+o[0]+'">'+o[1]+'</button>'; }).join('');
+    document.querySelectorAll('#'+id+' .chip').forEach(function(c){ c.addEventListener('click', function(){ cb(c.getAttribute('data-v')); }); });
   }
 
   function render(){
     seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-k')===cur); });
-    renderRoleChips();
+    var isKitty = cur==='kitty';
+    document.getElementById('rolechips').style.display = isKitty ? 'none' : 'flex';
+    if(!isKitty) chipbar('rolechips', [['all','All'],['hunter','Hunters'],['maker','Makers']], role, function(v){ role=v; render(); });
+    chipbar('reachedchips', [['all','Everyone'],['todo','To reach out'],['done','Reached out','done']], reachf, function(v){ reachf=v; render(); });
+
     var meta = lists.find(function(l){return l[0]===cur;});
     var rows = meta[2].slice();
-    if(cur!=='kitty' && role!=='all') rows = rows.filter(function(r){ return r.role===role; });
+    if(!isKitty && role!=='all') rows = rows.filter(function(r){ return r.role===role; });
+    if(reachf==='todo') rows = rows.filter(function(r){ return !reached.has(r.phuser); });
+    else if(reachf==='done') rows = rows.filter(function(r){ return reached.has(r.phuser); });
     if(term) rows = rows.filter(function(r){ return (r.name+' '+r.phuser+' '+(r.detail||'')).toLowerCase().indexOf(term)>=0; });
+    shown = rows;
 
-    document.getElementById('cap').textContent = rows.length+' shown · '+meta[3];
+    var doneInList = meta[2].filter(function(r){ return reached.has(r.phuser); }).length;
+    document.getElementById('cap').textContent = rows.length+' shown · '+doneInList+' of '+meta[2].length+' reached in this list · '+meta[3];
+    renderStats();
+
+    function cbCell(u){ return '<td class="cb"><input type="checkbox" class="rcb" data-u="'+esc(u)+'"'+(reached.has(u)?' checked':'')+'></td>'; }
+    function trClass(u){ return reached.has(u)?' class="done"':''; }
 
     var html;
     if(!rows.length){ html = '<div class="tblwrap"><div class="empty">No matches.</div></div>'; }
-    else if(cur==='kitty'){
-      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="r">#</th><th>Member</th><th>Activity this week</th><th>Product Hunt</th></tr></thead><tbody>'
-        + rows.map(function(r,i){ return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td class="detail">'+esc(r.detail)+'</td><td>'+ph(r.phuser)+'</td></tr>'; }).join('')
+    else if(isKitty){
+      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="cb"></th><th class="r">#</th><th>Member</th><th>Activity this week</th><th>Product Hunt</th></tr></thead><tbody>'
+        + rows.map(function(r,i){ return '<tr'+trClass(r.phuser)+'>'+cbCell(r.phuser)+'<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td class="detail">'+esc(r.detail)+'</td><td>'+ph(r.phuser)+'</td></tr>'; }).join('')
         + '</tbody></table></div>';
     } else {
-      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="r">#</th><th>Person</th><th>Type</th><th>Key detail</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'
+      html = '<div class="tblwrap"><table class="tbl"><thead><tr><th class="cb"></th><th class="r">#</th><th>Person</th><th>Type</th><th>Key detail</th><th>X</th><th>Product Hunt</th></tr></thead><tbody>'
         + rows.map(function(r,i){
             var badge = r.role==='hunter' ? '<span class="badge hunter">Hunter</span>'
                       : (r.top3 ? '<span class="badge top3">Top 3</span>' : '<span class="badge">Maker</span>');
-            return '<tr><td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td>'+badge+'</td><td class="detail">'+esc(r.detail)+'</td><td>'+x(r.tw)+'</td><td>'+ph(r.phuser)+'</td></tr>';
+            return '<tr'+trClass(r.phuser)+'>'+cbCell(r.phuser)+'<td class="r">'+(i+1)+'</td><td class="nm"><b>'+esc(r.name)+'</b></td><td>'+badge+'</td><td class="detail">'+esc(r.detail)+'</td><td>'+x(r.tw)+'</td><td>'+ph(r.phuser)+'</td></tr>';
           }).join('')
         + '</tbody></table></div>';
     }
     document.getElementById('tbl').innerHTML = html;
   }
+
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.classList && e.target.classList.contains('rcb')){
+      var u=e.target.getAttribute('data-u');
+      if(e.target.checked) reached.add(u); else reached.delete(u);
+      save(); render();
+    }
+  });
+  document.getElementById('markshown').addEventListener('click', function(){ shown.forEach(function(r){ reached.add(r.phuser); }); save(); render(); });
+  document.getElementById('unmarkshown').addEventListener('click', function(){ shown.forEach(function(r){ reached.delete(r.phuser); }); save(); render(); });
+
   render();
 })();
 </script>
