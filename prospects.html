@@ -98,16 +98,25 @@
   function ph(u){ return '<a class="ph" href="https://www.producthunt.com/@'+esc(u)+'" target="_blank" rel="noopener">@'+esc(u)+'</a>'; }
 
   var lists = [
-    ['week',  'Last 7 days · '+P.stats.week.total,  P.week,  P.weekLabel],
+    ['week',  'Last 7 days · '+P.stats.week.total,   P.week,  P.weekLabel],
     ['month', 'Last 30 days · '+P.stats.month.total, P.month, P.monthLabel],
+    ['year',  'Last 12 months · '+P.stats.year.total, P.year, P.yearLabel],
     ['kitty', 'Kitty Points · '+P.stats.kitty,       P.kitty, P.kittyLabel]
   ];
   var cur = 'month', role = 'all', reachf = 'all', term = '', shown = [];
 
   var reached;
-  try { var st = localStorage.getItem('prospectsReached'); reached = st ? new Set(JSON.parse(st)) : new Set(P.reachedOut||[]); }
-  catch(e){ reached = new Set(P.reachedOut||[]); }
+  try { var st = localStorage.getItem('prospectsReached'); reached = st ? new Set(JSON.parse(st)) : new Set(); }
+  catch(e){ reached = new Set(); }
   function save(){ localStorage.setItem('prospectsReached', JSON.stringify(Array.prototype.slice.call(reached))); }
+  // apply seed batches once per seed version; unions into existing state so returning browsers get new batches
+  var SEEDV = P.seedVersion || 1, storedV = 0;
+  try { storedV = +(localStorage.getItem('prospectsSeedV')||0); } catch(e){}
+  if(storedV < SEEDV){
+    (P.reachedOut||[]).forEach(function(u){ reached.add(u); });
+    try { localStorage.setItem('prospectsSeedV', String(SEEDV)); } catch(e){}
+    save();
+  }
 
   function renderStats(){
     var s = P.stats;
