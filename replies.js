@@ -264,9 +264,9 @@ window.REPLIES = {
         addressed: "",
         body: "Normalizing web extraction behind a single API call shape is a total game-changer for AI teams. Super cool build, congrats!",
         drafts: [
-          "Thank you KP, that is exactly what we were going for. One call shape across every source, so adding a new one is not a project. Glad it landed.",
-          "Thanks KP, that was the whole idea. Glad it reads that way from outside.",
-          "Appreciate that KP. It is the part that took the longest to get right and the part nobody notices when it works, so thank you for noticing."
+          "Thank you KP. That was the main thing we wanted to get right. Every source returns the same shape, so when you add a new one you are not rewriting the code around it. Good to hear that comes across from outside.",
+          "Thanks KP. It sounds like a small thing, but it was the hardest part to hold to, because every site wants to be treated as a special case. Keeping them all the same on the outside is what makes adding the next one easy.",
+          "Appreciate it. Most of the work here is making different sources look the same so you do not have to think about them separately. Glad that is what came through."
                 ]
       }
     ]
