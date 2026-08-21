@@ -304,6 +304,19 @@ window.REPLIES = {
           "Good question, and I will answer the shape of it rather than the full internals. The most useful signal is not clever, it is scale. The same agent runs for a lot of customers, so when a site changes we see it as a sudden pattern across many runs rather than as one strange row. On top of that there are automated checks on whether the fields we expect actually came back filled, since a 200 with an empty field is the dangerous case, not the error. If you want to go deeper than that I am happy to, just not in a public thread.",
           "Appreciate you pushing on it, because that line is the part we most want to be held to. The short version is automated checks on what came back, not just whether the call succeeded, plus the advantage of running the same agent across many customers so a site change appears as a pattern very quickly. Neither is exotic. If you are evaluating this seriously I would rather show you than describe it, so tell me a source you care about and we can look at real output together."
         ]
+      },
+      {
+        id: "isabel-zavian-1",
+        author: "Isabel Zavian",
+        role: "",
+        when: "1h ago",
+        addressed: "",
+        body: "Congrats on the launch! This is a super useful tool and can save so much time for everyone, especially data scientists. Really cool that you support Instagram and TikTok, have been looking for something like this. Will give it a try and let you know what I think!",
+        drafts: [
+          "Thank you Isabel. Instagram and TikTok are the two people ask us about most, and they are also the two where hand rolled setups tend to break first, so we put a lot of work into them. Your first call is free, so you can point it at something real before deciding anything. What are you looking to pull, posts, profiles, or comments?",
+          "Thanks Isabel, and please do come back and tell us what you think. Honestly the critical version is more useful to us than the kind one, so if something is missing or the data is not shaped the way you need it, say so and we will look at it. Happy to help you get set up if it is quicker than reading docs.",
+          "Appreciate that. For data work the annoying part is usually not getting the data, it is getting it into a table you can actually use without cleaning every column first, which is the bit we spend most of our time on. Tell us what you end up doing with it, we like hearing about the actual use cases."
+        ]
       }
     ]
   }
