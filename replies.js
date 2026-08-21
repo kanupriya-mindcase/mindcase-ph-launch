@@ -321,6 +321,7 @@ window.REPLIES = {
       },
       {
         id: "rohan-chaubey-1",
+        answered: true,   // option 1 posted on PH
         author: "Rohan Chaubey",
         role: "Hunter",
         when: "6m ago",
@@ -348,6 +349,7 @@ window.REPLIES = {
       },
       {
         id: "andreas-jablonka-1",
+        answered: true,   // option 1 posted on PH, plus a link to the reddit posts agent
         author: "Andreas Jablonka",
         role: "",
         when: "1m ago",
