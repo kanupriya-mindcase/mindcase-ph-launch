@@ -161,6 +161,7 @@ window.REPLIES = {
       },
       {
         id: "rajat-kapoor-1",
+        answered: true,   // option 2 posted on PH, trimmed
         author: "Rajat Kapoor",
         role: "",
         when: "13m ago",
@@ -226,6 +227,19 @@ window.REPLIES = {
           "That sentence is the whole product in one line, thank you. The first version takes an afternoon and quietly creates a commitment measured in years, and nobody budgets for the second part because the first part felt so easy. Every team we have spoken to underestimated the same thing, ourselves included, which is why we ended up building this rather than shipping the thing we originally set out to build.",
           "Exactly right. Making it work is a coding problem and keeping it working is an operations problem, and those need different things: monitoring, someone who notices, someone who is free to fix it today rather than next sprint. Teams usually staff it as the first and then discover it was the second, normally at the worst possible moment.",
           "Appreciate that. Out of genuine curiosity, what is the longest you have kept one alive? The answers we get to that tend to split into two camps, either about six weeks before someone quietly stops trusting the data, or years because a single person keeps patching it and nobody else can touch it. Both are expensive in different ways."
+        ]
+      },
+      {
+        id: "oliver-graf-1",
+        author: "Oliver Graf",
+        role: "",
+        when: "2h ago",
+        addressed: "@kanupriya_chhabra1",
+        body: "@jagbir_singh5 @kanupriya_chhabra1 I like the idea of keeping the request and response format consistent. It should make switching data sources much simpler.",
+        drafts: [
+          "Thanks Oliver. The hard part of holding that line is resisting the urge to expose each source's quirks in the interface, because every site genuinely does have its own idea of pagination, identifiers and what an empty field means. The moment you let one of those leak through, callers start writing per source branches and the whole benefit quietly disappears. Keeping it uniform costs us more work internally and it is the thing that makes swapping a source a config change rather than a migration.",
+          "Appreciate that. The consequence people notice later is that it makes sources comparable. Once two agents return the same shape, you can run both for the same field and see which gives you better coverage for your particular use case, which is awkward to do when each one hands you a different structure and you are half committed to whichever you integrated first. Is there a pair of sources you would want to switch between?",
+          "Thank you Oliver. It is worth saying that consistency in the response is the easier half. The bit that actually saves you time is that the failure behaviour is consistent too, so an error from one agent looks like an error from any other and your handling does not need a special case per source. That is the part that usually decides whether adding a fifth source is an afternoon or a fortnight."
         ]
       }
     ]
