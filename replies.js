@@ -231,6 +231,7 @@ window.REPLIES = {
       },
       {
         id: "oliver-graf-1",
+        answered: true,   // option 2 posted on PH
         author: "Oliver Graf",
         role: "",
         when: "2h ago",
