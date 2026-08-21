@@ -307,6 +307,7 @@ window.REPLIES = {
       },
       {
         id: "isabel-zavian-1",
+        answered: true,   // option 3 posted on PH
         author: "Isabel Zavian",
         role: "",
         when: "1h ago",
