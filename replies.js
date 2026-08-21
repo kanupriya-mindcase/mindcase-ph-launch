@@ -318,6 +318,46 @@ window.REPLIES = {
           "Thanks Isabel, and please do come back and tell us what you think. Honestly the critical version is more useful to us than the kind one, so if something is missing or the data is not shaped the way you need it, say so and we will look at it. Happy to help you get set up if it is quicker than reading docs.",
           "Appreciate that. For data work the annoying part is usually not getting the data, it is getting it into a table you can actually use without cleaning every column first, which is the bit we spend most of our time on. Tell us what you end up doing with it, we like hearing about the actual use cases."
         ]
+      },
+      {
+        id: "rohan-chaubey-1",
+        author: "Rohan Chaubey",
+        role: "Hunter",
+        when: "6m ago",
+        addressed: "@kritishpuri",
+        body: "Excited to hunt Mindcase today! I have known @kanupriya_chhabra1 from a couple years on Product Hunt. When she first shared this product, I was excited because I myself connect a lot of APIs to my Claude Code. [full hunter comment, posted]",
+        drafts: [
+          "Thank you Rohan, for hunting us and for saying yes back when this was just an idea you were being told about. The Claude Code point is a good one to raise, since a lot of people are hitting exactly that, plenty of APIs wired up and then a wall the moment the data they want does not have one.",
+          "Thanks Rohan. Grateful for the hunt and for the years of being around on here. Anyone reading this, Rohan sees a lot of launches, so him picking this one up meant something to us on a day where we were mostly nervous.",
+          "Thank you Rohan. Appreciate you taking the time on it, and glad the API problem resonated. We are here in the comments all day if anyone wants to push on the details."
+        ]
+      },
+      {
+        id: "max-klink-1",
+        author: "Max Klink",
+        role: "",
+        when: "42m ago",
+        addressed: "",
+        answered: true,
+        body: "Thank you guys. Will give it a shot for scarping TikTok posts of my creators...",
+        drafts: [
+          "Thanks Max, and creator tracking on TikTok is one of the more common things people use it for. Tell us how it goes, especially if something about the response is not shaped the way you need.",
+          "Appreciate it. If you are pulling posts across a set of creators regularly, that is exactly the pattern the API is built around. Shout if you get stuck at any point.",
+          "Thank you Max. Do come back and tell us what worked and what did not. The specific complaints are more useful to us than the compliments."
+        ]
+      },
+      {
+        id: "andreas-jablonka-1",
+        author: "Andreas Jablonka",
+        role: "",
+        when: "1m ago",
+        addressed: "",
+        body: "this is cool and you definitely hit a pain point. what do you say to a user asking what mind case can do that services like Windsor.ai cannot? im genuinely considering switching so sell me :) (for the record we mostly use gA4, GSC, google ads as connectors and would love to have reliable(!) way to source reddit.",
+        drafts: [
+          "Thanks Andreas, and I am going to give you the unhelpful sales answer: do not switch. For GA4, GSC and Google Ads you are pulling from platforms where you own the account and there is an official API, which is what Windsor is built for and they do it well. We are for the other half, the web sources where no such API exists, which is exactly why Reddit is on your list and not already solved. Those two things sit side by side rather than replacing each other. Tell me what you need out of Reddit, posts, comments, or search across subreddits, and I will tell you precisely what comes back.",
+          "Appreciate the direct question. The honest answer is that we overlap with Windsor very little. Your GA4, GSC and Google Ads connectors are account based data with a real API behind them, and there is no reason to move that. Reddit is the part where you are stuck, because there is no equivalent connector to just plug in, and that is the category we work in. So the pitch is not switch, it is add the piece that is missing. What does reliable mean for your Reddit use case, volume, freshness, or both?",
+          "Thank you Andreas. I would rather be useful than sell you something. Keep Windsor for the ad and analytics connectors, that is their job and it is a different problem to ours. Where we would help is Reddit, and I would want to know what you are trying to get out of it before promising anything, since tracking a handful of subreddits and pulling historical threads at volume are different jobs. Tell me which one you are after and I will be straight with you about how well we do it."
+        ]
       }
     ]
   }
