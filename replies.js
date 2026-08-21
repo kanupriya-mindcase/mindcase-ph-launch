@@ -188,6 +188,7 @@ window.REPLIES = {
       },
       {
         id: "gal-dayan-1",
+        answered: true,   // option 3 posted on PH by Saurabh
         author: "Gal Dayan",
         role: "",
         when: "6m ago",
@@ -198,6 +199,19 @@ window.REPLIES = {
           "Thank you Gal, this is genuinely useful and specific enough to act on. The company size band is the interesting part of your ask, because that is the field that turns a pile of reviews into something you can actually segment by, and it is usually the one that gets dropped. On the caching question, a repeat fetch is a repeat collection, but I would not run it that way for reviews. Reviews accumulate rather than change, so pulling on a schedule and keying on review id gives you new ones without paying for the same text twice. Tell me how fresh you need it, daily or weekly, and I will tell you what that actually costs you.",
           "Appreciate you answering the question properly Gal, most people say the source and stop. Review text, rating and reviewer size band across G2 and Capterra at around 1,000 rows a month is a well shaped request and we will come back to you in this thread with a straight yes or no on both sites rather than a maybe. On pricing, you pay per collection, so calling the same page twice bills twice. Whether that matters depends entirely on the source. For reddit or twitter, as I said to Raunak above, the second call is usually the point, since the upvotes and comment counts have moved and you are collecting a second observation rather than the same row. Reviews sit at the other end of that. They accumulate rather than change, so a scheduled pull plus a dedupe on review id at your end is cheaper and gives you the same picture. I would rather tell you that than sell you the extra calls."
                 ]
+      },
+      {
+        id: "sansa-grey-1",
+        author: "Sansa Grey",
+        role: "",
+        when: "6m ago",
+        addressed: "",
+        body: "The custom API angle is interesting. A lot of scraping tools work well for known sources, but the anything across the web problem is where teams usually get stuck.",
+        drafts: [
+          "That is the right read, and it is where most of the interesting requests come from. The catalogue covers the sources everybody asks for, but the ones people actually get stuck on are the long tail, some regional marketplace or an industry directory that no tool will ever build a connector for. The thing we care about with a custom agent is that it does not become a bespoke artefact you now own. Same request shape as everything else, maintained by us, so it behaves like any other agent in your pipeline rather than a special case with your name on it.",
+          "Thank you, and worth saying plainly: anything across the web is the ambition, not a guarantee. Some sources are genuinely a bad idea and we would rather tell you that than take the work and disappoint you two months in. What we can commit to is a straight answer either way, quickly. If you have a source that has stalled a project before, name it and I will tell you honestly where it sits.",
+          "Appreciate that. The bit teams underestimate is that getting data out of an unusual source once is rarely the hard part, it is that a one off extraction becomes a thing somebody has to keep alive forever, usually the person who wrote it. Turning it into an agent moves that burden rather than just the code. Out of interest, is there a specific source behind your comment, or is this a general observation? Happy to be concrete if there is one."
+        ]
       }
     ]
   }
