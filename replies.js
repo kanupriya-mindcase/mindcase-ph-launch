@@ -93,6 +93,7 @@ window.REPLIES = {
       },
       {
         id: "ashish-khandelwal-1",
+        answered: true,   // answered on PH: separate endpoint per API, no CLI, MCP available
         author: "Ashish Khandelwal",
         role: "",
         when: "6m ago",
@@ -112,7 +113,7 @@ window.REPLIES = {
         addressed: "",
         body: "This is such a great tool and i have been looking for my internal project, would love to see how it works in practical. if you can reveal, how do you handle X platform especially? using official API behind the scenes?",
         drafts: [
-          "Thank you, and the practical part is easy to solve: your first call is free, so you can point an agent at a real input from your project and see the actual response rather than a screenshot. On sourcing, the rule we hold to is that where a source has an official API that genuinely serves the use case we use it, and where it does not we collect and structure it ourselves. What we will not do is dress one up as the other, because you should know what you are depending on. Tell me what you need out of X specifically, fields and rough volume, and I will give you a straight answer on where it stands today.",
+          "Thank you, and the practical part is easy to solve: your first call is free, so you can point an agent at a real input from your project and see the actual response rather than a screenshot. If you want to poke at it without writing any code first, there is an MCP you can connect and just ask it for the data. On sourcing, the rule we hold to is that where a source has an official API that genuinely serves the use case we use it, and where it does not we collect and structure it ourselves. What we will not do is dress one up as the other, because you should know what you are depending on. Tell me what you need out of X specifically, fields and rough volume, and I will give you a straight answer on where it stands today.",
           "Appreciate that. Rather than answer in the abstract, what is the internal project pulling? If you tell me the fields you need and roughly how many rows a month, I can tell you exactly which agent covers it, what the response looks like, and what it would cost you at our per 1,000 row pricing. On the official API question, we are happy to be specific per source rather than hand wave, since the answer genuinely differs between platforms and it affects what you can rely on. Ask me about X directly and I will not dodge it.",
           "Thanks Kisekiya. Two things worth saying. First, we would rather you test it than trust the post, so the first call is free and the 100% bonus credits run for 24 hours if you want to push real volume through it. Second, on how any given source is handled, the honest position is that it varies by platform and we will tell you per source rather than give one blanket answer that would be wrong somewhere. If X is central to your project, say what you need from it and I will tell you whether we cover it well, cover it partly, or not at all."
         ]
