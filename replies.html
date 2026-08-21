@@ -85,7 +85,8 @@
 </div>
 
 <script src="nav.js"></script>
-<script src="replies.js"></script>
+<!-- replies.js changes on every pull, so never let a cached copy win -->
+<script>document.write('<scr' + 'ipt src="replies.js?t=' + Date.now() + '"><\/scr' + 'ipt>');</script>
 <script>
 const PH = "https://www.producthunt.com";
 const allDays = Object.keys(window.REPLIES).sort();
