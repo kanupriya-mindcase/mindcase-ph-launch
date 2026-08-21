@@ -146,6 +146,7 @@ window.REPLIES = {
       },
       {
         id: "shabnam-katoch-1",
+        answered: true,   // option 2 posted on PH
         author: "Shabnam Katoch",
         role: "",
         when: "1m ago",
