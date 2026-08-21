@@ -133,6 +133,7 @@ window.REPLIES = {
       },
       {
         id: "raunak-singh-1",
+        answered: true,   // option 1 posted on PH (timeline framing)
         author: "Raunak Singh",
         role: "",
         when: "1m ago",
