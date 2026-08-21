@@ -283,6 +283,19 @@ window.REPLIES = {
           "Appreciate the question, and the second half is the one that matters more. A gap between a site changing and anyone noticing is unavoidable, so the honest way to judge any vendor here is not whether the gap exists but who is watching it and what you get during it. Our answer is that we watch, and that a broken collection comes back as a failure rather than as a partial row that quietly flows into your database. On blast radius, agents are per site, so a LinkedIn change stays with LinkedIn agents, though several of those can be affected together if the change is big enough.",
           "Thanks Farrukh. Straight answers to both. A site change hits the agents for that site, not the whole catalogue, since sources do not share parsing across sites. And yes, there is a lag, there is no version of this where there is not. What we can control is that we are the ones looking for it and that the failure is visible rather than silent, because a wrong row you trust is far more expensive than a run that failed. If you end up using it and you see a case where that is not true, tell us, that is exactly the thing we want to hear about."
         ]
+      },
+      {
+        id: "farrukh-ahmed-2",
+        author: "Farrukh Ahmed",
+        role: "",
+        when: "1m ago",
+        addressed: "@kritishpuri",
+        body: "@kritishpuri That line between a failed run and a wrong row you believe that's the real dividing line, and most data tools just don't call it out. A failure? Painful, but at least it's obvious. A bad value that slips through? It poisons everything after it, and nobody notices until the whole system falls apart. Which makes me wonder about catching these things early. How do you spot a parser going rogue before a customer does? Automated schema checks? Manual spot-tests? What's actually checking under the hood? That \"we're the ones hunting for it\" line is the one that feels most real, so yeah, what's the machinery behind it?",
+        drafts: [
+          "Thanks Farrukh. Without turning this into a full architecture post, the shape of it is two things. Automated checks on every response, so we are looking at whether the fields we expect are actually filled rather than just whether the request came back with a 200. And the fact that an agent is used by many customers at once, which means a change shows up as a pattern across all of them within minutes rather than as one person's odd result. People are involved for the tail cases that neither of those catch. The honest summary is that a lot of it is mundane, and mundane and running is the point.",
+          "Good question, and I will answer the shape of it rather than the full internals. The most useful signal is not clever, it is scale. The same agent runs for a lot of customers, so when a site changes we see it as a sudden pattern across many runs rather than as one strange row. On top of that there are automated checks on whether the fields we expect actually came back filled, since a 200 with an empty field is the dangerous case, not the error. If you want to go deeper than that I am happy to, just not in a public thread.",
+          "Appreciate you pushing on it, because that line is the part we most want to be held to. The short version is automated checks on what came back, not just whether the call succeeded, plus the advantage of running the same agent across many customers so a site change appears as a pattern very quickly. Neither is exotic. If you are evaluating this seriously I would rather show you than describe it, so tell me a source you care about and we can look at real output together."
+        ]
       }
     ]
   }
