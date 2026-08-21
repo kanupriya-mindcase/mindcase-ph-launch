@@ -202,6 +202,7 @@ window.REPLIES = {
       },
       {
         id: "sansa-grey-1",
+        answered: true,   // option 2 posted on PH
         author: "Sansa Grey",
         role: "",
         when: "6m ago",
@@ -215,6 +216,7 @@ window.REPLIES = {
       },
       {
         id: "ashir-murtaza-1",
+        answered: true,   // option 1 posted on PH
         author: "Ashir Murtaza",
         role: "",
         when: "9m ago",
