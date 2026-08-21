@@ -20,6 +20,7 @@ window.REPLIES = {
       },
       {
         id: "maker-kritish",
+        answered: true,   // option 2 posted on PH by Kanupriya
         author: "Kritish Puri",
         drafts: [
           "Kritish again, following up on my post above with the one thing I actually want out of today. We have 75+ agents live across LinkedIn, Amazon, Google, Instagram, TikTok and YouTube, and almost none of that list was planned in a roadmap meeting. It came from people telling us which source was blocking them, and us building it. So if there is a platform you have been putting off because writing and maintaining the scraper is not worth the trouble, say it in this thread. Even if it is niche. When something is not in the catalogue we build it as a custom API for that use case rather than handing you a template and wishing you luck, so a comment here is a genuinely useful signal and not just a nice thing to say. Tell me the source and roughly what you need out of it, and I will tell you honestly whether it is straightforward, hard, or a bad idea.",
@@ -126,6 +127,19 @@ window.REPLIES = {
           "@jaiditya_nair @fmbaechle answering both of you here. We treat blocking as a reliability problem rather than a clever trick. Pools are health checked continuously, routes that start degrading get pulled automatically, and failures are retried on our side before anything reaches your code. What that means in practice is you get a complete row or an honest error, never a silent partial result, which is the failure mode that actually hurts. Two people asking the same thing tells me it belongs in our docs properly, so thank you for that.",
           "@jaiditya_nair @fmbaechle good question to press on. The honest answer is that nobody is never blocked at scale, so the number we actually watch is what share of requests come back complete with no intervention from you. Retries sit on our side and you only pay for rows you actually collect, so a bad hour costs us rather than you. That alignment is deliberate, because a vendor who charges per attempt has no reason to fix their success rate. Happy to talk specifics for whichever source you each care about most.",
           "@jaiditya_nair @fmbaechle since you both asked, the short version is that the work is in noticing and recovering rather than in any single trick. Continuous health checks, automatic rerouting, retries absorbed before the response reaches you, and parser monitoring so a layout change gets caught by us instead of quietly shrinking your row count. What volume are you each running? The right answer genuinely differs between a few thousand rows a month and a few million, and I would rather give you the one that fits."
+        ]
+      },
+      {
+        id: "raunak-singh-1",
+        author: "Raunak Singh",
+        role: "",
+        when: "1m ago",
+        addressed: "@kritishpuri",
+        body: "@kritishpuri Congratulations on launch, this seems like a great product replacing apify for me, but i have some questions: 1. How we compare this to composio why this is better? 2. If i fetch a reddit or twitter post and got charged for it today example 1$ then will i be charged for the same exact fetch if i call the same posts twice in a day? Second question is the one im bent on",
+        drafts: [
+          "Thanks Raunak, and taking the second one first since that is the one you care about. Every call is a fresh collection, so calling the same post twice means collecting it twice. We are not silently serving you a cached row and charging you for fresh data, because you would have no way of knowing how stale it is. The practical answer is to cache on your side with whatever freshness window your use case tolerates, which is usually a much better decision than one we could make for you. On Composio, different layer of the stack. It connects agents to apps that already expose APIs. We go after the web where a usable API does not exist. Plenty of teams use both.",
+          "Appreciate the direct questions, let me take them in your order of priority. On repeat fetches, the model is that you pay for rows actually collected, and a second identical call is a second collection rather than a free replay. If deduplication inside a time window is something you would want us to handle rather than you, say so, because you are not the first to ask and that is exactly how things get built here. On Composio, they solve agent to app integration where the API already exists. The problem we take is the web where it does not, so the honest comparison is usually alongside Apify and Bright Data rather than alongside them.",
+          "Thank you Raunak. Straight answers. Two, a repeat fetch is a repeat collection, so it is billed as one, and the reason we do not quietly dedupe for you is that you would not know whether a row is one minute or one week old, which matters more than the cost for most use cases. Tell me the freshness window you actually need for reddit and twitter posts and I will tell you the cheapest way to run it, even if that means calling us less often. One, Composio is a different layer, agent to app plumbing over existing APIs, while we are the collection layer for sources that do not offer one."
         ]
       }
     ]
