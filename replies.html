@@ -55,6 +55,10 @@
   .syncst{ font-family:var(--mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); white-space:nowrap; margin-left:6px; }
   .syncst.ok{ color:var(--good); }
   .syncst.warn{ color:var(--warn); }
+  .maker-sec{ margin-top:46px; padding-top:30px; border-top:1px solid var(--line); }
+  .sub-title{ font-family:var(--mono); font-size:20px; letter-spacing:-.02em; margin:8px 0 6px; }
+  .card.maker{ border-left-color:var(--line); }
+  .card.maker .tag{ color:var(--ph); border-color:var(--ph); }
 </style>
 </head>
 <body data-page="replies">
@@ -82,6 +86,13 @@
 
   <div id="cardsActive" class="view" style="margin-top:18px;"></div>
   <div id="cardsPosted" class="view" hidden style="margin-top:18px;"></div>
+
+  <div class="maker-sec">
+    <div class="kicker">From the team</div>
+    <h3 class="sub-title">Maker comments</h3>
+    <p class="lead">One each for the four of you, to add under the launch rather than reply to someone. Different angle per person so the thread does not read like one voice.</p>
+    <div id="cardsMakers" style="margin-top:18px;"></div>
+  </div>
 </div>
 
 <script src="nav.js"></script>
@@ -116,7 +127,7 @@ function setSync(txt, cls){ const e = document.getElementById("syncStatus"); if 
 function answeredOnPH(date, id){
   const day = window.REPLIES[date];
   if (!day) return false;
-  const c = day.comments.find(x => x.id === id);
+  const c = day.comments.concat(day.makers || []).find(x => x.id === id);
   return !!(c && c.answered);
 }
 function isDone(date, id){
@@ -219,13 +230,13 @@ function buildCard(date, c, i, launchHref){
     <div class="card-top">
       <div class="idx">${String(i+1).padStart(2,"0")}</div>
       <div class="meta">
-        <div class="name">${esc(c.author)} <span class="when">· ${esc(c.when)}</span></div>
+        <div class="name">${esc(c.author)}${c.when ? ` <span class="when">· ${esc(c.when)}</span>` : ""}</div>
       </div>
-      ${c.addressed ? `<span class="tag you">Asked ${esc(c.addressed)}</span>` : `<span class="tag">Launch comment</span>`}
+      ${c.addressed ? `<span class="tag you">Asked ${esc(c.addressed)}</span>` : `<span class="tag">${c.body ? "Launch comment" : "Maker post"}</span>`}
     </div>
-    <blockquote class="said">${esc(c.body)}</blockquote>
+    ${c.body ? `<blockquote class="said">${esc(c.body)}</blockquote>` : ""}
     <div class="comment-wrap">
-      <div class="comment-label"><span>Pick a reply — edit before you post</span><span class="count">0 chars</span></div>
+      <div class="comment-label"><span>${c.body ? "Pick a reply, edit before you post" : "Pick a comment, edit before you post"}</span><span class="count">0 chars</span></div>
       <div class="opts">${optBtns}</div>
       <textarea spellcheck="true"></textarea>
     </div>
@@ -233,7 +244,7 @@ function buildCard(date, c, i, launchHref){
       <button class="btn btn-copy act">Copy</button>
       <a class="btn btn-primary" href="${PH}${launchHref}" target="_blank" rel="noopener">Open the launch →</a>
       <span class="spacer"></span>
-      <label class="postbox"><input type="checkbox" class="posted-cb" ${done ? "checked" : ""} ${answeredOnPH(date, c.id) ? "disabled" : ""}/> ${answeredOnPH(date, c.id) ? "Replied on PH" : "Replied"}</label>
+      <label class="postbox"><input type="checkbox" class="posted-cb" ${done ? "checked" : ""} ${answeredOnPH(date, c.id) ? "disabled" : ""}/> ${answeredOnPH(date, c.id) ? "Replied on PH" : (c.body ? "Replied" : "Posted")}</label>
     </div>`;
 
   const ta = card.querySelector("textarea");
@@ -265,7 +276,8 @@ function buildCard(date, c, i, launchHref){
     if (val) SHARED.posted[k][c.id] = true; else delete SHARED.posted[k][c.id];
     const s = loadState(date,c.id); s.replied = val; saveState(date,c.id,s);
     card.classList.toggle("posted", val);
-    if (val) postedEl.appendChild(card); else moveBackToActive(card, i);
+    // Maker posts live in their own section, so they stay put when ticked.
+    if (c.body){ if (val) postedEl.appendChild(card); else moveBackToActive(card, i); }
     updateStats(); refreshEmpty();
     try {
       const r = await fetch(SYNC_URL, { headers:{ Accept:"application/json" }, cache:"no-store" });
@@ -284,8 +296,14 @@ function render(date){
     const card = buildCard(date, c, i, day.launchHref);
     (isDone(date, c.id) ? postedEl : activeEl).appendChild(card);
   });
+  renderMakers(day);
   updateStats();
   applyView();
+}
+function renderMakers(day){
+  const el = document.getElementById("cardsMakers");
+  el.innerHTML = "";
+  (day.makers || []).forEach((m, i) => el.appendChild(buildCard(currentDate, m, i, day.launchHref)));
 }
 sel.addEventListener("change", () => render(sel.value));
 window.addEventListener("focus", refreshFromShared);
