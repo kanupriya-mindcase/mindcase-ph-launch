@@ -241,6 +241,19 @@ window.REPLIES = {
           "Thank you Oliver. Keeping it uniform costs us more work internally, which is the point, since it means it costs you none.",
           "Appreciate it Oliver. The part people notice later is that the errors are consistent too, so nothing needs a special case per source."
                 ]
+      },
+      {
+        id: "raunak-singh-2",
+        author: "Raunak Singh",
+        role: "",
+        when: "35m ago",
+        addressed: "@kanupriya_chhabra1",
+        body: "@kanupriya_chhabra1 Understood, also congratulations on ranking top 5 hope this becomes #1 (already answered warmly on PH; drafts here are for the Composio half of his original question, still unanswered)",
+        drafts: [
+          "@raunaks_99 also, I owe you an answer on your first question. Composio sits at a different layer to us. They connect agents to apps that already expose an API and handle the auth plumbing around that. We are the collection layer for the web where a usable API does not exist. Plenty of teams end up running both, and if you are moving off Apify then we are the closer comparison of the two.",
+          "@raunaks_99 circling back on Composio since I only answered your second question properly. They are solving agent to app integration where the API already exists, we are solving collection where it does not, so it is less a better or worse and more that they rarely overlap. Given you mentioned Apify, that is the comparison I would actually run us against.",
+          "@raunaks_99 one more on your Composio question. The honest framing is that they are not really a competitor of ours. Their problem is connecting an agent to tools that already have APIs. Ours starts at the point where there is no API to connect to. If you are already using Composio, adding us underneath it for the web sources is a fairly normal setup."
+        ]
       }
     ]
   }
