@@ -173,6 +173,7 @@ window.REPLIES = {
       },
       {
         id: "ryan-keller-1",
+        answered: true,   // option 1 posted on PH
         author: "Ryan Keller",
         role: "",
         when: "8m ago",
