@@ -12,6 +12,7 @@ window.REPLIES = {
     comments: [
       {
         id: "jagbir-singh-1",
+        answered: true,   // maker reply already posted on PH
         author: "Jagbir Singh",
         role: "",
         when: "7m ago",
@@ -25,6 +26,7 @@ window.REPLIES = {
       },
       {
         id: "brent-vardy-1",
+        answered: true,   // maker reply already posted on PH
         author: "Brent Vardy",
         role: "",
         when: "7m ago",

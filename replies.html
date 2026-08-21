@@ -109,7 +109,17 @@ const NS = (date) => "replied:" + date;
 let SHARED = { posted: {} };
 let sharedLoaded = false;
 function setSync(txt, cls){ const e = document.getElementById("syncStatus"); if (e){ e.textContent = txt; e.className = "syncst " + (cls || ""); } }
+/* A comment counts as done if the pull marked it answered on PH, or if
+   someone ticked it here. The PH state wins, so the desk never shows a
+   card you have already replied to. */
+function answeredOnPH(date, id){
+  const day = window.REPLIES[date];
+  if (!day) return false;
+  const c = day.comments.find(x => x.id === id);
+  return !!(c && c.answered);
+}
 function isDone(date, id){
+  if (answeredOnPH(date, id)) return true;
   const k = NS(date);
   if (sharedLoaded) return !!(SHARED.posted[k] && SHARED.posted[k][id]);
   return !!loadState(date, id).replied;
@@ -222,7 +232,7 @@ function buildCard(date, c, i, launchHref){
       <button class="btn btn-copy act">Copy</button>
       <a class="btn btn-primary" href="${PH}${launchHref}" target="_blank" rel="noopener">Open the launch →</a>
       <span class="spacer"></span>
-      <label class="postbox"><input type="checkbox" class="posted-cb" ${done ? "checked" : ""}/> Replied</label>
+      <label class="postbox"><input type="checkbox" class="posted-cb" ${done ? "checked" : ""} ${answeredOnPH(date, c.id) ? "disabled" : ""}/> ${answeredOnPH(date, c.id) ? "Replied on PH" : "Replied"}</label>
     </div>`;
 
   const ta = card.querySelector("textarea");
