@@ -155,6 +155,19 @@ window.REPLIES = {
           "Appreciate that. What surprised us building it is how much of the bottleneck is maintenance rather than the first extraction. Getting data out of a site once is a fun afternoon. Keeping it correct across layout changes, rate limits and anti-bot for a year is the actual job, and that is the part teams underestimate when they decide to keep it in house.",
           "Thanks Shabnam. If you are working on anything in this space I would be curious which part is the real bottleneck for you, the collection itself or making different sources agree on the same schema afterwards. We hear both, and the second one gets far less attention than it deserves."
         ]
+      },
+      {
+        id: "rajat-kapoor-1",
+        author: "Rajat Kapoor",
+        role: "",
+        when: "13m ago",
+        addressed: "",
+        body: "This is actually pretty useful. Keeping scrapers working is such a pain, so having it all behind one API makes a lot of sense. Nice launch",
+        drafts: [
+          "Thanks Rajat. The bit that gets underestimated is that the pain does not grow in a straight line. One scraper is a weekend. Five sources break independently of each other, so there is almost always one of them down, and you go from writing scrapers to running a small unplanned operations rota. That crossover is where most teams start looking for something like this.",
+          "Appreciate it. What usually rots a scraper is not the code, it is the ownership. Whoever wrote it knows the quirks, then they move to another team and it becomes a file nobody wants to touch until it breaks loudly. Putting it behind an API is partly a technical decision and mostly a way of making sure that knowledge is not sitting with one person.",
+          "Thank you. Out of curiosity, how many sources are you keeping alive at the moment? The answer changes what I would recommend. At one or two stable sources you are honestly fine as you are, and it is somewhere past that where the maintenance stops being occasional and starts being a standing item on someone's week."
+        ]
       }
     ]
   }
