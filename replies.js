@@ -84,6 +84,19 @@ window.REPLIES = {
           "Appreciate it. The honest answer is that nobody is never blocked at scale, so the metric we actually watch is what share of requests come back complete without you doing anything. Retries are on us and you only pay for rows you actually collect, so a bad hour costs us and not you. Coming from Apify and Bright Data, what volume are you running?",
           "Thank you Felix. The difference from the tools you have used is mostly about where the work sits. With those you still own orchestration, retry logic, and fixing the parser every time a layout shifts. We hold all of that behind the call, including monitoring parsers for drift so a change gets caught by us rather than by your pipeline going quiet. Happy to go deeper if you want specifics for your use case."
         ]
+      },
+      {
+        id: "ashish-khandelwal-1",
+        author: "Ashish Khandelwal",
+        role: "",
+        when: "6m ago",
+        addressed: "",
+        body: "Congrats on the launch! Does it have a router based on the scrapping that has to be done or do we have to assign each scrapper different path ? Also is there cli available ?",
+        drafts: [
+          "Thanks Ashish. Today it is the explicit path, you name the agent you want, so linkedin/profiles or amazon/products, and that call is deterministic. We went that way on purpose because a router that guesses is lovely in a demo and painful in production when it silently picks the wrong source. On CLI, the SDKs are Python and Node.js right now. Is a CLI something you would reach for in your workflow or would the SDK cover it?",
+          "Appreciate it. You assign the path explicitly per agent, which keeps the call predictable and cheap to reason about, and the request shape stays identical across all of them so a router on top would be a thin thing to build for your own use case if you wanted one. Python and Node.js SDKs are what ship today. Tell me what you would want a CLI to do and it genuinely helps us prioritise.",
+          "Thank you. Short answers: explicit path per agent rather than automatic routing, and Python plus Node.js SDKs today. The reason for explicit is that with web data you usually care which source a row came from, since provenance matters when something looks off later. Curious whether you are orchestrating this from code or from scripts, because that changes what we should build next."
+        ]
       }
     ]
   }
