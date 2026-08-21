@@ -269,6 +269,19 @@ window.REPLIES = {
           "Thanks KP. It sounds like a small thing, but it was the hardest part to hold to, because every site wants to be treated as a special case. Keeping them all the same on the outside is what makes adding the next one easy.",
           "Appreciate it. Most of the work here is making different sources look the same so you do not have to think about them separately. Glad that is what came through."
                 ]
+      },
+      {
+        id: "farrukh-ahmed-1",
+        author: "Farrukh Ahmed",
+        role: "",
+        when: "4m ago",
+        addressed: "@kritishpuri",
+        body: "@kritishpuri Congrats on the launch. The line that stood out \"scrapers would break, proxies would get blocked, parsers needed constant fixes\" that's the real tax nobody sees until they're in it. Curious how you handle drift at scale: when LinkedIn or Amazon tweaks their page structure, does that break one agent or does it cascade across others sharing similar parsing logic? And is there a lag between \"site changed\" and \"agent's data goes stale/wrong\" that customers might not notice right away?",
+        drafts: [
+          "Thank you Farrukh, and both of those are the right questions to ask. On the first, a change to LinkedIn affects the agents for LinkedIn. Agents for different sites do not share parsing, so an Amazon change does not touch them. Within one site there is more shared logic, so a big redesign can hit several agents for that site at once. On the second, yes, there is always a gap between a site changing and us knowing. Anyone who tells you otherwise is selling something. The thing we care about is that the gap is ours to close rather than yours to discover, and that when something is wrong you get an error you can see instead of a row that looks fine and is not.",
+          "Appreciate the question, and the second half is the one that matters more. A gap between a site changing and anyone noticing is unavoidable, so the honest way to judge any vendor here is not whether the gap exists but who is watching it and what you get during it. Our answer is that we watch, and that a broken collection comes back as a failure rather than as a partial row that quietly flows into your database. On blast radius, agents are per site, so a LinkedIn change stays with LinkedIn agents, though several of those can be affected together if the change is big enough.",
+          "Thanks Farrukh. Straight answers to both. A site change hits the agents for that site, not the whole catalogue, since sources do not share parsing across sites. And yes, there is a lag, there is no version of this where there is not. What we can control is that we are the ones looking for it and that the failure is visible rather than silent, because a wrong row you trust is far more expensive than a run that failed. If you end up using it and you see a case where that is not true, tell us, that is exactly the thing we want to hear about."
+        ]
       }
     ]
   }
