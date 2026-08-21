@@ -37,6 +37,19 @@ window.REPLIES = {
           "Really appreciate this Brent. The pricing was a deliberate call, usage is spiky and seats punish exactly the teams experimenting the most. Curious which use case is top of mind for you, happy to point you at the right agent.",
           "Thanks Brent, that means a lot on day one. We wanted the cost to track the work, not the calendar, so it is $0.06 to $20 per 1,000 rows depending on the agent and nothing when you are idle. Do give it a spin and tell us where it creaks."
         ]
+      },
+      {
+        id: "felix-1",
+        author: "Felix",
+        role: "",
+        when: "2m ago",
+        addressed: "@kanupriya_chhabra1",
+        body: "@kanupriya_chhabra1 great work! I already worked with different scrapers such as Apify or bright data but also ScrapingBee. How do you make sure you don't get blocked by LinkedIn?",
+        drafts: [
+          "Thanks Felix, and good question from someone who has actually run these. Short version: we treat blocking as a reliability problem, not a trick. Pools are health checked continuously, bad routes get pulled automatically, and anything that fails is retried on our side before it ever reaches you. You see a completed row or an honest error, never a silent half result.",
+          "Appreciate it. The honest answer is that nobody is never blocked at scale, so the metric we actually watch is what share of requests come back complete without you doing anything. Retries are on us and you only pay for rows you actually collect, so a bad hour costs us and not you. Coming from Apify and Bright Data, what volume are you running?",
+          "Thank you Felix. The difference from the tools you have used is mostly about where the work sits. With those you still own orchestration, retry logic, and fixing the parser every time a layout shifts. We hold all of that behind the call, including monitoring parsers for drift so a change gets caught by us rather than by your pipeline going quiet. Happy to go deeper if you want specifics for your use case."
+        ]
       }
     ]
   }
