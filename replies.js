@@ -272,6 +272,7 @@ window.REPLIES = {
       },
       {
         id: "farrukh-ahmed-1",
+        answered: true,   // option 3 posted on PH by Kritish
         author: "Farrukh Ahmed",
         role: "",
         when: "4m ago",
