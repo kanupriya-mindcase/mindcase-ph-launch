@@ -293,6 +293,7 @@ window.REPLIES = {
       },
       {
         id: "farrukh-ahmed-2",
+        answered: true,   // replied on PH, but the reply did not address the detection question
         author: "Farrukh Ahmed",
         role: "",
         when: "1m ago",
