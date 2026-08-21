@@ -264,10 +264,10 @@ window.REPLIES = {
         addressed: "",
         body: "Normalizing web extraction behind a single API call shape is a total game-changer for AI teams. Super cool build, congrats!",
         drafts: [
-          "Thank you. The AI team part is where it matters most, because an agent downstream is unusually sensitive to shape. A renamed or missing field does not throw, it just quietly changes what the model reasons over, so keeping the response identical across sources is closer to a correctness property than a convenience.",
-          "Appreciate that. The unglamorous half of normalising is deciding what the canonical shape should even be, since two sources rarely agree on what counts as a company or a product. Those arguments happen on our side now instead of inside your mapping layer.",
-          "Thanks KP. Curious what you would plug it into first. The pattern we see most is an agent that needs three or four sources and currently has a bespoke integration for each one, and that is exactly where a single call shape stops being a nicety."
-        ]
+          "Thank you KP, that is exactly what we were going for. One call shape across every source, so adding a new one is not a project. Glad it landed.",
+          "Thanks KP, that was the whole idea. Glad it reads that way from outside.",
+          "Appreciate that KP. It is the part that took the longest to get right and the part nobody notices when it works, so thank you for noticing."
+                ]
       }
     ]
   }
