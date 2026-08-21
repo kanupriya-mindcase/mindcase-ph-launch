@@ -97,6 +97,19 @@ window.REPLIES = {
           "Appreciate it. You assign the path explicitly per agent, which keeps the call predictable and cheap to reason about, and the request shape stays identical across all of them so a router on top would be a thin thing to build for your own use case if you wanted one. Python and Node.js SDKs are what ship today. Tell me what you would want a CLI to do and it genuinely helps us prioritise.",
           "Thank you. Short answers: explicit path per agent rather than automatic routing, and Python plus Node.js SDKs today. The reason for explicit is that with web data you usually care which source a row came from, since provenance matters when something looks off later. Curious whether you are orchestrating this from code or from scripts, because that changes what we should build next."
         ]
+      },
+      {
+        id: "kisekiya-1",
+        author: "Kisekiya",
+        role: "",
+        when: "7m ago",
+        addressed: "",
+        body: "This is such a great tool and i have been looking for my internal project, would love to see how it works in practical. if you can reveal, how do you handle X platform especially? using official API behind the scenes?",
+        drafts: [
+          "Thank you, and the practical part is easy to solve: your first call is free, so you can point an agent at a real input from your project and see the actual response rather than a screenshot. On sourcing, the rule we hold to is that where a source has an official API that genuinely serves the use case we use it, and where it does not we collect and structure it ourselves. What we will not do is dress one up as the other, because you should know what you are depending on. Tell me what you need out of X specifically, fields and rough volume, and I will give you a straight answer on where it stands today.",
+          "Appreciate that. Rather than answer in the abstract, what is the internal project pulling? If you tell me the fields you need and roughly how many rows a month, I can tell you exactly which agent covers it, what the response looks like, and what it would cost you at our per 1,000 row pricing. On the official API question, we are happy to be specific per source rather than hand wave, since the answer genuinely differs between platforms and it affects what you can rely on. Ask me about X directly and I will not dodge it.",
+          "Thanks Kisekiya. Two things worth saying. First, we would rather you test it than trust the post, so the first call is free and the 100% bonus credits run for 24 hours if you want to push real volume through it. Second, on how any given source is handled, the honest position is that it varies by platform and we will tell you per source rather than give one blanket answer that would be wrong somewhere. If X is central to your project, say what you need from it and I will tell you whether we cover it well, cover it partly, or not at all."
+        ]
       }
     ]
   }
