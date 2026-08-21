@@ -170,6 +170,19 @@ window.REPLIES = {
           "Appreciate it. What usually rots a scraper is not the code, it is the ownership. Whoever wrote it knows the quirks, then they move to another team and it becomes a file nobody wants to touch until it breaks loudly. Putting it behind an API is partly a technical decision and mostly a way of making sure that knowledge is not sitting with one person.",
           "Thank you. Out of curiosity, how many sources are you keeping alive at the moment? The answer changes what I would recommend. At one or two stable sources you are honestly fine as you are, and it is somewhere past that where the maintenance stops being occasional and starts being a standing item on someone's week."
         ]
+      },
+      {
+        id: "ryan-keller-1",
+        author: "Ryan Keller",
+        role: "",
+        when: "8m ago",
+        addressed: "",
+        body: "Curious to see how this handles websites that constantly change layouts or add new restrictions. If the reliability holds up, this could become a useful foundation for many data-driven products.",
+        drafts: [
+          "Good thing to be sceptical about Ryan. The structural advantage is not that we are cleverer about layout changes, it is that when a site changes it breaks for everyone using that agent at once, so we hear about it immediately and fix it once for all of them. Maintaining it in house means you find out alone, usually late, and fix it alone every time. We are not going to claim we never break. We are claiming you are not the one who has to notice or repair it.",
+          "Thanks Ryan. Concretely, responses are validated against the shape that agent is supposed to return, so a field that quietly vanishes after a redesign surfaces as an error rather than as a null that flows happily into your database. That is the difference between finding out in minutes and finding out when someone questions a number next week. Which sources are you thinking of? Some are far more volatile than others and I would rather tell you which ones we are genuinely solid on.",
+          "Appreciate the framing, and I would push it one step further. The useful question for any vendor here is not whether things break, because at this scale they will, it is how long recovery takes and who is doing the work during it. That is the number we hold ourselves to and I am happy to be held to it publicly. If you do try it, tell us when something looks off rather than quietly walking away, because a specific report is worth more to us than a good review."
+        ]
       }
     ]
   }
