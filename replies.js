@@ -36,6 +36,7 @@ window.REPLIES = {
       },
       {
         id: "maker-saurabh",
+        answered: true,   // posted on PH (option 1)
         author: "Saurabh Shubham",
         drafts: [
           "Saurabh here, cofounder at Mindcase. Straight question for this thread, since you are the people who would actually use it: what should we build next? We have 75+ agents live across LinkedIn, Amazon, Google, Instagram, TikTok and YouTube, and almost every one of them exists because somebody asked for it, not because we planned it. So tell me the source you need, the two or three fields you actually care about, and roughly how many rows a month. I will reply in this thread with whether it is straightforward, hard, or honestly a bad idea, and what it would cost you per 1,000 rows. Niche is fine. Some regional marketplace or an industry directory nobody outside that industry has heard of is usually more useful to us than another big platform.",
@@ -109,6 +110,19 @@ window.REPLIES = {
           "Thank you, and the practical part is easy to solve: your first call is free, so you can point an agent at a real input from your project and see the actual response rather than a screenshot. On sourcing, the rule we hold to is that where a source has an official API that genuinely serves the use case we use it, and where it does not we collect and structure it ourselves. What we will not do is dress one up as the other, because you should know what you are depending on. Tell me what you need out of X specifically, fields and rough volume, and I will give you a straight answer on where it stands today.",
           "Appreciate that. Rather than answer in the abstract, what is the internal project pulling? If you tell me the fields you need and roughly how many rows a month, I can tell you exactly which agent covers it, what the response looks like, and what it would cost you at our per 1,000 row pricing. On the official API question, we are happy to be specific per source rather than hand wave, since the answer genuinely differs between platforms and it affects what you can rely on. Ask me about X directly and I will not dodge it.",
           "Thanks Kisekiya. Two things worth saying. First, we would rather you test it than trust the post, so the first call is free and the 100% bonus credits run for 24 hours if you want to push real volume through it. Second, on how any given source is handled, the honest position is that it varies by platform and we will tell you per source rather than give one blanket answer that would be wrong somewhere. If X is central to your project, say what you need from it and I will tell you whether we cover it well, cover it partly, or not at all."
+        ]
+      },
+      {
+        id: "jaiditya-nair-1",
+        author: "Jaiditya Nair",
+        role: "",
+        when: "20m ago",
+        addressed: "@kanupriya_chhabra1",
+        body: "@kanupriya_chhabra1 @fmbaechle yeah would like to know that too (a +1 on Felix's question about not getting blocked by LinkedIn)",
+        drafts: [
+          "@jaiditya_nair @fmbaechle answering both of you here. We treat blocking as a reliability problem rather than a clever trick. Pools are health checked continuously, routes that start degrading get pulled automatically, and failures are retried on our side before anything reaches your code. What that means in practice is you get a complete row or an honest error, never a silent partial result, which is the failure mode that actually hurts. Two people asking the same thing tells me it belongs in our docs properly, so thank you for that.",
+          "@jaiditya_nair @fmbaechle good question to press on. The honest answer is that nobody is never blocked at scale, so the number we actually watch is what share of requests come back complete with no intervention from you. Retries sit on our side and you only pay for rows you actually collect, so a bad hour costs us rather than you. That alignment is deliberate, because a vendor who charges per attempt has no reason to fix their success rate. Happy to talk specifics for whichever source you each care about most.",
+          "@jaiditya_nair @fmbaechle since you both asked, the short version is that the work is in noticing and recovering rather than in any single trick. Continuous health checks, automatic rerouting, retries absorbed before the response reaches you, and parser monitoring so a layout change gets caught by us instead of quietly shrinking your row count. What volume are you each running? The right answer genuinely differs between a few thousand rows a month and a few million, and I would rather give you the one that fits."
         ]
       }
     ]
