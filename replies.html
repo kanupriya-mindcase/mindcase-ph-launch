@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Replies · Launch Cockpit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .wu-bar{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:22px; }
+  .wu-bar .datepick{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+  .datesel{ font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:0; padding:8px 12px; cursor:pointer; color-scheme:light dark; }
+  .empty-board{ font-family:var(--mono); font-size:13px; color:var(--ink-faint); border:1px dashed var(--line); padding:26px 20px; text-align:center; }
+  .viewtabs{ display:flex; border:1px solid var(--line-strong); }
+  .vtab{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:9px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line-strong); cursor:pointer; transition:background .12s, color .12s; }
+  .vtab:last-child{ border-right:none; }
+  .vtab:hover{ background:var(--muted); }
+  .vtab.active{ background:var(--ph); color:#fff; }
+  .vtab .n{ font-variant-numeric:tabular-nums; }
+  .view[hidden]{ display:none; }
+  .wu-bar .spacer{ flex:1; }
+  .progress{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+  .pmeter{ width:110px; height:7px; background:var(--muted); border:1px solid var(--line); overflow:hidden; }
+  .pmeter i{ display:block; height:100%; width:0%; background:var(--ph); transition:width .5s cubic-bezier(.22,1,.36,1); }
+
+  .card{ background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--line); margin-bottom:14px; transition:border-color .18s ease, opacity .2s ease; }
+  .card:hover{ border-left-color:var(--ph); }
+  .card.posted{ opacity:.6; border-left-color:var(--good); }
+  .card-top{ padding:16px 18px 12px; display:flex; gap:14px; align-items:baseline; }
+  .idx{ font-family:var(--mono); font-size:12px; color:var(--ink-faint); width:26px; flex:none; font-weight:700; font-variant-numeric:tabular-nums; }
+  .meta{ flex:1; min-width:0; }
+  .meta .name{ font-family:var(--mono); font-size:16px; font-weight:700; letter-spacing:-.01em; }
+  .meta .when{ color:var(--ink-ghost); font-weight:400; font-size:13px; }
+  .tag{ flex:none; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; background:transparent; color:var(--ink-faint); border:1px solid var(--line); }
+  .tag.you{ color:var(--ph); border-color:var(--ph); }
+  .said{ margin:0 18px 14px; padding:12px 14px; background:var(--muted2); border-left:3px solid var(--line-strong); font-size:14px; line-height:1.55; color:var(--ink); }
+  .comment-wrap{ padding:0 18px 12px; }
+  .comment-label{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px; display:flex; justify-content:space-between; }
+  .comment-label .count{ color:var(--ink-ghost); }
+  .opts{ display:flex; margin-bottom:9px; border:1px solid var(--line); width:fit-content; }
+  .opt{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:7px 14px; background:var(--surface); color:var(--ink-soft); border:none; border-right:1px solid var(--line); cursor:pointer; transition:background .12s, color .12s; }
+  .opt:last-child{ border-right:none; }
+  .opt:hover{ background:var(--muted); }
+  .opt.active{ background:var(--ph); color:#fff; }
+  textarea{ width:100%; min-height:92px; resize:vertical; font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink); background:var(--muted2); border:1px solid var(--line); border-radius:0; padding:12px 13px; outline:none; transition:border-color .12s; }
+  textarea:focus{ border-color:var(--ph); }
+  .actions{ display:flex; gap:8px; align-items:center; padding:0 18px 18px; flex-wrap:wrap; }
+  .actions .spacer{ flex:1; }
+  .btn-copy.copied{ background:var(--good); color:#fff; border-color:var(--good); }
+  .postbox{ font-family:var(--mono); display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); cursor:pointer; user-select:none; padding:9px 13px; border:1px solid var(--line); }
+  .postbox input{ accent-color:var(--good); width:15px; height:15px; }
+  .card.posted .postbox{ color:var(--good); border-color:var(--good); background:var(--good-soft); }
+  .syncst{ font-family:var(--mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); white-space:nowrap; margin-left:6px; }
+  .syncst.ok{ color:var(--good); }
+  .syncst.warn{ color:var(--warn); }
+</style>
+</head>
+<body data-page="replies">
+<div id="app-nav"></div>
+
+<div class="wrap page">
+  <div class="kicker">Launch day</div>
+  <h2 class="title">Reply Desk</h2>
+  <p class="lead">Comments left on <b>Mindcase's own launch</b>. Pick a draft, make it sound like you, copy, open the launch, paste &amp; reply. Tick <b>Replied</b> as you go.</p>
+  <div class="callout">Reply to everyone, fast. Answer the actual point, add one thing the launch post did not already say, and never paste the same reply twice.</div>
+
+  <div class="wu-bar">
+    <div class="datepick">
+      <span>Day</span>
+      <select class="datesel" id="daySel"></select>
+    </div>
+    <div class="viewtabs">
+      <button class="vtab active" id="tabActive" data-view="active">To reply <span class="n" id="cntActive">· 0</span></button>
+      <button class="vtab" id="tabPosted" data-view="posted">Replied <span class="n" id="cntPosted">· 0</span></button>
+    </div>
+    <div class="spacer"></div>
+    <div class="progress"><div class="pmeter"><i id="pfill"></i></div><span><b id="pdone">0</b>/<span id="ptotal">0</span> replied</span></div>
+    <span class="syncst" id="syncStatus" title="Replied ticks sync across every device and person">syncing…</span>
+  </div>
+
+  <div id="cardsActive" class="view" style="margin-top:18px;"></div>
+  <div id="cardsPosted" class="view" hidden style="margin-top:18px;"></div>
+</div>
+
+<script src="nav.js"></script>
+<script src="replies.js"></script>
+<script>
+const PH = "https://www.producthunt.com";
+const allDays = Object.keys(window.REPLIES).sort();
+const latest = allDays[allDays.length - 1];
+let currentDate = latest;
+let currentView = "active";
+
+const sel = document.getElementById("daySel");
+sel.innerHTML = allDays.slice().reverse().map(d =>
+  `<option value="${d}"${d === latest ? " selected" : ""}>${window.REPLIES[d].label}</option>`).join("");
+
+/* Per-device draft text + chosen option */
+const KEY = (date, id) => `phwd-reply:${date}:${id}`;
+function loadState(date, id){ try{ return JSON.parse(localStorage.getItem(KEY(date,id)))||{}; }catch(e){ return {}; } }
+function saveState(date, id, s){ localStorage.setItem(KEY(date,id), JSON.stringify(s)); }
+
+/* Shared "Replied" state — same blob the Warm-up desk uses, namespaced under
+   a "replied:<date>" key so it can never collide with a warm-up board date. */
+const SYNC_URL = "https://jsonblob.com/api/jsonBlob/019fcc2e-b952-7d54-bee7-8d363961fd63";
+const NS = (date) => "replied:" + date;
+let SHARED = { posted: {} };
+let sharedLoaded = false;
+function setSync(txt, cls){ const e = document.getElementById("syncStatus"); if (e){ e.textContent = txt; e.className = "syncst " + (cls || ""); } }
+function isDone(date, id){
+  const k = NS(date);
+  if (sharedLoaded) return !!(SHARED.posted[k] && SHARED.posted[k][id]);
+  return !!loadState(date, id).replied;
+}
+function fetchOpts(extra){
+  return Object.assign({ cache:"no-store", signal: AbortSignal.timeout(6000) }, extra || {});
+}
+async function pullShared(){
+  try {
+    const r = await fetch(SYNC_URL, fetchOpts({ headers:{ Accept:"application/json" } }));
+    if (r.ok){
+      const d = await r.json();
+      SHARED = { posted: (d && d.posted && typeof d.posted === "object") ? d.posted : {} };
+      sharedLoaded = true; setSync("synced", "ok");
+      return true;
+    }
+  } catch(e){}
+  setSync("offline · saved here", "warn");
+  return false;
+}
+async function pushShared(){
+  try {
+    setSync("saving…", "");
+    const r = await fetch(SYNC_URL, fetchOpts({ method:"PUT", headers:{ "Content-Type":"application/json", Accept:"application/json" }, body: JSON.stringify(SHARED) }));
+    if (r.ok){ setSync("synced", "ok"); return true; }
+  } catch(e){}
+  setSync("offline · saved here", "warn");
+  return false;
+}
+let refreshing = false;
+async function refreshFromShared(){
+  if (refreshing) return; refreshing = true;
+  const ok = await pullShared();
+  const typing = document.activeElement && document.activeElement.tagName === "TEXTAREA";
+  if (ok && window.REPLIES[currentDate] && !typing) render(currentDate);
+  refreshing = false;
+}
+
+const activeEl = document.getElementById("cardsActive");
+const postedEl = document.getElementById("cardsPosted");
+const tabActive = document.getElementById("tabActive");
+const tabPosted = document.getElementById("tabPosted");
+tabActive.addEventListener("click", () => { currentView = "active"; applyView(); });
+tabPosted.addEventListener("click", () => { currentView = "posted"; applyView(); });
+
+function counts(){
+  const cs = window.REPLIES[currentDate] ? window.REPLIES[currentDate].comments : [];
+  let done = 0;
+  cs.forEach(c => { if (isDone(currentDate, c.id)) done++; });
+  return { done, active: cs.length - done, total: cs.length };
+}
+function updateStats(){
+  const c = counts();
+  document.getElementById("cntActive").textContent = "· " + c.active;
+  document.getElementById("cntPosted").textContent = "· " + c.done;
+  document.getElementById("pdone").textContent = c.done;
+  document.getElementById("ptotal").textContent = c.total;
+  document.getElementById("pfill").style.width = (c.total ? c.done/c.total*100 : 0) + "%";
+}
+function refreshEmpty(){
+  [[activeEl, "Every comment has been answered. Check back as new ones land."],
+   [postedEl, "Nothing replied to yet. Tick “Replied” on a card and it moves here."]].forEach(function(sp){
+    const el = sp[0], msg = sp[1];
+    const hasCard = el.querySelector(".card");
+    let empty = el.querySelector(".empty-board");
+    if (!hasCard){
+      if (!empty){ empty = document.createElement("div"); empty.className = "empty-board"; el.appendChild(empty); }
+      empty.textContent = msg;
+    } else if (empty){ empty.remove(); }
+  });
+}
+function applyView(){
+  activeEl.hidden = (currentView !== "active");
+  postedEl.hidden = (currentView !== "posted");
+  tabActive.classList.toggle("active", currentView === "active");
+  tabPosted.classList.toggle("active", currentView === "posted");
+  refreshEmpty();
+}
+function moveBackToActive(card, i){
+  const kids = Array.prototype.slice.call(activeEl.children);
+  const after = kids.find(k => k.classList.contains("card") && parseInt(k.dataset.idx, 10) > i);
+  if (after) activeEl.insertBefore(card, after); else activeEl.appendChild(card);
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, m => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[m])); }
+
+function buildCard(date, c, i, launchHref){
+  const st = loadState(date, c.id);
+  const chosen = (st.opt != null) ? st.opt : 0;
+  const done = isDone(date, c.id);
+  const card = document.createElement("section");
+  card.className = "card" + (done ? " posted" : "");
+  card.dataset.idx = i;
+  const optBtns = c.drafts.map((d, idx) =>
+    `<button class="opt${idx===chosen?" active":""}" data-i="${idx}">Option ${idx+1}</button>`).join("");
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="idx">${String(i+1).padStart(2,"0")}</div>
+      <div class="meta">
+        <div class="name">${esc(c.author)} <span class="when">· ${esc(c.when)}</span></div>
+      </div>
+      ${c.addressed ? `<span class="tag you">Asked ${esc(c.addressed)}</span>` : `<span class="tag">Launch comment</span>`}
+    </div>
+    <blockquote class="said">${esc(c.body)}</blockquote>
+    <div class="comment-wrap">
+      <div class="comment-label"><span>Pick a reply — edit before you post</span><span class="count">0 chars</span></div>
+      <div class="opts">${optBtns}</div>
+      <textarea spellcheck="true"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn btn-copy act">Copy</button>
+      <a class="btn btn-primary" href="${PH}${launchHref}" target="_blank" rel="noopener">Open the launch →</a>
+      <span class="spacer"></span>
+      <label class="postbox"><input type="checkbox" class="posted-cb" ${done ? "checked" : ""}/> Replied</label>
+    </div>`;
+
+  const ta = card.querySelector("textarea");
+  const count = card.querySelector(".count");
+  const setCount = () => count.textContent = ta.value.trim().length + " chars";
+  ta.value = (st.text != null) ? st.text : c.drafts[chosen];
+  setCount();
+  ta.addEventListener("input", () => { setCount(); const s = loadState(date,c.id); s.text = ta.value; saveState(date,c.id,s); });
+
+  card.querySelectorAll(".opt").forEach(btn => btn.addEventListener("click", () => {
+    const idx = parseInt(btn.dataset.i,10);
+    card.querySelectorAll(".opt").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    ta.value = c.drafts[idx]; setCount();
+    const s = loadState(date,c.id); s.opt = idx; s.text = c.drafts[idx]; saveState(date,c.id,s);
+  }));
+
+  const copyBtn = card.querySelector(".btn-copy");
+  copyBtn.addEventListener("click", async () => {
+    try{ await navigator.clipboard.writeText(ta.value); }catch(e){ ta.select(); document.execCommand("copy"); }
+    copyBtn.textContent = "Copied ✓"; copyBtn.classList.add("copied");
+    setTimeout(() => { copyBtn.textContent = "Copy"; copyBtn.classList.remove("copied"); }, 1500);
+  });
+
+  const cb = card.querySelector(".posted-cb");
+  cb.addEventListener("change", async () => {
+    const val = cb.checked, k = NS(date);
+    SHARED.posted[k] = SHARED.posted[k] || {};
+    if (val) SHARED.posted[k][c.id] = true; else delete SHARED.posted[k][c.id];
+    const s = loadState(date,c.id); s.replied = val; saveState(date,c.id,s);
+    card.classList.toggle("posted", val);
+    if (val) postedEl.appendChild(card); else moveBackToActive(card, i);
+    updateStats(); refreshEmpty();
+    try {
+      const r = await fetch(SYNC_URL, { headers:{ Accept:"application/json" }, cache:"no-store" });
+      if (r.ok){ const d = await r.json(); if (d && d.posted){ SHARED.posted = d.posted; SHARED.posted[k] = SHARED.posted[k] || {}; if (val) SHARED.posted[k][c.id] = true; else delete SHARED.posted[k][c.id]; } }
+    } catch(e){}
+    await pushShared();
+  });
+  return card;
+}
+
+function render(date){
+  currentDate = date;
+  activeEl.innerHTML = ""; postedEl.innerHTML = "";
+  const day = window.REPLIES[date];
+  day.comments.forEach((c, i) => {
+    const card = buildCard(date, c, i, day.launchHref);
+    (isDone(date, c.id) ? postedEl : activeEl).appendChild(card);
+  });
+  updateStats();
+  applyView();
+}
+sel.addEventListener("change", () => render(sel.value));
+window.addEventListener("focus", refreshFromShared);
+(async function init(){
+  render(latest);
+  await pullShared();
+  if (window.REPLIES[currentDate]) render(currentDate);
+})();
+</script>
+</body>
+</html>

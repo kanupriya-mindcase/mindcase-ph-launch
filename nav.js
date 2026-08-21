@@ -7,6 +7,7 @@
   const TABS = [
     { id: "playbook",    label: "Playbook",    href: "index.html" },
     { id: "warmup",      label: "Warm-up",     href: "warmup.html" },
+    { id: "replies",     label: "Replies",     href: "replies.html" },
     { id: "hunters",     label: "Hunters",     href: "hunters.html" },
     { id: "outreach",    label: "Outreach",    href: "outreach.html" },
     { id: "prospects",   label: "Prospects",   href: "prospects.html" },
