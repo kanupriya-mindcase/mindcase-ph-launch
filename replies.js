@@ -258,6 +258,7 @@ window.REPLIES = {
       },
       {
         id: "kp-1",
+        answered: true,   // option 1 posted on PH, trimmed
         author: "KP",
         role: "",
         when: "1m ago",
