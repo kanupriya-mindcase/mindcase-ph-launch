@@ -29,6 +29,7 @@ window.REPLIES = {
       },
       {
         id: "maker-sanjay",
+        answered: true,   // option 3 posted on PH
         author: "Sanjay Khan",
         drafts: [
           "Sanjay from the Mindcase team. A practical question for anyone running collection today: what is the last thing that broke on you, and how long was the gap between it breaking and you noticing? Reply with the source and that gap. I am asking because the gap is the number that actually costs money. A run that fails loudly gets fixed in an hour. A parser that quietly drops one field poisons a week of data before anyone looks. Tell me your worst example and I will tell you exactly how we try to catch that class of thing, and where we would still miss it.",
@@ -140,6 +141,19 @@ window.REPLIES = {
           "Thanks Raunak, and taking the second one first since that is the one you care about. Every call is a fresh collection, so calling the same post twice means collecting it twice. We are not silently serving you a cached row and charging you for fresh data, because you would have no way of knowing how stale it is. The practical answer is to cache on your side with whatever freshness window your use case tolerates, which is usually a much better decision than one we could make for you. On Composio, different layer of the stack. It connects agents to apps that already expose APIs. We go after the web where a usable API does not exist. Plenty of teams use both.",
           "Appreciate the direct questions, let me take them in your order of priority. On repeat fetches, the model is that you pay for rows actually collected, and a second identical call is a second collection rather than a free replay. If deduplication inside a time window is something you would want us to handle rather than you, say so, because you are not the first to ask and that is exactly how things get built here. On Composio, they solve agent to app integration where the API already exists. The problem we take is the web where it does not, so the honest comparison is usually alongside Apify and Bright Data rather than alongside them.",
           "Thank you Raunak. Straight answers. Two, a repeat fetch is a repeat collection, so it is billed as one, and the reason we do not quietly dedupe for you is that you would not know whether a row is one minute or one week old, which matters more than the cost for most use cases. Tell me the freshness window you actually need for reddit and twitter posts and I will tell you the cheapest way to run it, even if that means calling us less often. One, Composio is a different layer, agent to app plumbing over existing APIs, while we are the collection layer for sources that do not offer one."
+        ]
+      },
+      {
+        id: "shabnam-katoch-1",
+        author: "Shabnam Katoch",
+        role: "",
+        when: "1m ago",
+        addressed: "",
+        body: "Reliable web data is still one of the biggest bottlenecks for AI applications. Simplifying extraction without teams having to maintain complex scraping setups feels like a valuable infrastructure layer. Great launch!",
+        drafts: [
+          "Thank you Shabnam. Bottleneck is the right word, and the sharp edge of it is that the failure is usually quiet. An agent does not announce that it reasoned over stale or half collected data, it just gives you a confidently wrong answer. That is the part we care most about getting right, so a call returns a clean structured row or an honest error rather than something in between.",
+          "Appreciate that. What surprised us building it is how much of the bottleneck is maintenance rather than the first extraction. Getting data out of a site once is a fun afternoon. Keeping it correct across layout changes, rate limits and anti-bot for a year is the actual job, and that is the part teams underestimate when they decide to keep it in house.",
+          "Thanks Shabnam. If you are working on anything in this space I would be curious which part is the real bottleneck for you, the collection itself or making different sources agree on the same schema afterwards. We hear both, and the second one gets far less attention than it deserves."
         ]
       }
     ]
