@@ -327,10 +327,10 @@ window.REPLIES = {
         addressed: "@kritishpuri",
         body: "Excited to hunt Mindcase today! I have known @kanupriya_chhabra1 from a couple years on Product Hunt. When she first shared this product, I was excited because I myself connect a lot of APIs to my Claude Code. [full hunter comment, posted]",
         drafts: [
-          "Thank you Rohan, for hunting us and for saying yes back when this was just an idea you were being told about. The Claude Code point is a good one to raise, since a lot of people are hitting exactly that, plenty of APIs wired up and then a wall the moment the data they want does not have one.",
-          "Thanks Rohan. Grateful for the hunt and for the years of being around on here. Anyone reading this, Rohan sees a lot of launches, so him picking this one up meant something to us on a day where we were mostly nervous.",
-          "Thank you Rohan. Appreciate you taking the time on it, and glad the API problem resonated. We are here in the comments all day if anyone wants to push on the details."
-        ]
+          "Thank you Rohan. The Claude Code detail is the part worth pulling on. Once you have a few APIs wired up, the limit stops being the model and starts being what it can actually reach, and most of the web has no API to connect to in the first place. That gap is the whole reason this exists, and why there is an MCP rather than just an SDK. Grateful you picked it up.",
+          "Thank you Rohan, for the hunt and for the couple of years before it. On the Claude Code point, the interesting part is that connecting APIs is the easy half. The hard half is everything with no API at all, which is where an agent quietly stops being useful. That is the half we went after.",
+          "Thank you Rohan. You have seen a lot of launches, so you picking this one up meant something today. And the Claude Code point is exactly right: the constraint is rarely the model, it is what it can reach."
+                ]
       },
       {
         id: "max-klink-1",
