@@ -212,6 +212,19 @@ window.REPLIES = {
           "Thank you, and worth saying plainly: anything across the web is the ambition, not a guarantee. Some sources are genuinely a bad idea and we would rather tell you that than take the work and disappoint you two months in. What we can commit to is a straight answer either way, quickly. If you have a source that has stalled a project before, name it and I will tell you honestly where it sits.",
           "Appreciate that. The bit teams underestimate is that getting data out of an unusual source once is rarely the hard part, it is that a one off extraction becomes a thing somebody has to keep alive forever, usually the person who wrote it. Turning it into an agent moves that burden rather than just the code. Out of interest, is there a specific source behind your comment, or is this a general observation? Happy to be concrete if there is one."
         ]
+      },
+      {
+        id: "ashir-murtaza-1",
+        author: "Ashir Murtaza",
+        role: "",
+        when: "9m ago",
+        addressed: "",
+        body: "The infrastructure piece is what makes this interesting. scraping itself is not hard until you need it to keep working.",
+        drafts: [
+          "That sentence is the whole product in one line, thank you. The first version takes an afternoon and quietly creates a commitment measured in years, and nobody budgets for the second part because the first part felt so easy. Every team we have spoken to underestimated the same thing, ourselves included, which is why we ended up building this rather than shipping the thing we originally set out to build.",
+          "Exactly right. Making it work is a coding problem and keeping it working is an operations problem, and those need different things: monitoring, someone who notices, someone who is free to fix it today rather than next sprint. Teams usually staff it as the first and then discover it was the second, normally at the worst possible moment.",
+          "Appreciate that. Out of genuine curiosity, what is the longest you have kept one alive? The answers we get to that tend to split into two camps, either about six weeks before someone quietly stops trusting the data, or years because a single person keeps patching it and nobody else can touch it. Both are expensive in different ways."
+        ]
       }
     ]
   }
