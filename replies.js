@@ -11,6 +11,13 @@ window.REPLIES = {
     launchHref: "/products/mindcase/launches/mindcase",
     makers: [
       {
+        id: "maker-thanks-hunter",
+        author: "Thank you to Rohan Chaubey",
+        drafts: [
+          "Thank you @rohanchaubey for hunting us. This is our first launch, so having someone who actually knows this community put it up made a real difference to how the day went. We came in not knowing what to expect and ended up with a thread full of genuine questions, which is the best version of a launch day we could have hoped for. Grateful for it."
+        ]
+      },
+      {
         id: "maker-kanupriya",
         author: "Kanupriya Chhabra",
         drafts: [
