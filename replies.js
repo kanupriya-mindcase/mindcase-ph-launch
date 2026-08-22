@@ -360,6 +360,19 @@ window.REPLIES = {
           "Appreciate the direct question. The honest answer is that we overlap with Windsor very little. Your GA4, GSC and Google Ads connectors are account based data with a real API behind them, and there is no reason to move that. Reddit is the part where you are stuck, because there is no equivalent connector to just plug in, and that is the category we work in. So the pitch is not switch, it is add the piece that is missing. What does reliable mean for your Reddit use case, volume, freshness, or both?",
           "Thank you Andreas. I would rather be useful than sell you something. Keep Windsor for the ad and analytics connectors, that is their job and it is a different problem to ours. Where we would help is Reddit, and I would want to know what you are trying to get out of it before promising anything, since tracking a handful of subreddits and pulling historical threads at volume are different jobs. Tell me which one you are after and I will be straight with you about how well we do it."
         ]
+      },
+      {
+        id: "ava-bagherzadeh-1",
+        author: "Ava Bagherzadeh",
+        role: "",
+        when: "5h ago",
+        addressed: "",
+        body: "The maintenance tax is the part people underestimate, and the failure mode that cost us most was not scrapers breaking loudly. It was scrapers succeeding quietly. A selector drifts, the extractor returns an empty string, and the pipeline records a clean zero instead of an error. We spent weeks counting those as real results before we noticed. So the question I would put to any extraction layer: when a page changes shape and the parser finds nothing, does the API return success with an empty payload, or does it tell me it could not read the page? Those are very different products downstream. Curious how you handle that, and whether the custom APIs come with any drift detection when a source silently changes.",
+        drafts: [
+          "This is the right question and the clean zero is exactly the thing we set out not to do. When the parser cannot read a page you get an error you can see, not a success with nothing in it. A false zero is worse than a failed run, because a failed run gets retried and a false zero gets believed, which is what happened to you for those weeks. Custom agents are treated the same as the catalogue ones, same monitoring, they are not a second class thing we hand over and forget. If you ever get a silent empty back from us, that is a bug and we would want to hear about it directly.",
+          "Thanks Ava, and sorry about those weeks, that is a particularly miserable way to lose time because everything looks fine while it happens. Our answer is that you get told we could not read the page rather than a clean zero, and it matters for the reason you gave, the two are completely different products once anything downstream depends on them. Same applies to custom agents, they are built and watched the same way as the standard ones. The best way to hold us to that is to try it and tell us if it is ever not true.",
+          "Straight answer: an error, not an empty payload. The distinction you are drawing is the one we care most about, since a run that fails is annoying and a row that is quietly wrong is expensive. Custom agents get the same treatment as the catalogue, there is no separate lower tier for them. Out of interest, which source was it that burned you? The silent drift cases people describe tend to cluster around a few sites."
+        ]
       }
     ]
   }
