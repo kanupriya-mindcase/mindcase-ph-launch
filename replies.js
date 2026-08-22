@@ -400,6 +400,19 @@ window.REPLIES = {
           "Appreciate it. Two shapes we hear about. Before a call, enriching who you are about to speak to so the agent is not starting cold. During a call, checking something specific the caller asked about. The second one is the harder engineering problem because latency is the whole experience. Tell me which side yours sits on and I can be more useful.",
           "Thank you. Honestly, voice is earlier for us than lead generation or e commerce work, so I would rather hear what you are trying to do than pretend we have a dozen case studies. If you tell me what your agent needs to look up and how quickly, I will tell you straight whether we are a fit today."
         ]
+      },
+      {
+        id: "oliver-graf-2",
+        author: "Oliver Graf",
+        role: "",
+        when: "3m ago",
+        addressed: "@kanupriya_chhabra1",
+        body: "@kanupriya_chhabra1 That's a fair trade-off. If you're handling all the complexity on the backend, keeping things simple and consistent for the user makes a lot of sense.",
+        drafts: [
+          "Thanks Oliver. That is the trade we are happy to keep making. If you do try it, tell us the moment it stops feeling simple, that is the part we want to hear about.",
+          "Appreciate it. The test is whether it still feels that way on your fifth source rather than your first, so if you get that far I would like to know.",
+          "Thank you Oliver. Glad it reads that way, and enjoy the rest of your week."
+        ]
       }
     ]
   }
