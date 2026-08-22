@@ -363,6 +363,7 @@ window.REPLIES = {
       },
       {
         id: "ava-bagherzadeh-1",
+        answered: true,   // option 1 posted on PH
         author: "Ava Bagherzadeh",
         role: "",
         when: "5h ago",
