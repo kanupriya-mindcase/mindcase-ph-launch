@@ -374,6 +374,32 @@ window.REPLIES = {
           "Thanks Ava, and sorry about those weeks, that is a particularly miserable way to lose time because everything looks fine while it happens. Our answer is that you get told we could not read the page rather than a clean zero, and it matters for the reason you gave, the two are completely different products once anything downstream depends on them. Same applies to custom agents, they are built and watched the same way as the standard ones. The best way to hold us to that is to try it and tell us if it is ever not true.",
           "Straight answer: an error, not an empty payload. The distinction you are drawing is the one we care most about, since a run that fails is annoying and a row that is quietly wrong is expensive. Custom agents get the same treatment as the catalogue, there is no separate lower tier for them. Out of interest, which source was it that burned you? The silent drift cases people describe tend to cluster around a few sites."
         ]
+      },
+      {
+        id: "ava-bagherzadeh-2",
+        author: "Ava Bagherzadeh",
+        role: "",
+        when: "7h ago",
+        addressed: "",
+        body: "A failed run gets retried and a false zero gets believed is a better sentence than the one I wrote, and it is exactly the shape of it. The retry path has a guardian. The believed path has nobody. The rule that eventually saved us was refusing to let the pipeline score itself on its own output. If our own read of the page is the only evidence, it does not count as evidence. That was expensive to retrofit and I would have paid real money for it to have been the default. Good luck with the launch, and thanks for answering the actual question.",
+        drafts: [
+          "If our own read of the page is the only evidence, it does not count as evidence. That is the sharper rule and I am going to steal it. It also explains why the useful signal is rarely one run looking at itself, it is a lot of runs across a lot of customers disagreeing with each other at the same moment. Thank you for this, it was the best exchange we had all launch.",
+          "That rule is a better articulation than anything we have written down, and the expensive part is exactly what you said, retrofitting it after the fact. Thank you for coming back with it rather than just leaving the question answered. If you ever do try us, I would genuinely like to know whether it holds up against your standard, because you have a stricter one than most.",
+          "Thank you Ava. The retry path has a guardian and the believed path has nobody is going to stay with me. Appreciate you pushing on it in the first place, a launch thread is not usually where you get this kind of conversation."
+        ]
+      },
+      {
+        id: "pritesh-kumar-1",
+        author: "Pritesh Kumar",
+        role: "",
+        when: "3h ago",
+        addressed: "",
+        body: "looks great . whats a use case you have seen with voice agents ?",
+        drafts: [
+          "Thanks Pritesh. The pattern that comes up is a voice agent needing a fact mid conversation that is not in any CRM, so a lookup on a business, a listing, or a profile while the person is still on the line. The constraint there is different from a normal pipeline, since a call cannot wait, so it tends to be small and fast rather than bulk. What are you building?",
+          "Appreciate it. Two shapes we hear about. Before a call, enriching who you are about to speak to so the agent is not starting cold. During a call, checking something specific the caller asked about. The second one is the harder engineering problem because latency is the whole experience. Tell me which side yours sits on and I can be more useful.",
+          "Thank you. Honestly, voice is earlier for us than lead generation or e commerce work, so I would rather hear what you are trying to do than pretend we have a dozen case studies. If you tell me what your agent needs to look up and how quickly, I will tell you straight whether we are a fit today."
+        ]
       }
     ]
   }
